@@ -1223,9 +1223,9 @@
   .constellation-line.visible .star-path:nth-of-type(2){animation-delay:.4s}
   .constellation-line.visible .star-path:nth-of-type(3){animation-delay:.8s}
   @keyframes drawConstellation{0%{opacity:0;stroke-dashoffset:200}20%{opacity:.4}100%{opacity:.25;stroke-dashoffset:0}}
-  /* Low-end: keine Filter, statische Sichtbarkeit */
-  .low-end .star-dot{filter:none;opacity:.5;animation:none}
-  .low-end .star-path{filter:none;opacity:.2;animation:none;stroke-dashoffset:0}
+  /* Low-end: keine Filter, statische Sichtbarkeit, durchgezogene Linien */
+  .low-end .star-dot{filter:none;opacity:.6;animation:none}
+  .low-end .star-path{filter:none;opacity:.25;animation:none;stroke-dasharray:none;stroke-dashoffset:0}
 
   /* ══════════════════════════════════════
      ANIMATIONS
