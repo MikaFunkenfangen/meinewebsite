@@ -470,39 +470,15 @@
     width: clamp(220px, 35vw, 380px);
     height: clamp(220px, 35vw, 380px);
     border-radius: 50%;
-    overflow: visible;
+    overflow: hidden;
     opacity: 0;
     transform: scale(0.85) translateY(30px);
     transition: opacity 1.8s ease, transform 1.8s ease;
-    box-shadow:
-      0 0 60px rgba(201,169,110,0.12),
-      0 0 120px rgba(30,42,28,0.15),
-      inset 0 0 40px rgba(0,0,0,0.3);
   }
 
   .portrait-frame.visible {
     opacity: 1;
     transform: scale(1) translateY(0);
-  }
-
-  .portrait-frame::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(201,169,110,0.25), transparent 40%, transparent 60%, rgba(201,169,110,0.15));
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .portrait-frame::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    box-shadow: inset 0 0 50px rgba(8,10,8,0.5);
-    z-index: 2;
-    pointer-events: none;
   }
 
   .portrait-img {
@@ -1247,6 +1223,9 @@
   .constellation-line.visible .star-path:nth-of-type(2){animation-delay:.4s}
   .constellation-line.visible .star-path:nth-of-type(3){animation-delay:.8s}
   @keyframes drawConstellation{0%{opacity:0;stroke-dashoffset:200}20%{opacity:.4}100%{opacity:.25;stroke-dashoffset:0}}
+  /* Low-end: keine Filter, statische Sichtbarkeit */
+  .low-end .star-dot{filter:none;opacity:.5;animation:none}
+  .low-end .star-path{filter:none;opacity:.2;animation:none;stroke-dashoffset:0}
 
   /* ══════════════════════════════════════
      ANIMATIONS
@@ -1705,12 +1684,9 @@
 
 <!-- ═══ PORTRAIT ═══ -->
 <section class="portrait-section">
-  <div class="portrait-glow"></div>
   <div style="display:flex;flex-direction:column;align-items:center;">
     <div class="portrait-frame" data-reveal>
       <img src="images/portrait.jpg" alt="Mika Schöberl" class="portrait-img" loading="lazy" decoding="async">
-      <div class="eclipse-diamond"></div>
-      <div class="eclipse-corona"></div>
     </div>
     <p class="portrait-name" data-reveal>Mika Schöberl</p>
   </div>
@@ -1788,7 +1764,6 @@
 <!-- ═══ KONTAKT ═══ -->
 <section class="kontakt-section" id="kontakt">
   <div class="kontakt-inner">
-    <img class="kontakt-crane" src="images/origami-schwan.png" alt="" loading="lazy" decoding="async" data-reveal>
     <div class="kontakt-label" data-reveal>Kontakt</div>
     <h2 data-reveal>Starte<br><em>das Gespräch.</em></h2>
     <p class="kontakt-body" data-reveal>Keine langen Formulare. Kein Fragebogen. Schreib einfach — was dich bewegt, was du suchst, oder nur: dass du da bist. Ich antworte persönlich.</p>
@@ -1888,8 +1863,8 @@ var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
 if (isLowEnd) {
   var isarSvg = document.getElementById('isar');
   if (isarSvg) isarSvg.classList.add('isar-lite');
+  document.body.classList.add('low-end');
 }
-// Schwan-Animation auf allen mobilen Geräten und Low-End deaktivieren
 if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
   var crane = document.querySelector('.kontakt-crane');
   if (crane) crane.classList.add('no-animate');
