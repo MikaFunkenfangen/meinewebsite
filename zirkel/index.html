@@ -226,6 +226,22 @@
     background: radial-gradient(ellipse at 50% 50%, rgba(100,60,130,0.06) 0%, transparent 70%);
   }
 
+  /* ══ CONSTELLATION DIVIDERS ══ */
+  .sep-constellation{position:relative;z-index:2;height:clamp(80px,20vw,160px);display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden}
+  .constellation-line{width:clamp(160px,40vw,280px);height:clamp(80px,20vw,160px);pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+  .constellation-line.visible{opacity:1}
+  .constellation-line svg{width:100%;height:100%;overflow:visible}
+  .star-dot{fill:var(--gold);filter:drop-shadow(0 0 3px rgba(201,169,110,.6)) drop-shadow(0 0 8px rgba(201,169,110,.25));opacity:0;animation:starPulse var(--sp-d,2.8s) ease-in-out var(--sp-del,0s) infinite}
+  @keyframes starPulse{0%,100%{opacity:.25;r:1.5}20%{opacity:1;r:2.8}50%{opacity:.5;r:2}80%{opacity:.9;r:2.5}}
+  .star-path{stroke:var(--gold);stroke-width:.7;fill:none;opacity:0;stroke-dasharray:200;stroke-dashoffset:200;filter:drop-shadow(0 0 2px rgba(201,169,110,.3))}
+  .constellation-line.visible .star-path{animation:drawConstellation 3.5s ease forwards}
+  .constellation-line.visible .star-path:nth-of-type(2){animation-delay:.4s}
+  .constellation-line.visible .star-path:nth-of-type(3){animation-delay:.8s}
+  @keyframes drawConstellation{0%{opacity:0;stroke-dashoffset:200}20%{opacity:.4}100%{opacity:.25;stroke-dashoffset:0}}
+  /* Low-end: keine Filter, statische Sichtbarkeit */
+  .low-end .star-dot{filter:none;opacity:.5;animation:none}
+  .low-end .star-path{filter:none;opacity:.2;animation:none;stroke-dashoffset:0}
+
   /* ══ ZIRKEL TITLE ══ */
   .zirkel-title-section {
     position: relative;
@@ -1597,7 +1613,9 @@
 </nav>
 
 <!-- ═══ INTRO TEXT ═══ -->
-<div class="section-glow small"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 240 120"><circle class="star-dot" cx="20" cy="55" r="2.2" style="--sp-d:2.4s;--sp-del:0s"/><circle class="star-dot" cx="70" cy="20" r="2.5" style="--sp-d:3.1s;--sp-del:.3s"/><circle class="star-dot" cx="120" cy="65" r="2" style="--sp-d:2.7s;--sp-del:.7s"/><circle class="star-dot" cx="170" cy="30" r="2.8" style="--sp-d:3.5s;--sp-del:.2s"/><circle class="star-dot" cx="220" cy="55" r="2.2" style="--sp-d:2.2s;--sp-del:.9s"/>
+<path class="star-path" d="M20 55 L70 20 L120 65 L170 30 L220 55"/></svg></div></div>
 <section class="zirkel-section" data-reveal>
   <div id="textIntro">
     <p>Seit Jahrhunderten haben sich Menschen in Zirkeln versammelt: um Wissen zu teilen, um einander zuzuhören, um Rituale zu pflegen oder einfach, um nicht allein zu sein. Immer brannte in diesen Kreisen ein kleiner Funke – <span class="glow-line">der Funke von Verbindung, Erkenntnis, Wärme.</span></p>
@@ -1684,7 +1702,9 @@
 
 </div>
 
-<div class="section-glow ember"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 200 120"><circle class="star-dot" cx="100" cy="10" r="3" style="--sp-d:2s;--sp-del:0s"/><circle class="star-dot" cx="50" cy="55" r="2" style="--sp-d:3.4s;--sp-del:.5s"/><circle class="star-dot" cx="150" cy="55" r="2" style="--sp-d:2.6s;--sp-del:.8s"/><circle class="star-dot" cx="65" cy="105" r="1.8" style="--sp-d:3.8s;--sp-del:.2s"/><circle class="star-dot" cx="135" cy="105" r="1.8" style="--sp-d:2.9s;--sp-del:1.1s"/>
+<path class="star-path" d="M100 10 L50 55 L65 105 L135 105 L150 55 Z"/></svg></div></div>
 
 <!-- ═══ EINLADUNG ═══ -->
 <section style="padding: 1rem 2rem;">
@@ -1705,7 +1725,9 @@
   </div>
 </section>
 
-<div class="section-glow small"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 220 120"><circle class="star-dot" cx="30" cy="35" r="2" style="--sp-d:3s;--sp-del:.1s"/><circle class="star-dot" cx="75" cy="85" r="2.5" style="--sp-d:2.3s;--sp-del:.5s"/><circle class="star-dot" cx="120" cy="20" r="2" style="--sp-d:3.7s;--sp-del:.8s"/><circle class="star-dot" cx="160" cy="90" r="2.2" style="--sp-d:2.1s;--sp-del:0s"/><circle class="star-dot" cx="195" cy="45" r="2.8" style="--sp-d:2.6s;--sp-del:1.2s"/>
+<path class="star-path" d="M30 35 L75 85 L160 90 L120 20 Z"/><path class="star-path" d="M120 20 L160 90 L195 45"/></svg></div></div>
 
 <!-- ═══ PORTRAITS ═══ -->
 <section class="portrait-duo-section" data-reveal>
@@ -1760,7 +1782,9 @@
   </div>
 </section>
 
-<div class="section-glow"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 200 100"><circle class="star-dot" cx="40" cy="50" r="2.5" style="--sp-d:2.8s;--sp-del:0s"/><circle class="star-dot" cx="90" cy="15" r="2" style="--sp-d:3.2s;--sp-del:.4s"/><circle class="star-dot" cx="130" cy="70" r="2.3" style="--sp-d:2.5s;--sp-del:.6s"/><circle class="star-dot" cx="165" cy="25" r="1.8" style="--sp-d:3s;--sp-del:1s"/>
+<path class="star-path" d="M40 50 L90 15 L130 70 L165 25"/></svg></div></div>
 
 <!-- ═══ MOON NAV (bottom) ═══ -->
 <nav class="moon-nav moon-nav-bottom" data-reveal>
@@ -1853,6 +1877,7 @@ var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigat
 if (isLowEnd) {
   var isarSvg = document.getElementById('isar');
   if (isarSvg) isarSvg.classList.add('isar-lite');
+  document.body.classList.add('low-end');
 }
 (function(){
   /* ── Legal Tabs ── */
