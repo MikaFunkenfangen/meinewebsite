@@ -84,8 +84,9 @@
   .isar-simple{position:fixed;top:0;left:50%;width:4px;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;transform:translateX(-50%)}
   .isar-simple.visible{opacity:1}
   .isar-simple::before,.isar-simple::after{content:'';position:absolute;top:0;left:50%;width:100%;height:100%;border-radius:50px;transform:translateX(-50%)}
-  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(60,150,185,0.08) 10%,rgba(80,185,210,0.18) 30%,rgba(100,220,230,0.15) 50%,rgba(80,185,210,0.18) 70%,rgba(60,150,185,0.08) 90%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
-  .isar-simple::after{width:20px;background:linear-gradient(180deg,transparent 0%,rgba(170,240,250,0.06) 15%,rgba(200,250,255,0.12) 40%,rgba(170,240,250,0.1) 60%,rgba(200,250,255,0.12) 80%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
+  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(30,80,110,0.1) 8%,rgba(60,150,185,0.18) 22%,rgba(100,220,230,0.22) 38%,rgba(170,240,250,0.15) 50%,rgba(100,220,230,0.22) 62%,rgba(60,150,185,0.18) 78%,rgba(30,80,110,0.1) 92%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
+  .isar-simple::after{width:18px;background:linear-gradient(180deg,transparent 0%,rgba(220,240,245,0.05) 12%,rgba(170,240,250,0.12) 30%,rgba(200,250,255,0.16) 45%,rgba(255,255,255,0.08) 50%,rgba(200,250,255,0.16) 55%,rgba(170,240,250,0.12) 70%,rgba(220,240,245,0.05) 88%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
+  .isar-simple-mid{position:absolute;top:0;left:50%;width:35px;height:100%;border-radius:50px;transform:translateX(-50%);background:linear-gradient(180deg,transparent 0%,rgba(80,185,210,0.06) 15%,rgba(100,200,220,0.14) 35%,rgba(130,225,240,0.12) 50%,rgba(100,200,220,0.14) 65%,rgba(80,185,210,0.06) 85%,transparent 100%);animation:isarSimplePulse 7s ease-in-out 1s infinite}
   @keyframes isarSimplePulse{0%,100%{opacity:.4}50%{opacity:1}}
 
   @media(max-width:768px){
@@ -1465,7 +1466,7 @@
 </div>
 
 <!-- Isar River -->
-<div class="isar-simple" id="isarSimple"></div>
+<div class="isar-simple" id="isarSimple"><div class="isar-simple-mid"></div></div>
 <div class="isar" id="isar">
   <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="isar-glow" preserveAspectRatio="none">
     <defs>
