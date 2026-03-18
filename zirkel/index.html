@@ -134,14 +134,17 @@
     will-change: transform, opacity;
   }
 
-  .poem-stage { position: relative; text-align: center; overflow: visible; }
+  .poem-stage {
+    position: relative; text-align: center; overflow: visible;
+    background: radial-gradient(ellipse at 50% 60%, rgba(60,50,80,0.15) 0%, rgba(30,25,50,0.08) 40%, transparent 70%);
+  }
 
   .poem-line {
     font-family: var(--font-serif);
     font-weight: 300; font-style: italic;
     line-height: 1.5; color: var(--cream);
     display: block; margin-bottom: 0.5rem;
-    text-shadow: 0 0 40px rgba(14,12,20,0.9), 0 0 80px rgba(14,12,20,0.6);
+    text-shadow: 0 0 30px rgba(14,12,20,0.7), 0 0 60px rgba(14,12,20,0.4);
     opacity: 0; transform: translateY(12px);
     animation-fill-mode: both; animation-duration: 1.2s;
     animation-timing-function: ease; animation-name: fadeInUp;
@@ -149,13 +152,13 @@
   }
   .poem-line-1 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); color: var(--cream-dim); letter-spacing: 0.04em; animation-delay: 1.2s; }
   .poem-line-2 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--cream); letter-spacing: 0.04em; animation-delay: 1.6s; }
-  .poem-line-3 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--cream); letter-spacing: 0.04em; animation-delay: 2s; }
+  .poem-line-3 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: rgba(220,210,190,1); letter-spacing: 0.04em; animation-delay: 2s; }
   .poem-line-4 {
     font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 400;
     letter-spacing: 0.06em; margin-top: 0.3rem; animation-delay: 2.6s;
-    background: linear-gradient(135deg, var(--gold) 0%, #e8c87a 40%, var(--cream) 60%, var(--gold) 100%);
+    background: linear-gradient(135deg, #d4a85c 0%, #e8c87a 35%, #f0dca0 55%, #e8c87a 75%, #c9a96e 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(201,169,110,0.2));
+    filter: drop-shadow(0 0 25px rgba(201,169,110,0.35)) drop-shadow(0 0 60px rgba(201,169,110,0.15));
     will-change: filter;
   }
   .poem-dots { color: var(--gold); font-style: normal; -webkit-text-fill-color: var(--gold); }
@@ -163,7 +166,7 @@
   .poem-crack {
     display: block; width: 2px; height: 50px;
     margin: 0.5rem auto 0;
-    background: linear-gradient(to bottom, transparent, rgba(150,190,220,0.15), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(180,160,130,0.2), transparent);
     opacity: 0; animation: fadeInUp 1.5s ease 3s both;
   }
 
@@ -211,13 +214,16 @@
      SECTION STYLES
      ══════════════════════════════════════ */
   .section-glow {
-    width: 100%; height: 100px;
-    background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
+    width: 100%; height: 120px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
   .section-glow.small { height: 60px; }
   .section-glow.ember {
-    background: radial-gradient(ellipse at 50% 50%, rgba(184,90,58,0.06) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 50%, rgba(184,90,58,0.08) 0%, transparent 70%);
+  }
+  .section-glow.violet {
+    background: radial-gradient(ellipse at 50% 50%, rgba(100,60,130,0.06) 0%, transparent 70%);
   }
 
   /* ══ ZIRKEL TITLE ══ */
@@ -2077,16 +2083,17 @@ if (isLowEnd) {
   /* ── Dynamic Sky: Abendrot → Night → Morgendämmerung ── */
   var skyBg = document.getElementById('skyBg');
   var skyStops = [
-    { r: 6, g: 5, b: 10 },      // 0% — Pure black
-    { r: 6, g: 5, b: 10 },      // 15% — Still black (poem + ariadne + heart)
-    { r: 10, g: 10, b: 18 },    // 25% — Barely perceptible deep night
-    { r: 14, g: 16, b: 28 },    // 40% — Hint of blue
-    { r: 22, g: 30, b: 50 },    // 55% — Night blue
-    { r: 32, g: 48, b: 72 },    // 70% — Deeper blue
-    { r: 52, g: 72, b: 95 },    // 85% — Dawn blue
-    { r: 82, g: 62, b: 52 }     // 100% — Morgenrot
+    { r: 8, g: 6, b: 14 },      // 0% — Dunkles Indigo
+    { r: 10, g: 10, b: 22 },    // 12% — Tiefe Nacht
+    { r: 16, g: 18, b: 38 },    // 25% — Nacht mit Blauandeutung
+    { r: 24, g: 32, b: 58 },    // 40% — Sattes Nachtblau
+    { r: 35, g: 42, b: 72 },    // 55% — Tiefes Blau
+    { r: 48, g: 48, b: 68 },    // 68% — Blau-Grau Dämmerung
+    { r: 75, g: 58, b: 62 },    // 80% — Warmes Dämmerungsgrau
+    { r: 140, g: 85, b: 55 },   // 92% — Warmes Rostgold
+    { r: 185, g: 120, b: 60 }   // 100% — Echte Morgenröte (Bernstein-Orange)
   ];
-  var skyPositions = [0, 0.15, 0.25, 0.40, 0.55, 0.70, 0.85, 1.0];
+  var skyPositions = [0, 0.12, 0.25, 0.40, 0.55, 0.68, 0.80, 0.92, 1.0];
 
   function lerpColor(c1, c2, t) {
     return {
@@ -2116,15 +2123,16 @@ if (isLowEnd) {
     var c = getSkyColor(pct);
     var bg = 'linear-gradient(180deg, rgb(' + c.r + ',' + c.g + ',' + c.b + ') 0%, rgb(' + Math.max(c.r - 8, 0) + ',' + Math.max(c.g - 5, 0) + ',' + Math.max(c.b - 3, 0) + ') 100%)';
 
-    // Atmospheric overlays (black → blue → morgenrot)
-    var blueGlow = pct > 0.25 && pct < 0.7 ? Math.sin((pct - 0.25) / 0.45 * Math.PI) : 0;
-    var dawnGlow = pct > 0.75 ? Math.min((pct - 0.75) / 0.25, 1) : 0;
-    var morgenrot = pct > 0.85 ? Math.min((pct - 0.85) / 0.15, 1) : 0;
+    // Atmospheric overlays (night blue → warm dawn → morgenröte)
+    var blueGlow = pct > 0.20 && pct < 0.65 ? Math.sin((pct - 0.20) / 0.45 * Math.PI) : 0;
+    var warmDawn = pct > 0.65 ? Math.min((pct - 0.65) / 0.25, 1) : 0;
+    var morgenrot = pct > 0.82 ? Math.min((pct - 0.82) / 0.18, 1) : 0;
 
-    bg += ', radial-gradient(ellipse at 50% 50%, rgba(30,60,120,' + (blueGlow * 0.1).toFixed(3) + ') 0%, transparent 55%)';
-    bg += ', radial-gradient(ellipse at 60% 85%, rgba(80,120,180,' + (dawnGlow * 0.1).toFixed(3) + ') 0%, transparent 50%)';
-    bg += ', radial-gradient(ellipse at 50% 95%, rgba(180,100,50,' + (morgenrot * 0.12).toFixed(3) + ') 0%, transparent 45%)';
-    bg += ', radial-gradient(ellipse at 30% 95%, rgba(200,140,60,' + (morgenrot * 0.08).toFixed(3) + ') 0%, transparent 40%)';
+    bg += ', radial-gradient(ellipse at 50% 50%, rgba(30,50,110,' + (blueGlow * 0.12).toFixed(3) + ') 0%, transparent 55%)';
+    bg += ', radial-gradient(ellipse at 55% 80%, rgba(160,90,50,' + (warmDawn * 0.08).toFixed(3) + ') 0%, transparent 50%)';
+    bg += ', radial-gradient(ellipse at 50% 95%, rgba(200,110,45,' + (morgenrot * 0.15).toFixed(3) + ') 0%, transparent 45%)';
+    bg += ', radial-gradient(ellipse at 30% 90%, rgba(230,150,55,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 40%)';
+    bg += ', radial-gradient(ellipse at 70% 95%, rgba(210,170,80,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 35%)';
 
     skyBg.style.background = bg;
   }
