@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über mich – Mika Schöberl | Funkenfangen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #080807;
+    --gold: #c9a96e;
+    --gold-dim: #7a6035;
+    --cream: #e8e2d4;
+    --cream-dim: #a8a090;
+    --font-heading: 'Cinzel', serif;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
+
+  body {
+    background: #0c0e12;
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100vw;
+  }
+
+  /* ══ EARLY MORNING SKY — Morgenröte ══ */
+  .sky-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 90%, rgba(120,60,55,0.25) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 85%, rgba(100,55,70,0.2) 0%, transparent 35%),
+      linear-gradient(to top,
+        #2a1c18 0%,
+        #221820 12%,
+        #1a1520 28%,
+        #14131e 45%,
+        #10121a 65%,
+        #0c0e16 85%,
+        #0a0c12 100%
+      );
+    transition: filter 0.6s ease;
+  }
+
+  /* ══ DAWN LIGHT OVERLAY (scroll-driven) ══ */
+  .dawn-light {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    will-change: opacity;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(220,150,90,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 40% 80%, rgba(200,120,80,0.2) 0%, transparent 40%),
+      linear-gradient(to top, rgba(80,45,30,0.4) 0%, rgba(40,25,30,0.2) 30%, transparent 60%);
+  }
+
+  /* ══ MOON (large, pale, with rainbow halo — S-curve) ══ */
+  .moon {
+    position: fixed;
+    z-index: 1; pointer-events: none;
+    width: clamp(180px, 28vw, 420px);
+    height: clamp(180px, 28vw, 420px);
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity;
+  }
+  .moon svg { width: 100%; height: 100%; overflow: visible; }
+
+  @media (max-width: 768px) {
+    .moon { width: clamp(140px, 40vw, 280px); height: clamp(140px, 40vw, 280px); }
+  }
+
+  /* ══ ISAR RIVER (blue — original tones) ══ */
+  .isar {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh;
+    z-index: 1; pointer-events: none;
+    opacity: 0; transition: opacity 1.5s ease;
+    will-change: transform;
+  }
+  .isar.visible { opacity: 1; }
+  .isar svg { width: 100%; height: 100%; overflow: visible; }
+
+  .isar-flow {
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    opacity: 0;
+    animation: isarFlow var(--if-d, 12s) ease-in-out var(--if-del, 0s) infinite;
+    will-change: opacity;
+  }
+
+  @keyframes isarFlow {
+    0%, 100% { opacity: .1; stroke-dashoffset: 0; }
+    25% { opacity: .45; }
+    50% { opacity: .35; }
+    75% { opacity: .45; }
+  }
+
+  .isar-shimmer {
+    fill: none; stroke-linecap: round; opacity: 0;
+    animation: isarShimmer var(--is-d, 6s) ease-in-out var(--is-del, 0s) infinite;
+    will-change: opacity;
+  }
+
+  @keyframes isarShimmer {
+    0%, 100% { opacity: 0; stroke-dashoffset: 30; }
+    40% { opacity: .7; stroke-dashoffset: 0; }
+    60% { opacity: .5; stroke-dashoffset: -10; }
+    100% { opacity: 0; stroke-dashoffset: -30; }
+  }
+
+  .isar-glow {
+    filter: drop-shadow(0 0 15px rgba(90, 190, 210, .25))
+            drop-shadow(0 0 50px rgba(70, 170, 200, .12))
+            drop-shadow(0 0 100px rgba(60, 150, 190, .06));
+    will-change: filter;
+    transform: translateZ(0);
+  }
+
+  /* Isar Simple — lightweight CSS fallback for low-end devices */
+  .isar-simple{position:fixed;top:0;left:50%;width:4px;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;transform:translateX(-50%)}
+  .isar-simple.visible{opacity:1}
+  .isar-simple::before,.isar-simple::after{content:'';position:absolute;top:0;left:50%;width:100%;height:100%;border-radius:50px;transform:translateX(-50%)}
+  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(60,150,185,0.08) 10%,rgba(80,185,210,0.18) 30%,rgba(100,220,230,0.15) 50%,rgba(80,185,210,0.18) 70%,rgba(60,150,185,0.08) 90%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
+  .isar-simple::after{width:20px;background:linear-gradient(180deg,transparent 0%,rgba(170,240,250,0.06) 15%,rgba(200,250,255,0.12) 40%,rgba(170,240,250,0.1) 60%,rgba(200,250,255,0.12) 80%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
+  @keyframes isarSimplePulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+  @media (max-width: 768px) {
+    .isar svg { transform: scaleX(1.3); }
+    .isar-glow {
+      filter: drop-shadow(0 0 10px rgba(90, 190, 210, .18))
+              drop-shadow(0 0 30px rgba(70, 170, 200, .08)) !important;
+    }
+  }
+
+  /* ══ NAV ══ */
+  .back-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(10,12,16,0.9) 0%, transparent 100%);
+  }
+
+  .back-link {
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--gold); }
+
+  .back-brand {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-heading); font-size: 0.85rem;
+    letter-spacing: 0.2em; color: var(--gold); opacity: 0.6;
+    text-decoration: none; transition: opacity 0.3s;
+  }
+  .back-brand:hover { opacity: 1; }
+  .back-brand img {
+    width: 22px; height: 22px; object-fit: contain;
+    opacity: 0.7;
+  }
+
+  /* ══ MOON NAV ══ */
+  .moon-nav {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem 1rem 2.5rem;
+    opacity: 0; transform: translateY(15px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .moon-nav.visible { opacity: 1; transform: translateY(0); }
+
+  .moon-nav-inner {
+    display: inline-flex; flex-wrap: wrap;
+    justify-content: center; gap: 0.3rem;
+  }
+
+  .moon-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.4rem;
+    padding: 1rem 1.2rem; color: var(--cream); opacity: 0.7;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: color 0.4s ease, transform 0.3s ease, opacity 0.4s ease, background 0.4s ease;
+  }
+  .moon-item:hover {
+    color: var(--gold); opacity: 1; transform: translateY(-4px);
+    background: rgba(201,169,110,0.12);
+    box-shadow: 0 4px 20px rgba(201,169,110,0.08);
+  }
+
+  .moon-icon { width: 36px; height: 36px; transition: filter 0.4s ease, transform 0.3s ease; }
+  .moon-item:hover .moon-icon {
+    filter: drop-shadow(0 0 12px rgba(201,169,110,0.6));
+    transform: scale(1.1);
+  }
+
+  .moon-label {
+    font-family: var(--font-heading);
+    font-size: 0.55rem; letter-spacing: 0.15em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+
+  .moon-item::after {
+    content: ''; display: block;
+    width: 100%; height: 1px;
+    background: var(--gold); opacity: 0;
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    margin-top: 0.15rem;
+  }
+  .moon-item:hover::after { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
+
+  @media (max-width: 768px) {
+    .moon-nav { padding: 1.5rem 1rem 1.5rem; }
+    .moon-nav-inner { gap: 0.2rem; }
+    .moon-item { padding: 0.7rem 0.5rem; }
+    .moon-icon { width: 24px; height: 24px; }
+    .moon-label { font-size: 0.5rem; letter-spacing: 0.1em; }
+  }
+  @media (max-width: 400px) {
+    .moon-nav-inner { gap: 0; }
+    .moon-item { padding: 0.6rem 0.35rem; }
+    .moon-icon { width: 20px; height: 20px; }
+    .moon-label { font-size: 0.45rem; }
+  }
+
+  /* ══ CONTENT ══ */
+  .page-content {
+    position: relative; z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+  }
+
+  /* ══ HERO ══ */
+  .hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeInUp 1.5s ease 0.3s forwards;
+    will-change: opacity, transform;
+  }
+
+  .hero-portrait {
+    width: clamp(220px, 42vw, 320px);
+    height: clamp(300px, 56vw, 440px);
+    border-radius: 12px;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 1px solid rgba(201,169,110,0.15);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 80px rgba(201,169,110,0.06);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400; letter-spacing: 0.15em;
+    color: var(--cream); margin-bottom: 0.3rem;
+  }
+
+  .hero-born {
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+    letter-spacing: 0.1em; color: var(--cream-dim); opacity: 0.5;
+    margin-bottom: 0.8rem;
+  }
+
+  /* ══ BLOCKS ══ */
+  .about-block {
+    margin-bottom: 3.5rem;
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    will-change: opacity, transform;
+  }
+  .about-block.visible { opacity: 1; transform: translateY(0); }
+
+  .card {
+    background: linear-gradient(145deg, rgba(22,18,20,0.7) 0%, rgba(18,15,18,0.5) 50%, rgba(22,18,20,0.6) 100%);
+    border-radius: 16px;
+    padding: 2.5rem 2.5rem;
+    border: 1px solid rgba(201,169,110,0.08);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  }
+
+  .section-label {
+    font-family: var(--font-heading);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-weight: 400; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    opacity: 0.7; margin-bottom: 1.8rem; text-align: center;
+  }
+
+  .about-p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 300; font-style: italic;
+    line-height: 2; color: var(--cream);
+    text-align: center; margin-bottom: 1.5rem;
+  }
+  .about-p:last-child { margin-bottom: 0; }
+  .about-p .gold { color: var(--gold); }
+  .about-p .name {
+    font-family: var(--font-heading); font-weight: 400;
+    color: var(--gold); font-style: normal; letter-spacing: 0.08em;
+  }
+
+  /* ══ ATMOSPHERE IMAGE ══ */
+  .atmo-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(201,169,110,0.1);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
+  /* ══ TIMELINE ══ */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.15) 10%, rgba(201,169,110,0.15) 90%, transparent);
+  }
+
+  .timeline-item { position: relative; margin-bottom: 2rem; padding-left: 0.5rem; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.25rem; top: 0.6rem;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold); opacity: 0.3;
+  }
+
+  .timeline-title {
+    font-family: var(--font-heading); font-size: 0.75rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.7; margin-bottom: 0.4rem;
+  }
+
+  .timeline-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+    font-weight: 300; font-style: italic;
+    line-height: 1.9; color: var(--cream-dim);
+  }
+
+  /* ══ PUBLICATIONS ══ */
+  .pub-subsection { margin-bottom: 2rem; }
+  .pub-subsection:last-child { margin-bottom: 0; }
+
+  .pub-sub-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--cream-dim);
+    opacity: 0.5; text-align: center; margin-bottom: 1rem;
+  }
+
+  .pub-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .pub-card {
+    text-align: center; padding: 1.5rem 1rem;
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 12px; background: rgba(201,169,110,0.02);
+    transition: all 0.4s ease;
+    text-decoration: none; display: block;
+  }
+  .pub-card:hover {
+    border-color: rgba(201,169,110,0.4);
+    background: rgba(201,169,110,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 30px rgba(201,169,110,0.12), 0 6px 25px rgba(0,0,0,0.3);
+  }
+  .pub-card:hover .pub-title { color: #fff; }
+  .pub-card:hover .pub-publisher { opacity: 0.8; }
+
+  .pub-year {
+    font-family: var(--font-sans); font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--gold); opacity: 0.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .pub-title {
+    font-family: var(--font-serif); font-size: 1.2rem;
+    font-style: italic; font-weight: 400;
+    color: var(--cream); margin-bottom: 0.3rem;
+  }
+
+  .pub-publisher {
+    font-family: var(--font-sans); font-size: 0.7rem;
+    letter-spacing: 0.1em; color: var(--cream-dim); opacity: 0.5;
+  }
+
+  .col-row {
+    display: flex; justify-content: center;
+    gap: 2.5rem; flex-wrap: wrap;
+  }
+
+  .col-item {
+    text-align: center; flex: 0 1 200px;
+    text-decoration: none; display: block;
+    padding: 1rem; border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+  }
+  .col-item:hover {
+    border-color: rgba(201,169,110,0.35);
+    background: rgba(201,169,110,0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(201,169,110,0.1);
+  }
+  .col-item:hover .col-mag { opacity: 1; color: #fff; }
+  .col-item:hover .col-name { opacity: 1; }
+
+  .col-mag {
+    font-family: var(--font-heading); font-size: 0.75rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.8; margin-bottom: 0.3rem;
+  }
+
+  .col-name {
+    font-family: var(--font-serif); font-size: 1rem;
+    font-style: italic; color: var(--gold); opacity: 0.7;
+    margin-bottom: 0.2rem;
+  }
+
+  .col-desc {
+    font-family: var(--font-sans); font-size: 0.7rem;
+    color: var(--cream-dim); opacity: 0.4;
+  }
+
+  @media (max-width: 500px) {
+    .pub-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ══ MUSIC ══ */
+  .music-row {
+    display: flex; align-items: center; gap: 1.5rem;
+    justify-content: center; flex-wrap: wrap;
+  }
+
+  .music-portrait {
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; object-position: 40% 15%;
+    border: 1px solid rgba(201,169,110,0.15);
+  }
+
+  .music-info { text-align: left; }
+
+  .music-name {
+    font-family: var(--font-heading); font-size: 0.8rem;
+    letter-spacing: 0.15em; color: var(--cream); margin-bottom: 0.3rem;
+  }
+
+  .music-desc {
+    font-family: var(--font-serif); font-size: 1.05rem;
+    font-style: italic; color: var(--cream-dim);
+    line-height: 1.6; max-width: 400px;
+  }
+
+  .spotify-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1rem; font-family: var(--font-sans);
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .spotify-link:hover { color: var(--gold); }
+  .spotify-link svg { width: 18px; height: 18px; }
+
+  /* ══ QUOTE — cinematic Gänseblümchen ══ */
+  .quote-stage {
+    position: relative;
+    padding: 5rem 2rem;
+    text-align: center;
+    overflow: visible;
+  }
+
+  .quote-daisy {
+    display: block; margin: 0 auto 2.5rem;
+    width: 90px; height: 90px;
+    opacity: 0.6;
+    animation: daisySway 6s ease-in-out infinite;
+    transition: transform 0.1s linear;
+    will-change: transform;
+  }
+
+  @keyframes daisySway {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.05); }
+  }
+
+  .quote-line {
+    font-family: var(--font-serif);
+    font-weight: 300; font-style: italic;
+    line-height: 1.4; color: var(--cream);
+    display: block;
+    margin-bottom: 0.6rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  .quote-stage.visible .quote-line {
+    opacity: 1; transform: translateY(0);
+  }
+
+  .quote-line-1 {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: var(--cream-dim);
+    letter-spacing: 0.03em;
+    transition-delay: 0.2s;
+  }
+
+  .quote-line-2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    margin-top: 0.3rem;
+    transition-delay: 0.6s;
+  }
+
+  .quote-line-3 {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: var(--cream-dim);
+    margin-top: 0.4rem;
+    transition-delay: 1s;
+  }
+
+  .quote-line-4 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    margin-top: 0.8rem;
+    transition-delay: 1.6s;
+    background: linear-gradient(135deg, var(--gold) 0%, #e8c87a 40%, var(--cream) 60%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(201,169,110,0.2));
+  }
+
+  .quote-crack {
+    display: block;
+    width: 2px; height: 60px;
+    margin: 0 auto 0;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.2), transparent);
+    opacity: 0;
+    transition: opacity 1.5s ease 0.4s;
+  }
+  .quote-stage.visible .quote-crack { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .quote-stage { padding: 3.5rem 1.5rem; }
+  }
+
+  /* ══ CONTACT ══ */
+  .contact-section { text-align: center; }
+
+  .contact-label {
+    font-family: var(--font-heading);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-weight: 400; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    opacity: 0.7; margin-bottom: 1.5rem;
+  }
+
+  .contact-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 300; font-style: italic;
+    line-height: 2; color: var(--cream);
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 1rem;
+  }
+
+  .contact-link {
+    font-family: var(--font-sans); font-size: 0.95rem;
+    font-weight: 300; letter-spacing: 0.08em;
+    color: var(--cream-dim); text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .contact-link:hover { color: var(--gold); text-shadow: 0 0 12px rgba(201,169,110,0.3); }
+  .contact-link:hover svg { opacity: 0.9; }
+  .contact-link svg { width: 18px; height: 18px; opacity: 0.5; }
+
+  /* ══ DIVIDER ══ */
+  .divider {
+    width: 40px; height: 1px;
+    background: var(--gold); opacity: 0.15;
+    margin: 0 auto 3.5rem;
+  }
+
+  /* ══ FOOTER ══ */
+  .page-footer {
+    position: relative; z-index: 3;
+    text-align: center; padding: 3rem 2rem 16rem; margin-top: 2rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-heading); font-size: 1rem;
+    letter-spacing: 0.2em; color: var(--gold);
+    opacity: 0.4; margin-bottom: 0.5rem;
+  }
+
+  .footer-copy {
+    font-family: var(--font-sans); font-size: 0.7rem;
+    color: var(--cream-dim); opacity: 0.4; letter-spacing: 0.05em;
+  }
+  .footer-copy a { color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+  .footer-copy a:hover { color: var(--gold); }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .page-content { padding: 6rem 1.5rem 3rem; }
+    .card { padding: 2rem 1.5rem; }
+    .back-nav { padding: 1rem 1.2rem; }
+    .timeline { padding-left: 1.5rem; }
+    .hero-portrait { height: clamp(280px, 80vw, 400px); }
+  }
+
+  /* ══ ALPINE SKYLINE (fixed bottom, moon sinks behind) ══ */
+  .alpen-skyline {
+    position: fixed; bottom: -200px; left: 0; right: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+  }
+  .alpen-skyline.visible { opacity: 0.35; }
+  .alpen-skyline img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .alpen-skyline { bottom: -60px; }
+  }
+  @media (max-width: 480px) {
+    .alpen-skyline { bottom: -30px; }
+  }
+
+  @media print {
+    .moon, .dawn-light { display: none; }
+    .isar { opacity: .3 !important; }
+    .isar-flow, .isar-shimmer { animation: none !important; opacity: .3 !important; }
+  }
+
+  /* Cross-browser compatibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky-bg" id="skyBg"></div>
+<div class="dawn-light" id="dawnLight"></div>
+
+<!-- Moon (pale blue — arcs from top-right to bottom-right) -->
+<div class="moon" id="moon" style="top:8vh;right:6vw;">
+  <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(180,200,230,.12)"/><stop offset="70%" stop-color="rgba(180,200,230,.03)"/><stop offset="100%" stop-color="rgba(180,200,230,0)"/></radialGradient>
+      <radialGradient id="moonGlow2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(150,175,210,.06)"/><stop offset="50%" stop-color="rgba(150,175,210,.02)"/><stop offset="100%" stop-color="rgba(150,175,210,0)"/></radialGradient>
+      <radialGradient id="moonBase" cx="42%" cy="38%" r="50%"><stop offset="0%" stop-color="#e8eef8"/><stop offset="30%" stop-color="#d5deed"/><stop offset="70%" stop-color="#b8c5db"/><stop offset="100%" stop-color="#95a8c4"/></radialGradient>
+      <radialGradient id="moonHighlight" cx="38%" cy="35%" r="35%"><stop offset="0%" stop-color="rgba(230,238,248,.35)"/><stop offset="100%" stop-color="rgba(230,238,248,0)"/></radialGradient>
+    </defs>
+    <!-- Rainbow halo ring -->
+    <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(255,80,80,0.06)" stroke-width="18"/>
+    <circle cx="250" cy="250" r="225" fill="none" stroke="rgba(255,160,50,0.06)" stroke-width="14"/>
+    <circle cx="250" cy="250" r="220" fill="none" stroke="rgba(255,220,60,0.07)" stroke-width="10"/>
+    <circle cx="250" cy="250" r="216" fill="none" stroke="rgba(100,220,80,0.06)" stroke-width="8"/>
+    <circle cx="250" cy="250" r="212" fill="none" stroke="rgba(80,160,255,0.06)" stroke-width="8"/>
+    <circle cx="250" cy="250" r="208" fill="none" stroke="rgba(120,80,220,0.06)" stroke-width="8"/>
+    <circle cx="250" cy="250" r="204" fill="none" stroke="rgba(200,80,200,0.05)" stroke-width="6"/>
+    <!-- Soft outer glow -->
+    <circle cx="250" cy="250" r="380" fill="url(#moonGlow2)"/>
+    <circle cx="250" cy="250" r="280" fill="url(#moonGlow)"/>
+    <!-- Moon body -->
+    <circle cx="250" cy="250" r="180" fill="url(#moonBase)"/>
+    <circle cx="250" cy="250" r="180" fill="url(#moonHighlight)"/>
+  </svg>
+</div>
+
+<!-- Isar River (original blue tones) -->
+<div class="isar-simple" id="isarSimple"></div>
+<div class="isar" id="isar">
+  <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="isar-glow" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="isarDeep" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(30,80,110,0)"/>
+        <stop offset="12%" stop-color="rgba(30,80,110,.3)"/>
+        <stop offset="50%" stop-color="rgba(40,100,130,.45)"/>
+        <stop offset="88%" stop-color="rgba(30,80,110,.3)"/>
+        <stop offset="100%" stop-color="rgba(30,80,110,0)"/>
+      </linearGradient>
+      <linearGradient id="isarMain" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(60,150,185,0)"/>
+        <stop offset="10%" stop-color="rgba(60,150,185,.35)"/>
+        <stop offset="35%" stop-color="rgba(80,185,210,.5)"/>
+        <stop offset="60%" stop-color="rgba(80,185,210,.4)"/>
+        <stop offset="90%" stop-color="rgba(60,150,185,.35)"/>
+        <stop offset="100%" stop-color="rgba(60,150,185,0)"/>
+      </linearGradient>
+      <linearGradient id="isarTurq" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(100,220,230,0)"/>
+        <stop offset="15%" stop-color="rgba(100,220,230,.25)"/>
+        <stop offset="50%" stop-color="rgba(130,235,240,.4)"/>
+        <stop offset="85%" stop-color="rgba(100,220,230,.25)"/>
+        <stop offset="100%" stop-color="rgba(100,220,230,0)"/>
+      </linearGradient>
+      <linearGradient id="isarLight" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(170,240,250,0)"/>
+        <stop offset="20%" stop-color="rgba(170,240,250,.15)"/>
+        <stop offset="50%" stop-color="rgba(200,250,255,.3)"/>
+        <stop offset="80%" stop-color="rgba(170,240,250,.15)"/>
+        <stop offset="100%" stop-color="rgba(170,240,250,0)"/>
+      </linearGradient>
+      <linearGradient id="isarMoon" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(220,240,245,0)"/>
+        <stop offset="30%" stop-color="rgba(220,240,245,.2)"/>
+        <stop offset="50%" stop-color="rgba(240,250,255,.35)"/>
+        <stop offset="70%" stop-color="rgba(220,240,245,.2)"/>
+        <stop offset="100%" stop-color="rgba(220,240,245,0)"/>
+      </linearGradient>
+    </defs>
+    <path class="isar-flow" d="M520 0 C510 50,420 90,400 180 S560 300,480 400 S350 480,400 580 S580 680,500 780 S380 860,420 940 S530 980,500 1000" stroke="url(#isarDeep)" stroke-width="120" style="--if-d:20s;--if-del:0s;--if-lo:.08;--if-hi:.25"/>
+    <path class="isar-flow" d="M510 0 C505 55,430 100,415 190 S555 295,475 395 S360 475,405 575 S575 670,495 770 S385 855,425 935 S525 975,505 1000" stroke="url(#isarMain)" stroke-width="70" style="--if-d:15s;--if-del:1s;--if-lo:.12;--if-hi:.45"/>
+    <path class="isar-flow" d="M500 0 C498 60,440 110,425 200 S545 290,470 390 S370 465,410 565 S565 660,490 760 S390 845,430 930 S520 970,500 1000" stroke="url(#isarTurq)" stroke-width="40" style="--if-d:12s;--if-del:2s;--if-lo:.1;--if-hi:.4"/>
+    <path class="isar-flow" d="M495 0 C495 65,445 115,432 205 S540 285,468 385 S375 460,415 560 S560 655,488 755 S395 840,435 925 S518 968,498 1000" stroke="url(#isarLight)" stroke-width="18" style="--if-d:10s;--if-del:3s;--if-lo:.08;--if-hi:.35"/>
+    <path class="isar-flow" d="M540 0 C535 45,470 85,460 160 S580 260,520 340 S440 400,460 480 S590 560,530 640 S450 720,470 800 S560 880,540 960 S510 990,520 1000" stroke="url(#isarMain)" stroke-width="25" style="--if-d:17s;--if-del:0.5s;--if-lo:.06;--if-hi:.3"/>
+    <path class="isar-flow" d="M460 0 C462 70,410 130,400 220 S510 320,450 420 S380 500,400 600 S520 690,465 790 S400 870,430 950 S480 985,470 1000" stroke="url(#isarTurq)" stroke-width="8" style="--if-d:9s;--if-del:1.5s;--if-lo:.15;--if-hi:.5"/>
+    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="12" stroke-dasharray="8 25" d="M490 60 C460 120,440 160,430 230" style="--is-d:7s;--is-del:0s"/>
+    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="8" stroke-dasharray="5 18" d="M450 300 C480 360,500 400,475 460" style="--is-d:9s;--is-del:2s"/>
+    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="14" stroke-dasharray="10 30" d="M420 520 C460 570,480 610,470 680" style="--is-d:6s;--is-del:4s"/>
+    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="6" stroke-dasharray="4 20" d="M500 700 C480 750,460 790,470 850" style="--is-d:8s;--is-del:1s"/>
+    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="10" stroke-dasharray="6 22" d="M440 850 C460 890,480 920,460 970" style="--is-d:7.5s;--is-del:5.5s"/>
+    <path class="isar-shimmer" stroke="rgba(200,245,255,.3)" stroke-width="3" stroke-dasharray="3 15" d="M510 150 C490 200,480 240,495 300" style="--is-d:11s;--is-del:3s"/>
+    <path class="isar-shimmer" stroke="rgba(200,245,255,.3)" stroke-width="3" stroke-dasharray="3 15" d="M465 480 C490 530,500 560,480 620" style="--is-d:10s;--is-del:6s"/>
+  </svg>
+</div>
+
+<nav class="back-nav">
+  <a href="../" class="back-link">&larr; Zurück</a>
+  <a href="../" class="back-brand">
+    <img src="../images/Logo-1.png.webp" alt="">
+    Funkenfangen
+  </a>
+</nav>
+
+<div class="page-content">
+
+  <!-- ══ MOON NAV TOP ══ -->
+  <nav class="moon-nav" data-reveal>
+    <div class="moon-nav-inner">
+      <a href="../" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
+        <span class="moon-label">Home</span>
+      </a>
+      <a href="../buecher/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.08"/></svg>
+        <span class="moon-label">Bücher & Kolumnen</span>
+      </a>
+      <a href="/#presse" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Presse</span>
+      </a>
+      <a href="../zirkel/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        <span class="moon-label">Zirkel</span>
+      </a>
+      <a href="/#kontakt" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Kontakt</span>
+      </a>
+      <a href="https://munichwitchcraft.com" class="moon-item" target="_blank" rel="noopener">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 10 14 0 0 0 0-28z" fill="currentColor" opacity="0.25"/></svg>
+        <span class="moon-label">Munich Witchcraft</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero-section">
+    <img src="../images/lesen1.jpg" alt="Mika Schöberl" class="hero-portrait" loading="lazy" decoding="async">
+    <h1 class="hero-name">Mika Schöberl</h1>
+    <p class="hero-born">*1989</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ INTRO ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <p class="about-p">
+        <span class="name">Mika Schöberl</span> verbindet als Lehrer, Künstler, Musikwissenschaftler und Heilpraktiker auf einzigartige Weise Kreativität, Theologie, Pädagogik, Natur und Gesundheit.
+      </p>
+      <p class="about-p">
+        Sein kreativer, interdisziplinärer Ansatz ist von der tiefen Überzeugung geprägt, dass <span class="gold">„alles mit allem verbunden"</span> ist — er möchte seine Leserinnen und Leser inspirieren, ihren eigenen Weg zu einem authentischen Selbstausdruck zu finden.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ QUOTE — Gänseblümchen (cinematic) ══ -->
+  <section class="quote-stage" data-reveal>
+
+    <!-- Daisy SVG -->
+    <svg class="quote-daisy" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.7">
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(0 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(45 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(90 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(135 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(180 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(225 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(270 50 50)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(315 50 50)"/>
+        <circle cx="50" cy="50" r="8" fill="#c9a96e"/>
+      </g>
+    </svg>
+
+    <span class="quote-crack"></span>
+
+    <span class="quote-line quote-line-1">Meine Projekte wachsen wie</span>
+    <span class="quote-line quote-line-2">Gänseblümchen im Betongrau</span>
+    <span class="quote-line quote-line-3">einer Welt im Umbruch</span>
+    <span class="quote-line quote-line-4">zart, wild und widerständig.</span>
+
+    <span class="quote-crack"></span>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ URSPRUNG ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <div class="section-label">Ursprung</div>
+      <p class="about-p">
+        Von früher Kindheit an übte die Natur eine tiefe Faszination auf mich aus — ihre inhärente Ordnung, ihre vielfältigen Erscheinungsformen und ihre künstlerische Interpretation durch Meister verschiedener Epochen.
+      </p>
+      <p class="about-p">
+        Besonders in den Lehren <span class="gold">Hildegard von Bingens</span> entdeckte ich die harmonische Verschmelzung von Naturkunde, Musik und Theologie. Ihr ganzheitliches Wirken als Universalgelehrte offenbarte mir die Liebe zum lebenslangen Staunen.
+      </p>
+      <p class="about-p">
+        Unterstützt durch engagierte Lehrer, die meine Ambitionen förderten, erkannte ich den unschätzbaren Wert exzellenter Pädagogik.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ ATMOSPHERE ══ -->
+  <section class="about-block" data-reveal>
+    <img src="../images/lesen2.jpg" alt="Mika Schöberl beim Lesen" class="atmo-image" loading="lazy" decoding="async">
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ WERDEGANG ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <div class="section-label">Ausbildung & Studium</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-title">Musikwissenschaft</div>
+          <p class="timeline-text">Bachelor in Musikwissenschaft und Kunst/Musik/Theater, gefolgt von einem Master in Musikwissenschaft. In der Masterarbeit erforschte er das „Gesamtkunstwerk aus psychoanalytischer Perspektive" und die psychologischen Dimensionen menschlicher Kreativität.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-title">Heilpraktiker</div>
+          <p class="timeline-text">Intensive Ausbildung zum Heilpraktiker mit Schwerpunkt auf den Methoden der traditionellen europäischen Klosterheilkunde.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-title">Psychotherapie</div>
+          <p class="timeline-text">Ausbildung zum Heilpraktiker für Psychotherapie, ergänzt durch Weiterbildungen in psychologischer Beratung und Gesprächstherapie.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-title">Theologie & Lehramt</div>
+          <p class="timeline-text">Lehramtsstudium mit Schwerpunkt „evangelische Religionslehre/Theologie" — eine Vertiefung der Auseinandersetzung mit grundlegenden Fragen zu Sinn und Sein.</p>
+        </div>
+      </div>
+      <p class="about-p" style="margin-top:1.5rem">
+        Diese Studien festigten eine Überzeugung: <span class="gold">Künstlerisches Schaffen ist nicht nur kulturelle Bereicherung, sondern auch Katalysator für die ganzheitliche Heilung von Körper, Geist und Seele.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ VERÖFFENTLICHUNGEN ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <div class="section-label">Veröffentlichungen</div>
+
+      <div class="pub-subsection">
+        <div class="pub-sub-label">Bücher</div>
+        <div class="pub-grid">
+          <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981" target="_blank" rel="noopener" class="pub-card">
+            <div class="pub-year">2021</div>
+            <div class="pub-title">Grüne Seelen</div>
+            <div class="pub-publisher">Mankau Verlag</div>
+          </a>
+          <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen/dp/3863747283" target="_blank" rel="noopener" class="pub-card">
+            <div class="pub-year">2025</div>
+            <div class="pub-title">50 Wörter für Liebe</div>
+            <div class="pub-publisher">Mankau Verlag</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="pub-subsection">
+        <div class="pub-sub-label">Regelmäßige Kolumnen</div>
+        <div class="col-row">
+          <a href="https://www.naturarzt-access.de/" target="_blank" rel="noopener" class="col-item">
+            <div class="col-mag">Naturarzt</div>
+            <div class="col-name">„Seelenschau"</div>
+            <div class="col-desc">monatlich, seit vier Jahren</div>
+          </a>
+          <a href="https://www.yoga-aktuell.de/" target="_blank" rel="noopener" class="col-item">
+            <div class="col-mag">Yoga Aktuell</div>
+            <div class="col-name">Kolumne</div>
+            <div class="col-desc">regelmäßig</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ FUNKENFANGEN ALS ORT ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <div class="section-label">Lehren & Praktizieren</div>
+      <p class="about-p">
+        Seit über sechs Jahren ist <span class="name">Funkenfangen</span> ein Ort für lebenslanges Lernen und ganzheitliche Entwicklung. Dieser authentische Raum, ursprünglich als Naturheilpraxis konzipiert, hat sich zu einem Treffpunkt gewandelt.
+      </p>
+      <p class="about-p">
+        Der angrenzende Garten bietet eine inspirierende Umgebung für Workshops und Seminare. In dieser grünen Atmosphäre finden Veranstaltungen zu Themen wie Natur, Kreativität, Spiritualität und ganzheitlichem Leben statt.
+      </p>
+      <p class="about-p">
+        Hier geht es nicht um schnelle Antworten, sondern darum, durch gemeinsames Reflektieren und Erforschen im Leben anzukommen und <span class="gold">eine tiefe und heilsame Verbindung zu sich selbst und der Welt zu entwickeln.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ MUSIK ══ -->
+  <section class="about-block" data-reveal>
+    <div class="card">
+      <div class="section-label">Musik</div>
+      <p class="about-p">
+        Musik ist Magie — Mantra, Beschwörung, Gebet und Lebensfreude.
+      </p>
+      <div class="music-row">
+        <img src="../images/Portrait1.png" alt="" class="music-portrait" loading="lazy" decoding="async">
+        <div class="music-info">
+          <div class="music-name">Summerchild</div>
+          <p class="music-desc">Klänge, die ich in stillen Nächten schreibe und produziere. Für Meditationen, Tänze — oder einfach zum Dasein.</p>
+          <a href="https://open.spotify.com/intl-de/artist/2ptdAWeYGiNLPKbbXTsnYX" target="_blank" rel="noopener" class="spotify-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Auf Spotify hören
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ KONTAKT ══ -->
+  <section class="about-block contact-section" id="kontakt" data-reveal>
+    <div class="card">
+      <div class="contact-label">Kontakt</div>
+      <p class="contact-text">
+        Du möchtest mehr erfahren, eine Zusammenarbeit besprechen oder einfach in Verbindung treten? Ich freue mich auf deine Nachricht — aus München und überall.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:kontakt@funkenfangen.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          kontakt@funkenfangen.com
+        </a>
+        <a href="tel:+4915110616206" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +49 151 10616206
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ MOON NAV BOTTOM ══ -->
+  <nav class="moon-nav" data-reveal>
+    <div class="moon-nav-inner">
+      <a href="../" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
+        <span class="moon-label">Home</span>
+      </a>
+      <a href="../buecher/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.08"/></svg>
+        <span class="moon-label">Bücher & Kolumnen</span>
+      </a>
+      <a href="/#presse" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Presse</span>
+      </a>
+      <a href="../zirkel/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        <span class="moon-label">Zirkel</span>
+      </a>
+      <a href="/#kontakt" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Kontakt</span>
+      </a>
+      <a href="https://munichwitchcraft.com" class="moon-item" target="_blank" rel="noopener">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 10 14 0 0 0 0-28z" fill="currentColor" opacity="0.25"/></svg>
+        <span class="moon-label">Munich Witchcraft</span>
+      </a>
+    </div>
+  </nav>
+
+  <footer class="page-footer">
+    <div class="footer-brand">Funkenfangen</div>
+    <p class="footer-copy" style="font-family:var(--font-serif);font-style:italic;font-size:0.8rem;opacity:0.35;margin-bottom:0.8rem;letter-spacing:0.15em;">A Softer Kind of Knowing</p>
+    <p class="footer-copy">© 2026 Mika Schöberl · München<br><a href="../?tab=impressum#legal">Impressum</a> · <a href="../?tab=datenschutz#legal">Datenschutz</a></p>
+  </footer>
+
+  <!-- ══ ALPINE SKYLINE (bottom edge) ══ -->
+  <div class="alpen-skyline">
+    <img src="../images/alpen-skyline.png" alt="Alpen-Skyline" loading="lazy" decoding="async">
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
+
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
+  if (isLowEnd) {
+    var isarSvg = document.getElementById('isar');
+    var isarSimple = document.getElementById('isarSimple');
+    if (isarSvg) isarSvg.style.display = 'none';
+    if (isarSimple) isarSimple.style.display = 'block';
+  }
+
+  /* ═══ DAWN LIGHT + ISAR + MOON ARC SCROLL ═══ */
+  var isar = isLowEnd ? document.getElementById('isarSimple') : document.getElementById('isar');
+  var moon = document.getElementById('moon');
+  var dawn = document.getElementById('dawnLight');
+  var skyBg = document.getElementById('skyBg');
+  var daisy = document.querySelector('.quote-daisy');
+  var alpen = document.querySelector('.alpen-skyline');
+  var docH = function(){ return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); };
+
+  function onScroll(){
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    var maxScroll = docH() - window.innerHeight;
+    var pct = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+    /* Dawn light intensifies as you scroll */
+    if(dawn){
+      dawn.style.opacity = Math.min(pct * 1.4, 1).toFixed(2);
+    }
+
+    /* Sky brightens progressively */
+    if(skyBg){
+      var brightness = 1 + pct * 0.7;
+      skyBg.style.filter = 'brightness(' + brightness.toFixed(2) + ') sepia(' + (pct * 0.12).toFixed(2) + ')';
+    }
+
+    /* Isar river */
+    if(isar){
+      var appear = pct < 0.02 ? 0 : pct > 0.95 ? 0 :
+        pct < 0.08 ? ((pct - 0.02) / 0.06) :
+        pct > 0.85 ? ((0.95 - pct) / 0.1) : 1;
+      isar.classList.toggle('visible', appear > 0.01);
+      isar.style.opacity = appear.toFixed(2);
+      var driftY = (pct - 0.5) * -8;
+      isar.style.transform = 'translateY(' + driftY + 'vh)';
+    }
+
+    /* Moon S-curve across full screen: top-right → center-left → bottom-right */
+    if(moon){
+      var top = 5 + 80 * pct;
+      /* S-curve using sine: right(0)=5vw, swings to ~75vw at 33%, back to ~5vw at 66%, then to ~60vw at 100% */
+      var sWave = Math.sin(pct * Math.PI * 2) * 35;
+      var drift = pct * 25;
+      var right = 5 - sWave + drift;
+
+      var topOffset = top - 5;
+      var rightOffset = right - 5;
+      moon.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
+
+      /* Fade as morning brightens */
+      var mOpacity = 0.3 * (1 - pct * 0.85);
+      if(mOpacity < 0.03) mOpacity = 0.03;
+      moon.style.opacity = mOpacity.toFixed(2);
+    }
+
+    /* Daisy rotates with scroll */
+    if(daisy){
+      var rotation = pct * 720;
+      daisy.style.transform = 'rotate(' + rotation + 'deg)';
+    }
+
+    /* Alps fade in only when almost at the bottom */
+    if(alpen){
+      alpen.classList.toggle('visible', pct > 0.9);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+
+  /* ═══ SCROLL REVEAL ═══ */
+  var els = document.querySelectorAll('[data-reveal]');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, {threshold: 0.15});
+  els.forEach(function(el){ obs.observe(el); });
+
+
+})();
+</script>
+
+</body>
+</html>

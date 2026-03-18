@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bücher & Kolumnen – Mika Schöberl | Funkenfangen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #080807;
+    --gold: #c9a96e;
+    --gold-dim: #7a6035;
+    --cream: #e8e2d4;
+    --cream-dim: #a8a090;
+    --mauve: #8b5e7d;
+    --mauve-light: #a87799;
+    --mauve-dark: #5c3a50;
+    --sand: #e8dfd0;
+    --font-heading: 'Cinzel', serif;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
+
+  body {
+    background: #0c0e12;
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100vw;
+  }
+
+  /* ══ SKY BACKGROUND — dynamic scroll-driven day cycle ══ */
+  .sky-bg {
+    position: fixed; inset: 0; z-index: 0;
+    transition: background 0.8s ease;
+  }
+
+  /* ══ SUN (wandering soft glow) ══ */
+  .sun {
+    position: fixed; z-index: 1;
+    width: clamp(160px, 22vw, 280px);
+    height: clamp(160px, 22vw, 280px);
+    top: 5vh; right: 8vw;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    will-change: transform, opacity;
+  }
+  .sun svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* ══ BACK NAV ══ */
+  .back-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem clamp(1.5rem, 4vw, 3rem);
+    background: linear-gradient(to bottom, rgba(10,12,18,0.85), transparent);
+    pointer-events: none;
+  }
+  .back-nav > * { pointer-events: auto; }
+
+  .back-link {
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+    letter-spacing: 0.1em; text-decoration: none;
+    color: var(--cream-dim); transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--gold); }
+
+  .back-brand {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-heading); font-size: 0.85rem;
+    letter-spacing: 0.2em; color: var(--gold); opacity: 0.6;
+    text-decoration: none; transition: opacity 0.3s;
+  }
+  .back-brand:hover { opacity: 1; }
+  .back-brand img {
+    width: 22px; height: 22px; object-fit: contain;
+    opacity: 0.7;
+  }
+
+  /* ══ MOON NAV ══ */
+  .moon-nav {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform;
+  }
+  .moon-nav.visible { opacity: 1; transform: translateY(0); }
+  .moon-nav-inner {
+    display: inline-flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.4rem;
+  }
+  .moon-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.3rem; text-decoration: none; padding: 0.5rem 0.8rem;
+    transition: transform 0.3s; color: var(--cream-dim);
+  }
+  .moon-item:hover { transform: translateY(-3px); color: var(--gold); }
+  .moon-icon { width: 28px; height: 28px; }
+  .moon-label {
+    font-family: var(--font-sans); font-size: 0.55rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .moon-nav { padding: 1.5rem 1rem 1.5rem; }
+    .moon-nav-inner { gap: 0.2rem; }
+  }
+  @media (max-width: 480px) {
+    .moon-nav-inner { gap: 0; }
+  }
+
+  /* ══ PAGE CONTENT ══ */
+  .page-content {
+    position: relative; z-index: 1;
+    max-width: 100%; padding-top: 4rem;
+  }
+
+  /* ══ BOOK HERO ══ */
+  .book-hero {
+    display: flex; align-items: center; justify-content: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    padding: 4rem clamp(2rem, 8vw, 8rem) 3rem;
+    min-height: 70vh;
+    position: relative;
+  }
+
+  .book-covers {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    flex-shrink: 0;
+  }
+  .book-cover-wrap {
+    position: relative;
+    text-align: center;
+  }
+  .book-cover-wrap a {
+    text-decoration: none;
+    display: block;
+  }
+  .book-cover-wrap img {
+    width: clamp(220px, 28vw, 380px);
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4)) drop-shadow(0 0 60px rgba(139,94,125,0.12));
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
+  .book-cover-wrap:hover img {
+    transform: translateY(-8px) scale(1.03);
+    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.5)) drop-shadow(0 0 80px rgba(139,94,125,0.2));
+  }
+  .book-cover-wrap .cover-label {
+    display: block;
+    margin-top: 0.8rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    opacity: 0.6;
+  }
+
+  .book-hero-text {
+    max-width: 500px;
+  }
+  .book-hero-text h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--sand);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+  .gold { color: var(--gold); }
+  .book-hero-text h1 .accent {
+    color: var(--mauve-light);
+  }
+  .book-hero-text .subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    color: var(--mauve);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+  .book-hero-text .author {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 1.5rem;
+  }
+  .book-hero-text .tagline {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 300;
+    color: var(--cream);
+    opacity: 0.8;
+    line-height: 1.9;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 2.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--sand);
+    border: 1px solid var(--mauve);
+    border-radius: 2px;
+    background: transparent;
+    transition: all 0.4s ease;
+  }
+  .cta-btn:hover {
+    background: var(--mauve);
+    color: #fff;
+    box-shadow: 0 0 30px rgba(139,94,125,0.3);
+  }
+
+  @media (max-width: 768px) {
+    .book-hero {
+      flex-direction: column;
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      min-height: auto;
+    }
+    .book-covers { justify-content: center; }
+    .book-cover-wrap img { width: 180px; }
+  }
+
+  /* ══ QUOTE SECTION — cinematic ══ */
+  .quote-section {
+    position: relative; z-index: 1;
+    padding: 5rem clamp(2rem, 8vw, 8rem);
+    text-align: center;
+    overflow: hidden;
+  }
+  .quote-section::before {
+    content: '\201E';
+    position: absolute;
+    top: 1.5rem; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-serif);
+    font-size: 8rem;
+    color: var(--mauve);
+    opacity: 0.08;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .quote-text.visible { opacity: 1; transform: translateY(0); }
+
+  .quote-author {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+  }
+  .quote-author.visible { opacity: 0.7; transform: translateY(0); }
+
+  /* ══ POEM STAGE — cinematic featured poem ══ */
+  .poem-section {
+    position: relative; z-index: 1;
+    padding: 3rem clamp(2rem, 8vw, 8rem);
+    text-align: center;
+  }
+
+  .poem-block {
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .poem-block.visible { opacity: 1; transform: translateY(0); }
+
+  .poem-block .poem-verse {
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    line-height: 2;
+    color: var(--cream);
+    margin-bottom: 0.2rem;
+  }
+  .poem-block .poem-verse .pw {
+    color: var(--mauve-light);
+    transition: color 0.4s ease;
+  }
+  .poem-block .poem-verse .pg {
+    color: var(--gold);
+    transition: color 0.4s ease;
+  }
+
+  .poem-title {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+  }
+
+  /* ══ DESCRIPTION SECTION ══ */
+  .desc-section {
+    position: relative; z-index: 1;
+    padding: 2.5rem clamp(2rem, 8vw, 8rem);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .desc-section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .desc-section p {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 300;
+    color: var(--cream);
+    opacity: 0.85;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .desc-section.expandable,
+  .desc-section .expandable {
+    text-align: center;
+  }
+
+  /* ══ PHOTO GALLERY ══ */
+  .photo-section {
+    position: relative; z-index: 1;
+    padding: 3rem clamp(2rem, 6vw, 6rem);
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .photo-grid .photo-item {
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+  }
+  .photo-grid .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  .photo-grid .photo-item:hover img {
+    transform: scale(1.05);
+  }
+  .photo-item.wide {
+    grid-column: span 2;
+    max-height: 400px;
+  }
+  .photo-item.tall {
+    max-height: 350px;
+  }
+
+  @media (max-width: 600px) {
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-item.wide { grid-column: span 1; max-height: 250px; }
+  }
+
+
+  /* ══ SCROLLABLE GALLERY ══ */
+  .gallery-section {
+    position: relative; z-index: 1;
+    padding: 3rem 0;
+  }
+  .gallery-section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .gallery-scroll {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem clamp(2rem, 6vw, 6rem);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201,169,110,0.3) transparent;
+  }
+  .gallery-scroll::-webkit-scrollbar { height: 4px; }
+  .gallery-scroll::-webkit-scrollbar-track { background: transparent; }
+  .gallery-scroll::-webkit-scrollbar-thumb {
+    background: rgba(201,169,110,0.3);
+    border-radius: 2px;
+  }
+  .gallery-item {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    height: clamp(280px, 40vw, 420px);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .gallery-item img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+  .gallery-item.landscape {
+    height: clamp(260px, 35vw, 380px);
+  }
+
+  /* ══ BOOK TRANSITION — green zone ══ */
+  .book-transition {
+    position: relative; z-index: 1;
+    height: 120px;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(40,70,45,0.08) 50%,
+      rgba(40,70,45,0.15) 100%
+    );
+  }
+
+  /* ══ BOOK 2 — Grüne Seelen ══ */
+  .book2-zone {
+    position: relative; z-index: 1;
+  }
+  .book2-zone .book-hero {
+    --accent-color: #5a8a3c;
+    --accent-light: #7ab356;
+    --accent-dim: #3d6228;
+  }
+  .book2-zone .book-hero-text h1 .accent { color: #7ab356; }
+  .book2-zone .book-hero-text .subtitle { color: #5a8a3c; }
+  .book2-zone .cta-btn {
+    border-color: #5a8a3c;
+  }
+  .book2-zone .cta-btn:hover {
+    background: #5a8a3c;
+    box-shadow: 0 0 30px rgba(90,138,60,0.3);
+  }
+  .book2-zone .quote-section::before { color: #5a8a3c; }
+  .book2-zone .quote-author { color: #5a8a3c; }
+  .book2-zone .desc-section h2 { color: #7ab356; }
+  .book2-zone .expand-btn {
+    color: #7ab356;
+    border-bottom-color: rgba(122,179,86,0.3);
+  }
+
+  /* ══ CTA FINAL ══ */
+  .cta-section {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 2.5rem 2rem 2rem;
+  }
+  .cta-section h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--sand);
+    margin-bottom: 0.5rem;
+  }
+  .cta-section p {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--cream-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ══ FOOTER ══ */
+  .page-footer {
+    position: relative; z-index: 3;
+    text-align: center; padding: 3rem 2rem 4rem; margin-top: 2rem;
+  }
+  .footer-brand {
+    font-family: var(--font-heading); font-size: 1rem;
+    letter-spacing: 0.2em; color: var(--gold);
+    opacity: 0.4; margin-bottom: 0.5rem;
+  }
+  .footer-copy {
+    font-family: var(--font-sans); font-size: 0.7rem;
+    color: var(--cream-dim); opacity: 0.4; letter-spacing: 0.05em;
+  }
+  .footer-copy a { color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+  .footer-copy a:hover { color: var(--gold); }
+
+  /* ══ INHALTSVERZEICHNIS ══ */
+  .inhalt-section {
+    position: relative; z-index: 1;
+    padding: 2.5rem clamp(2rem, 6vw, 6rem);
+    text-align: center;
+  }
+  .inhalt-section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .inhalt-img-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      0 15px 50px rgba(0,0,0,0.35),
+      0 0 80px rgba(139,94,125,0.08);
+  }
+  .inhalt-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ══ VIDEO SECTION ══ */
+  .video-section {
+    position: relative; z-index: 1;
+    padding: 2.5rem clamp(2rem, 6vw, 6rem);
+  }
+  .video-section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .video-item {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .video-item.landscape {
+    aspect-ratio: 16/9;
+  }
+  .video-item.portrait {
+    aspect-ratio: 9/16;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .video-item iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  @media (max-width: 600px) {
+    .video-grid { grid-template-columns: 1fr; }
+    .video-item.portrait { max-width: 180px; }
+  }
+
+  /* ══ MOBILE HEADING FIX ══ */
+  @media (max-width: 480px) {
+    .desc-section h2,
+    .gallery-section h2,
+    .inhalt-section h2,
+    .video-section h2,
+    .kolumnen-section h2 {
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
+      letter-spacing: 0.08em;
+    }
+  }
+
+  /* ══ SCROLL ARROW INDICATOR ══ */
+  .scroll-hint-wrap {
+    position: relative;
+  }
+  .scroll-hint-wrap::after {
+    content: '›';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 2.5rem;
+    height: 3rem;
+    color: var(--gold);
+    animation: scrollPulse 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+    background: rgba(8,8,7,0.55);
+    border-radius: 4px 0 0 4px;
+    text-shadow: 0 0 8px rgba(201,169,110,0.6);
+    will-change: transform, opacity;
+  }
+  .scroll-hint-wrap.scrolled::after {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: translateY(-50%) translateX(0); opacity: 0.7; }
+    50% { transform: translateY(-50%) translateX(4px); opacity: 1; }
+  }
+
+  /* ══ YOGA COVER FREIGESTELLT ══ */
+  .yoga-cover-item {
+    background: none !important;
+    box-shadow: none !important;
+    overflow: visible;
+    border-radius: 0;
+  }
+  .yoga-cover-item img {
+    filter: drop-shadow(0 8px 25px rgba(0,0,0,0.4));
+    border-radius: 4px;
+  }
+
+  /* ══ WEITERLESEN EXPAND ══ */
+  .expandable { position: relative; }
+  .expandable .expand-hidden {
+    display: none;
+  }
+  .expandable.expanded .expand-hidden {
+    display: block;
+  }
+  .expandable.expanded .expand-hidden-inline {
+    display: inline;
+  }
+  .expand-hidden-inline { display: none; }
+  .expand-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding: 0 0 0.2rem;
+    transition: opacity 0.3s;
+  }
+  .expand-btn:hover { opacity: 1; }
+  .expandable.expanded .expand-btn .btn-more { display: none; }
+  .expandable .expand-btn .btn-less { display: none; }
+  .expandable.expanded .expand-btn .btn-less { display: inline; }
+
+  /* ══ SECTION NAV (Bücher / Kolumnen) ══ */
+  .section-nav {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+  }
+  .section-nav-inner {
+    display: inline-flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .section-nav-btn {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    font-family: var(--font-heading);
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 2px;
+    background: rgba(201,169,110,0.05);
+    transition: all 0.4s ease;
+  }
+  .section-nav-btn:hover {
+    background: rgba(201,169,110,0.15);
+    border-color: var(--gold);
+  }
+  .section-nav-btn.active-gold {
+    background: rgba(201,169,110,0.2);
+    border-color: var(--gold);
+    box-shadow: 0 0 18px rgba(201,169,110,0.25);
+    color: var(--gold);
+  }
+  .section-nav-btn.active-green {
+    background: rgba(90,138,60,0.2);
+    border-color: #7ab356;
+    box-shadow: 0 0 18px rgba(122,179,86,0.25);
+    color: #7ab356;
+  }
+
+  /* ══ KOLUMNEN SECTION ══ */
+  .kolumnen-section {
+    position: relative; z-index: 1;
+    padding: 3rem clamp(2rem, 8vw, 8rem);
+    text-align: center;
+  }
+  .kolumnen-section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .kolumnen-section .kolumnen-sub {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-style: italic;
+    color: var(--cream-dim);
+    margin-bottom: 2.5rem;
+  }
+  .kolumnen-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .kolumne-card {
+    display: block;
+    padding: 1.5rem 2.5rem;
+    text-decoration: none;
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 6px;
+    background: rgba(201,169,110,0.04);
+    transition: all 0.4s ease;
+    text-align: center;
+  }
+  .kolumne-card:hover {
+    background: rgba(201,169,110,0.12);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .kolumne-card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    letter-spacing: 0.12em;
+    color: var(--sand);
+    margin-bottom: 0.3rem;
+  }
+  .kolumne-card-sub {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    opacity: 0.6;
+  }
+
+  /* ══ NATURARZT DETAIL ══ */
+  .naturarzt-detail {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    text-align: center;
+  }
+  .naturarzt-detail h3 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .naturarzt-detail h3 .accent-blue {
+    color: #4a6a8a;
+  }
+  .naturarzt-detail .na-sub {
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    font-style: italic;
+    color: var(--cream-dim);
+    margin-bottom: 2rem;
+  }
+  .naturarzt-covers {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201,169,110,0.3) transparent;
+  }
+  .naturarzt-covers::-webkit-scrollbar { height: 4px; }
+  .naturarzt-covers::-webkit-scrollbar-track { background: transparent; }
+  .naturarzt-covers::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.3); border-radius: 2px; }
+  .na-cover-item {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    height: clamp(220px, 32vw, 340px);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .na-cover-item img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  /* ══ ATMOSPHERIC EFFECTS ══ */
+
+  /* Pulsing glow on main headings */
+  @keyframes headingGlow {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50% { text-shadow: 0 0 30px rgba(201,169,110,0.15), 0 0 60px rgba(201,169,110,0.05); }
+  }
+  .book-hero-text h1 {
+    animation: headingGlow 6s ease-in-out infinite;
+    will-change: text-shadow;
+  }
+  .book2-zone .book-hero-text h1 {
+    animation: headingGlowGreen 6s ease-in-out infinite;
+    will-change: text-shadow;
+  }
+  @keyframes headingGlowGreen {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50% { text-shadow: 0 0 30px rgba(122,179,86,0.15), 0 0 60px rgba(122,179,86,0.05); }
+  }
+
+  /* Glowing quote marks */
+  .quote-section::before {
+    animation: quoteGlow 5s ease-in-out infinite;
+    will-change: text-shadow, opacity;
+  }
+  @keyframes quoteGlow {
+    0%, 100% { text-shadow: 0 0 0 transparent; opacity: 0.15; }
+    50% { text-shadow: 0 0 40px rgba(201,169,110,0.2); opacity: 0.25; }
+  }
+
+  /* Floating dust particles */
+  .dust-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+
+  /* Luminous text highlight for special passages */
+  .glow-line {
+    display: inline;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.08), transparent);
+    background-size: 200% 100%;
+    animation: shimmerText 8s ease-in-out infinite;
+    will-change: background-position;
+  }
+  @keyframes shimmerText {
+    0%, 100% { background-position: -200% 0; }
+    50% { background-position: 200% 0; }
+  }
+
+  /* Section divider — subtle light line */
+  .light-divider {
+    width: 60px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+    animation: dividerPulse 4s ease-in-out infinite;
+    will-change: opacity, width;
+  }
+  @keyframes dividerPulse {
+    0%, 100% { opacity: 0.3; width: 60px; }
+    50% { opacity: 0.7; width: 100px; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  [data-reveal] {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform;
+  }
+  [data-reveal].visible { opacity: 1; transform: translateY(0); }
+
+  /* Cross-browser compatibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky-bg"></div>
+
+<!-- Floating dust particles -->
+<canvas class="dust-canvas" id="dustCanvas"></canvas>
+
+<!-- Sun (warm morning glow) -->
+<div class="sun" id="sun">
+  <svg viewBox="-100 -100 600 600" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(255,250,230,0.25)"/>
+        <stop offset="40%" stop-color="rgba(255,240,200,0.1)"/>
+        <stop offset="100%" stop-color="rgba(255,230,180,0)"/>
+      </radialGradient>
+      <radialGradient id="sunCore" cx="45%" cy="42%" r="50%">
+        <stop offset="0%" stop-color="#fffef8"/>
+        <stop offset="25%" stop-color="#fff6e0"/>
+        <stop offset="60%" stop-color="#f0e0b8"/>
+        <stop offset="100%" stop-color="#d4b878"/>
+      </radialGradient>
+      <radialGradient id="sunHighlight" cx="40%" cy="38%" r="40%">
+        <stop offset="0%" stop-color="rgba(255,255,240,0.5)"/>
+        <stop offset="100%" stop-color="rgba(255,255,240,0)"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="350" fill="url(#sunGlow)"/>
+    <circle cx="200" cy="200" r="250" fill="url(#sunGlow)"/>
+    <!-- Warm halo rings -->
+    <circle cx="200" cy="200" r="220" fill="none" stroke="rgba(255,200,100,0.06)" stroke-width="16"/>
+    <circle cx="200" cy="200" r="210" fill="none" stroke="rgba(255,220,140,0.05)" stroke-width="12"/>
+    <circle cx="200" cy="200" r="200" fill="none" stroke="rgba(255,240,180,0.04)" stroke-width="8"/>
+    <!-- Sun disc -->
+    <circle cx="200" cy="200" r="140" fill="url(#sunCore)"/>
+    <circle cx="200" cy="200" r="140" fill="url(#sunHighlight)"/>
+  </svg>
+</div>
+
+<nav class="back-nav">
+  <a href="../" class="back-link">&larr; Zurück</a>
+  <a href="../" class="back-brand">
+    <img src="../images/Logo-1.png.webp" alt="">
+    Funkenfangen
+  </a>
+</nav>
+
+<div class="page-content">
+
+  <!-- ══ MOON NAV TOP ══ -->
+  <nav class="moon-nav" data-reveal>
+    <div class="moon-nav-inner">
+      <a href="../" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
+        <span class="moon-label">Home</span>
+      </a>
+      <a href="../ueber-mich/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.4"/></svg>
+        <span class="moon-label">Über mich</span>
+      </a>
+      <a href="../buecher/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 8 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
+        <span class="moon-label">Bücher &amp; Kolumnen</span>
+      </a>
+      <a href="/#presse" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Presse</span>
+      </a>
+      <a href="../zirkel/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        <span class="moon-label">Zirkel</span>
+      </a>
+      <a href="/#kontakt" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Kontakt</span>
+      </a>
+      <a href="https://munichwitchcraft.com" class="moon-item" target="_blank" rel="noopener">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 10 14 0 0 0 0-28z" fill="currentColor" opacity="0.25"/></svg>
+        <span class="moon-label">Munich Witchcraft</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══ SECTION NAV ══ -->
+  <div class="section-nav" data-reveal>
+    <div class="section-nav-inner">
+      <a href="#buch-50woerter" class="section-nav-btn">50 Wörter für Liebe</a>
+      <a href="#buch-gruene-seelen" class="section-nav-btn">Grüne Seelen</a>
+      <a href="#kolumnen" class="section-nav-btn">Kolumnen</a>
+    </div>
+  </div>
+
+  <!-- ══ BOOK 1 — 50 Wörter für Liebe ══ -->
+  <section id="buch-50woerter" class="book-hero" data-reveal>
+    <div class="book-covers">
+      <div class="book-cover-wrap">
+        <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" target="_blank" rel="noopener">
+          <img src="../images/50woerter-cover.png" alt="50 Wörter für Liebe – Buch" loading="lazy" decoding="async">
+        </a>
+        <span class="cover-label">Buch</span>
+      </div>
+      <div class="book-cover-wrap">
+        <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" target="_blank" rel="noopener">
+          <img src="../images/50woerter-hoerbuch.png" alt="50 Wörter für Liebe – Hörbuch" loading="lazy" decoding="async">
+        </a>
+        <span class="cover-label">Hörbuch</span>
+      </div>
+    </div>
+    <div class="book-hero-text">
+      <h1><span class="gold">50 Wörter<br>für</span> <span class="accent">Liebe</span></h1>
+      <p class="subtitle">Inspirationen, die das Herz berühren</p>
+      <p class="author">Mika Schöberl</p>
+      <p class="tagline">Von Abschied über Outing bis Zärtlichkeit: Eine Reise ins Herz des Lebens. Mit berührenden Anekdoten, tiefgründigen Essays, poetischen Gedichten, fesselnden Geschichten und praktischen Übungen.</p>
+      <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" class="cta-btn" target="_blank" rel="noopener">Jetzt bestellen</a>
+    </div>
+  </section>
+
+
+  <!-- ══ ZITAT SABRINA FOX ══ -->
+  <section class="quote-section">
+    <p class="quote-text" data-reveal>Dies ist kein Buch zum schnellen Durchlesen. Es ist ein <span class="glow-line">wunder-volles Werk</span>, welches – wie die Liebe – erforscht werden möchte und zur eigenen Entdeckung anregt. Danke.</p>
+    <p class="quote-author" data-reveal>Sabrina Fox · Bestsellerautorin &amp; Moderatorin</p>
+  </section>
+
+
+  <!-- ══ GEDICHT 1 — "Ich kann nicht anders" ══ -->
+  <section class="poem-section">
+    <p class="poem-title" data-reveal>Aus dem Buch</p>
+    <div class="poem-block expandable" data-reveal>
+      <p class="poem-verse">Ich kann nicht anders.</p>
+      <p class="poem-verse">Ich muss schreiben.</p>
+      <p class="poem-verse">Mich an <span class="pw">Worten</span>, <span class="pw">Versen</span> reiben.</p>
+      <p class="poem-verse">Was oft bleibt stumm – in <span class="pw">Reimen</span> laut,</p>
+      <p class="poem-verse">Weil - Alltag uns die <span class="pg">Sterne</span> klaut.</p>
+      <p class="poem-verse">Nichts Neues habe ich erdacht?</p>
+      <div class="expand-hidden">
+        <p class="poem-verse">Worüber nicht schon frech gelacht.</p>
+        <p class="poem-verse">Woran schon <span class="pw">Herzen</span> sind zerbrochen,</p>
+        <p class="poem-verse">Was <span class="pg">Freunde</span> ewig sich versprochen.</p>
+        <p class="poem-verse">Und doch, in jedem Wort, das fällt,</p>
+        <p class="poem-verse">Erblüht ein Stück von meiner <span class="pw">Welt</span>.</p>
+        <p class="poem-verse">In <span class="pg">Strophen</span> find' ich neuen <span class="pw">Mut</span>,</p>
+        <p class="poem-verse">Kann formen: <span class="pg">Schmerzen</span>, <span class="pg">Eifer</span>, Wut.</p>
+        <p class="poem-verse">Im Vers, da ruft ein <span class="pw">wildes Streben</span>,</p>
+        <p class="poem-verse">Zu finden einen <span class="pg">Sinn</span> im <span class="pw">Leben</span>.</p>
+        <p class="poem-verse">Und weil Du's liest, so teil'n wir doch –</p>
+        <p class="poem-verse">Ein kleines Stück vom <span class="pg">Dichterjoch</span>.</p>
+      </div>
+      <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
+    </div>
+  </section>
+
+
+  <!-- ══ PHOTO — Verliebtheit ══ -->
+  <section class="photo-section" data-reveal>
+    <div class="photo-grid">
+      <div class="photo-item wide">
+        <img src="../images/verliebtheit.png" alt="Mika Schöberl – 50 Wörter für Liebe" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ BESCHREIBUNG ══ -->
+  <section class="desc-section" data-reveal>
+    <h2>Über das Buch</h2>
+    <p>Liebe ist mehr als nur ein Gefühl – sie ist eine Lebenshaltung, ein fortwährendes Abenteuer, ein erhabener Pfad. Sie besitzt die wundervolle Kraft, Menschen zu formen, zu heilen und zu vereinen.</p>
+    <p>In Schöberls Werk entfaltet sich die Liebe in all ihren Ausdrucksformen – unerwartet, anders, zart. Jeder der 50 sorgfältig ausgewählten Begriffe öffnet ein Tor zu neuen Perspektiven und Erfahrungen: niemals als Zufall, immer als zauberhafte Möglichkeit.</p>
+    <p>In einer Zeit, in der Konflikte, Kriege und Zwietracht Gesellschaft, Freundschaften und Beziehungen teilen, ist dieses Buch ein Bollwerk der Liebe inmitten der Polarisierung, der digitalen Vereinsamung und der erstarkenden Gleichgültigkeit – ein zeitgemäßer Kompass für alle, die nach Verbindung suchen.</p>
+    <p><span class="glow-line">Ein kostbares Geschenk für die Seele</span> – zum Selbstlesen und zum Verschenken.</p>
+  </section>
+
+
+  <!-- ══ INHALTSVERZEICHNIS ══ -->
+  <section class="inhalt-section" data-reveal>
+    <h2>Inhaltsverzeichnis</h2>
+    <div class="inhalt-img-wrap">
+      <img src="../images/inhaltsverzeichnis.webp" alt="Inhaltsverzeichnis – 50 Wörter für Liebe" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+
+  <!-- ══ VIDEOS ══ -->
+  <section class="video-section" data-reveal>
+    <h2>Videos zum Buch</h2>
+    <div class="video-grid">
+      <div class="video-item landscape">
+        <iframe src="https://www.youtube.com/embed/-nbXBGrf3vA" title="50 Wörter für Liebe – Hörbuch" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="light-divider" data-reveal></div>
+
+  <!-- ══ ZITAT FRITZ FENZL ══ -->
+  <section class="quote-section">
+    <div class="expandable" data-reveal>
+      <p class="quote-text visible">„Die Liebe ist eine Wunde", so schreibt der junge, hoffnungstragende Poet, doch die Heilung bietet er gleich mit an: In der schier unglaublichen Kraft des Wortes! Wenn die Natur dichten könnte und wollte, so würde sie schreiben wie Mika Schöberl. Hier wird dem staunenden Leser bewusst: Am Anfang, oder im Anfang, war das Wort – das wohlwollende, lebensbejahende Wort, und wir haben die Verpflichtung, diese Worte heilend und schaffend einzusetzen.<span class="expand-hidden-inline"> So geschieht es hier, Zeile für Zeile. Ein „Hinter-dem-Spiegel"-Autor ist dieser Wortmaler mit heilenden Gedanken; die Sätze fließen ihm leicht von der Hand hinein in die 50 Texte eines ansprechend gestalteten Buches. Da kommen Champagnerperlen der Lebenskraft mitten aus dem Herzen. Nichts ist zu sehr intellektualisiert; das empfindende Gemüt führt die Feder. Könnte man dem Wort-Schatz „Wörter für die Liebe" eine Farbe zuordnen, wäre es wohl das tiefe Blau der Transzendenz. Nicht nur lesenswert, sondern eine Textsammlung zum Verinnerlichen!</span></p>
+      <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
+    </div>
+    <p class="quote-author" data-reveal>Fritz Fenzl · Bestsellerautor &amp; Theologe</p>
+  </section>
+
+
+  <!-- ══ FOTO-GALERIE (scrollbar) ══ -->
+  <section class="gallery-section" data-reveal>
+    <h2>Pressefotos</h2>
+    <div class="scroll-hint-wrap">
+      <div class="gallery-scroll">
+        <div class="gallery-item">
+          <img src="../images/brieftaube.png" alt="Mika Schöberl – Brieftaube" loading="lazy" decoding="async">
+        </div>
+        <div class="gallery-item">
+          <img src="../images/schmetterling.png" alt="Mika Schöberl – Schmetterling" loading="lazy" decoding="async">
+        </div>
+        <div class="gallery-item landscape">
+          <img src="../images/renaissance.png" alt="Mika Schöberl" style="object-position: 70% center;" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ TRANSITION TO GRÜNE SEELEN ══ -->
+  <div class="book-transition"></div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ══ BOOK 2 — GRÜNE SEELEN ══ -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="book2-zone">
+
+  <section id="buch-gruene-seelen" class="book-hero" data-reveal>
+    <div class="book-covers">
+      <div class="book-cover-wrap">
+        <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" target="_blank" rel="noopener">
+          <img src="../images/gruene-seelen-cover.png" alt="Grüne Seelen – Buch" loading="lazy" decoding="async">
+        </a>
+        <span class="cover-label">Buch</span>
+      </div>
+      <div class="book-cover-wrap">
+        <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" target="_blank" rel="noopener">
+          <img src="../images/gruene-seelen-hoerbuch.png" alt="Grüne Seelen – Hörbuch" loading="lazy" decoding="async">
+        </a>
+        <span class="cover-label">Hörbuch</span>
+      </div>
+    </div>
+    <div class="book-hero-text">
+      <h1><span class="gold">Grüne</span> <span class="accent">Seelen</span></h1>
+      <p class="subtitle">Über die Weisheit der Natur</p>
+      <p class="author">Mika Schöberl</p>
+      <p class="tagline">Aus der Lebens-Praxis eines Heilpraktikers. Zurück in den Schoß der Natur – ein herausragendes Buch, das gleichermaßen berührt wie inspiriert.</p>
+      <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" class="cta-btn" target="_blank" rel="noopener">Jetzt bestellen</a>
+    </div>
+  </section>
+
+
+  <section class="desc-section expandable" data-reveal>
+    <h2>Über das Buch</h2>
+    <p>In unserer Leistungsgesellschaft hat sich der moderne Mensch weit von seinen Wurzeln entfernt. Chronische Erkrankungen und psychosomatische Beschwerden haben sich mehr und mehr zu Volksleiden entwickelt. Ist das wirklich unser Schicksal?</p>
+    <p>Mika Schöberl kennt einen anderen Weg: Um nachhaltig und mit neuer Kreativität Herausforderungen unserer Zeit anpacken zu können, empfiehlt er, den Wundern der Natur und der ganzheitlichen Betrachtung der Welt und des Menschen wieder Raum zu geben und uns ihrer Bedeutung für Körper, Geist und Seele bewusst zu werden.</p>
+    <div class="expand-hidden">
+      <p>Viele Menschen spüren immer deutlicher die Sehnsucht nach der Natur, nach mehr Ursprünglichkeit in ihrem Leben und einer neuen Definition des Lebenssinns. Auf poetische und doch ganz unmittelbare Weise erzählt der Autor von seinem eigenen Weg der Genesung und dem Prozess seiner Persönlichkeitsentwicklung.</p>
+      <p>Als Heilpraktiker, Musiker und Kunstwissenschaftler entführt er uns einfühlsam in eine längst vergessene Bildsprache, die uns den immateriellen Reichtum und die unzähligen Perspektiven eines ganzheitlichen Weltbildes aufzeigt.</p>
+      <p style="font-style:italic;color:var(--cream);opacity:0.9;">„Ja, wir sind wie Bäume mit starken Wurzeln, wir sind die Melodien eines kosmischen Reigens und die Gebete einer fortwährenden Schöpfung. Diesen Wurzeln, diesen inneren Gesängen, <span class="glow-line">diesen kraftvollen Funken der Hoffnung</span> sollten wir folgen – auch ins Ungewisse, in die tiefe Erde … bis in unsere Seelen."</p>
+    </div>
+    <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
+  </section>
+
+
+  <section class="quote-section">
+    <div class="expandable" data-reveal>
+      <p class="quote-text visible">Mit dem Titel „Grüne Seelen" legt Mika Schöberl ein herausragendes Buch vor, das gleichermaßen berührt wie inspiriert. Er packt die Ursache jeglichen psychosomatischen Leidens, ergo die Tatsache, dass der Mensch den Kontakt zu sich selbst und zur Natur verloren hat, verbal trefflich an der Wurzel, lässt seine Leser mit dieser Erkenntnis aber nicht im Regen stehen.<span class="expand-hidden-inline"> Vielmehr zeigt der Autor vielfältige Wege zurück in ein naturgemäßes Leben und verhilft dem längst inflationär gebrauchten Begriff der Ganzheitlichkeit zu neuen Würden. Lesenswert, bereichernd und zukunftsweisend.</span></p>
+      <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
+    </div>
+    <p class="quote-author" data-reveal>Verena Grein · Redaktionsleitung Naturarzt</p>
+  </section>
+
+  <!-- ══ VIDEOS Grüne Seelen ══ -->
+  <section class="video-section" data-reveal>
+    <h2>Videos zum Buch</h2>
+    <div class="video-grid">
+      <div class="video-item landscape">
+        <iframe src="https://www.youtube.com/embed/evYhS81obhY" title="Grüne Seelen" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-item landscape">
+        <iframe src="https://www.youtube.com/embed/MA_qOVJkfiI" title="Grüne Seelen – Hörbuch" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-item landscape">
+        <iframe src="https://www.youtube.com/embed/v4ft8X9GnwA" title="Grüne Seelen – Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOTO-GALERIE Grüne Seelen (scrollbar) ══ -->
+  <section class="gallery-section" data-reveal>
+    <h2>Pressefotos</h2>
+    <div class="scroll-hint-wrap">
+      <div class="gallery-scroll">
+        <div class="gallery-item">
+          <img src="../images/impark.png" alt="Mika Schöberl – Im Park" loading="lazy" decoding="async">
+        </div>
+        <div class="gallery-item">
+          <img src="../images/nyktophilist.jpg" alt="Mika Schöberl – Nyktophilist" loading="lazy" decoding="async">
+        </div>
+        <div class="gallery-item">
+          <img src="../images/portrait1.png" alt="Mika Schöberl – Portrait" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+  <!-- ══ END BOOK 2 ══ -->
+
+
+  <!-- ══ KOLUMNEN ══ -->
+  <section id="kolumnen" class="kolumnen-section" data-reveal>
+    <h2>Kolumnen</h2>
+    <p class="kolumnen-sub">Regelmäßige Beiträge in Fachmagazinen</p>
+    <div class="kolumnen-grid">
+      <a href="https://www.naturarzt-access.de/" class="kolumne-card" target="_blank" rel="noopener">
+        <div class="kolumne-card-title">Naturarzt</div>
+        <div class="kolumne-card-sub">Fachmagazin</div>
+      </a>
+      <a href="https://www.yoga-aktuell.de/author/mschoeberl/" class="kolumne-card" target="_blank" rel="noopener">
+        <div class="kolumne-card-title">Yoga Aktuell</div>
+        <div class="kolumne-card-sub">Magazin</div>
+      </a>
+    </div>
+
+    <div class="naturarzt-detail" data-reveal>
+      <h3><span style="color: var(--gold);">Seelenschau</span> – die monatliche <span style="color: var(--gold);">Kolumne</span><br>im „Naturarzt", erhältlich am Kiosk und<br>im Zeitschriftenhandel!</h3>
+      <div class="scroll-hint-wrap">
+        <div class="naturarzt-covers">
+          <div class="na-cover-item"><img src="../images/na-1-2026.webp" alt="Naturarzt Januar 2026" loading="lazy" decoding="async"></div>
+          <div class="na-cover-item"><img src="../images/na-11-2025.webp" alt="Naturarzt November 2025" loading="lazy" decoding="async"></div>
+          <div class="na-cover-item"><img src="../images/na-5-2025.webp" alt="Naturarzt Mai 2025" loading="lazy" decoding="async"></div>
+          <div class="na-cover-item"><img src="../images/na-4-2025.webp" alt="Naturarzt April 2025" loading="lazy" decoding="async"></div>
+          <div class="na-cover-item"><img src="../images/na-img-0658.webp" alt="Naturarzt Kolumne" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <a href="https://funkenfangen.com/blog/" class="cta-btn" target="_blank" rel="noopener" style="margin-top: 2rem;">Leseproben alter Ausgaben</a>
+    </div>
+
+  </section>
+
+  <!-- ══ MOON NAV BOTTOM ══ -->
+  <nav class="moon-nav moon-nav-bottom" data-reveal>
+    <div class="moon-nav-inner">
+      <a href="../" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
+        <span class="moon-label">Home</span>
+      </a>
+      <a href="../ueber-mich/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.4"/></svg>
+        <span class="moon-label">Über mich</span>
+      </a>
+      <a href="../buecher/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 8 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
+        <span class="moon-label">Bücher &amp; Kolumnen</span>
+      </a>
+      <a href="/#presse" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Presse</span>
+      </a>
+      <a href="../zirkel/" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        <span class="moon-label">Zirkel</span>
+      </a>
+      <a href="/#kontakt" class="moon-item">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
+        <span class="moon-label">Kontakt</span>
+      </a>
+      <a href="https://munichwitchcraft.com" class="moon-item" target="_blank" rel="noopener">
+        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 10 14 0 0 0 0-28z" fill="currentColor" opacity="0.25"/></svg>
+        <span class="moon-label">Munich Witchcraft</span>
+      </a>
+    </div>
+  </nav>
+
+  <footer class="page-footer">
+    <div class="footer-brand">Funkenfangen</div>
+    <p class="footer-copy" style="font-family:var(--font-serif);font-style:italic;font-size:0.8rem;opacity:0.35;margin-bottom:0.8rem;letter-spacing:0.15em;">A Softer Kind of Knowing</p>
+    <p class="footer-copy">© 2026 Mika Schöberl · München<br><a href="../?tab=impressum#legal">Impressum</a> · <a href="../?tab=datenschutz#legal">Datenschutz</a></p>
+  </footer>
+
+</div>
+
+<!-- ══ SCROLL REVEAL + SUN MOVEMENT ══ -->
+<script>
+(function(){
+  var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
+
+  /* Hide scroll arrow after user scrolls a carousel */
+  document.querySelectorAll('.scroll-hint-wrap').forEach(function(wrap) {
+    var scroller = wrap.querySelector('.gallery-scroll, .naturarzt-covers');
+    if (scroller) {
+      scroller.addEventListener('scroll', function() {
+        if (scroller.scrollLeft > 20) wrap.classList.add('scrolled');
+      }, { passive: true });
+    }
+  });
+
+  /* Scroll reveal */
+  var els = document.querySelectorAll('[data-reveal]');
+  if(els.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    els.forEach(function(el){ obs.observe(el); });
+  }
+
+  /* Section nav — highlight active button based on scroll */
+  var navBtns = document.querySelectorAll('.section-nav-btn');
+  var sections = [
+    { id: 'buch-50woerter', cls: 'active-gold' },
+    { id: 'buch-gruene-seelen', cls: 'active-green' },
+    { id: 'kolumnen', cls: 'active-gold' }
+  ];
+  function updateNavActive() {
+    var trigger = window.innerHeight / 3;
+    var activeIdx = 0;
+    sections.forEach(function(s, i) {
+      var el = document.getElementById(s.id);
+      if (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top <= trigger) activeIdx = i;
+      }
+    });
+    navBtns.forEach(function(btn, i) {
+      btn.classList.remove('active-gold', 'active-green');
+      if (i === activeIdx) btn.classList.add(sections[i].cls);
+    });
+  }
+  window.addEventListener('scroll', updateNavActive, {passive: true});
+  updateNavActive();
+
+  /* Wandering sun — gentle S-curve across the page */
+  var sun = document.getElementById('sun');
+  if(!sun) return;
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      ticking = true;
+      rAF(function(){
+        var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        var pct = Math.min(scrollY / scrollH, 1);
+
+        /* S-curve path — sun drifts gently (using transform for perf) */
+        var top = 3 + 75 * pct;
+        var sWave = Math.sin(pct * Math.PI * 2) * 25;
+        var drift = pct * 20;
+        var right = 8 - sWave + drift;
+        var topOffset = top - 5;
+        var rightOffset = right - 8;
+        sun.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
+
+        /* Fade: bright at start, softens toward end */
+        var opacity = 0.5 * (1 - pct * 0.6);
+        if(opacity < 0.08) opacity = 0.08;
+        sun.style.opacity = opacity.toFixed(2);
+
+        ticking = false;
+      });
+    }
+  }, {passive: true});
+  /* ══ FLOATING DUST PARTICLES ══ */
+  var canvas = document.getElementById('dustCanvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var particleCount = 80;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    for (var i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2.5 + 0.3,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: (Math.random() - 0.5) * 0.25 - 0.05,
+        opacity: Math.random() * 0.5 + 0.1,
+        flickerSpeed: Math.random() * 0.02 + 0.005,
+        flickerPhase: Math.random() * Math.PI * 2
+      });
+    }
+
+    function animateDust() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var time = Date.now() * 0.001;
+      particles.forEach(function(p) {
+        p.x += p.speedX + Math.sin(time + p.flickerPhase) * 0.15;
+        p.y += p.speedY;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        var flicker = (Math.sin(time * p.flickerSpeed * 60 + p.flickerPhase) + 1) * 0.5;
+        var alpha = p.opacity * (0.5 + flicker * 0.5);
+        var goldR = 201, goldG = 169, goldB = 110;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + goldR + ',' + goldG + ',' + goldB + ',' + alpha.toFixed(2) + ')';
+        ctx.fill();
+      });
+      rAF(animateDust);
+    }
+    animateDust();
+  }
+
+  /* ══ DYNAMIC SKY — scroll-driven day cycle ══ */
+  var skyBg = document.querySelector('.sky-bg');
+  if (skyBg) {
+    var skyStops = [
+      // 0% — night (deep blue-black)
+      { r: 12, g: 16, b: 28 },
+      // 15% — early dawn (dark indigo with hint of blue)
+      { r: 22, g: 32, b: 55 },
+      // 30% — morning (cool steel blue, clear)
+      { r: 52, g: 72, b: 95 },
+      // 45% — late morning (bright sky blue)
+      { r: 58, g: 82, b: 108 },
+      // 55% — midday (warm blue, slightly golden)
+      { r: 48, g: 68, b: 90 },
+      // 70% — afternoon (warm, golden haze)
+      { r: 55, g: 52, b: 42 },
+      // 85% — golden hour (amber warmth)
+      { r: 72, g: 48, b: 28 },
+      // 100% — Abendrot (deep warm red-orange)
+      { r: 62, g: 32, b: 22 }
+    ];
+    var skyPositions = [0, 0.15, 0.3, 0.45, 0.55, 0.7, 0.85, 1.0];
+
+    function lerpColor(a, b, t) {
+      return {
+        r: Math.round(a.r + (b.r - a.r) * t),
+        g: Math.round(a.g + (b.g - a.g) * t),
+        b: Math.round(a.b + (b.b - a.b) * t)
+      };
+    }
+
+    function getSkyColor(pct) {
+      for (var i = 0; i < skyPositions.length - 1; i++) {
+        if (pct >= skyPositions[i] && pct <= skyPositions[i + 1]) {
+          var local = (pct - skyPositions[i]) / (skyPositions[i + 1] - skyPositions[i]);
+          return lerpColor(skyStops[i], skyStops[i + 1], local);
+        }
+      }
+      return skyStops[skyStops.length - 1];
+    }
+
+    function updateSky() {
+      var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      var pct = Math.min(window.scrollY / scrollH, 1);
+      var c = getSkyColor(pct);
+      var c2 = getSkyColor(Math.min(pct + 0.08, 1));
+
+      // Build atmospheric overlays based on time of day
+      var dawnGlow = Math.max(0, 1 - Math.abs(pct - 0.2) * 5) * 0.3;
+      var goldenGlow = Math.max(0, 1 - Math.abs(pct - 0.8) * 4) * 0.35;
+      var abendrot = Math.max(0, (pct - 0.7) / 0.3) * 0.3;
+      var morningLight = Math.max(0, 1 - Math.abs(pct - 0.35) * 4) * 0.25;
+
+      skyBg.style.background =
+        'radial-gradient(ellipse at 55% 30%, rgba(255,240,200,' + dawnGlow.toFixed(2) + ') 0%, transparent 50%),' +
+        'radial-gradient(ellipse at 50% 40%, rgba(255,250,230,' + morningLight.toFixed(2) + ') 0%, transparent 45%),' +
+        'radial-gradient(ellipse at 45% 50%, rgba(255,180,80,' + goldenGlow.toFixed(2) + ') 0%, transparent 50%),' +
+        'radial-gradient(ellipse at 50% 60%, rgba(200,80,50,' + abendrot.toFixed(2) + ') 0%, transparent 40%),' +
+        'linear-gradient(to bottom, rgb(' + c.r + ',' + c.g + ',' + c.b + '), rgb(' + c2.r + ',' + c2.g + ',' + c2.b + '))';
+    }
+
+    var lastSkyPct = -1;
+    var origUpdateSky = updateSky;
+    updateSky = function() {
+      var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      var pct = Math.min(window.scrollY / scrollH, 1);
+      var rounded = Math.round(pct * 200) / 200;
+      if (rounded === lastSkyPct) return;
+      lastSkyPct = rounded;
+      origUpdateSky();
+    };
+
+    window.addEventListener('scroll', function() {
+      rAF(updateSky);
+    }, {passive: true});
+    origUpdateSky();
+  }
+
+})();
+</script>
+
+</body>
+</html>
