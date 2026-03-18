@@ -673,9 +673,9 @@
      ══════════════════════════════════════ */
   .projekte-statement {
     position: relative;
-    padding: 3rem 2rem;
+    padding: 4.5rem 2.5rem;
     margin: 0 auto;
-    max-width: 680px;
+    max-width: 780px;
     text-align: center;
     opacity: 0;
     transform: translateY(20px);
@@ -687,21 +687,21 @@
   }
   .projekte-text {
     font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+    font-size: clamp(1.35rem, 3.2vw, 1.9rem);
     font-weight: 300;
     font-style: italic;
     line-height: 2.2;
     color: var(--cream);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
-  .projekte-text .gold { color: var(--gold); }
+  .projekte-text .gold { color: var(--gold); font-weight: 400; }
   .projekte-daisy-icon {
     display: inline-block;
-    width: 1.1em;
-    height: 1.1em;
-    vertical-align: -0.1em;
-    margin: 0 0.1em;
-    opacity: 0.75;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.15em;
+    margin: 0 0.15em;
+    opacity: 0.8;
   }
 
   /* ══════════════════════════════════════
@@ -1259,7 +1259,7 @@
 
     .about-section { padding: 3rem 1.5rem 2rem; }
     .about-text { font-size: 0.95rem; line-height: 2; }
-    .projekte-statement { padding: 2.5rem 1.5rem; }
+    .projekte-statement { padding: 2rem 1.5rem; }
     .moon-nav { padding: 2rem 0.5rem 3rem; }
     .moon-nav-wave { display: none; }
     .moon-nav-orbit { flex-wrap: wrap; gap: 1.2rem 1rem; justify-content: center; }
@@ -1669,30 +1669,9 @@
 
 <!-- ═══ PROJEKTE STATEMENT ═══ -->
 <div class="projekte-statement" data-reveal>
-  <span class="projekte-line projekte-line-1">Meine Projekte wachsen</span>
-  <div class="projekte-rule"></div>
-  <span class="projekte-line projekte-line-2"><span class="projekte-wie">wie </span><span class="projekte-daisy-word">Gänseblümchen</span>
-    <svg class="projekte-daisy-icon" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="50" r="10" fill="#c9a96e"/>
-      <g fill="rgba(232,226,212,0.85)">
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(0,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(30,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(60,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(90,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(120,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(150,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(180,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(210,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(240,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(270,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(300,50,50)"/>
-        <ellipse cx="50" cy="22" rx="7" ry="16" transform="rotate(330,50,50)"/>
-      </g>
-    </svg>
-  </span>
-  <span class="projekte-line projekte-line-3">im Betongrau einer Welt im Umbruch</span>
-  <div class="projekte-rule"></div>
-  <span class="projekte-accent">zart, wild und widerständig.</span>
+  <p class="projekte-text">
+    Meine Projekte wachsen wie Gänseblümchen<svg class="projekte-daisy-icon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="9" fill="#c9a96e"/><g fill="rgba(232,226,212,0.8)"><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(0,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(30,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(60,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(90,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(120,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(150,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(180,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(210,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(240,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(270,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(300,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(330,50,50)"/></g></svg>im Betongrau einer Welt im Umbruch: <span class="gold">zart, wild und widerständig.</span>
+  </p>
 </div>
 
 <!-- ═══ PORTRAIT ═══ -->
