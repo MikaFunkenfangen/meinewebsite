@@ -1364,7 +1364,7 @@
     pointer-events: none;
     transition: opacity 1.5s ease;
   }
-  .alpen-skyline.visible { opacity: 0.3; }
+  .alpen-skyline.visible { opacity: 0.5; }
   .alpen-skyline img {
     display: block;
     width: 100%;
@@ -2089,9 +2089,9 @@ if (isLowEnd) {
     { r: 24, g: 32, b: 58 },    // 40% — Sattes Nachtblau
     { r: 35, g: 42, b: 72 },    // 55% — Tiefes Blau
     { r: 48, g: 48, b: 68 },    // 68% — Blau-Grau Dämmerung
-    { r: 72, g: 55, b: 65 },    // 80% — Warmes Dämmerungsgrau
-    { r: 130, g: 65, b: 68 },   // 92% — Rosé-Rot
-    { r: 155, g: 60, b: 75 }    // 100% — Rötlich-Magenta Morgenröte
+    { r: 65, g: 55, b: 62 },    // 80% — Zartes Dämmerungsgrau
+    { r: 105, g: 65, b: 68 },   // 92% — Sanftes Rosé
+    { r: 130, g: 75, b: 78 }    // 100% — Zarte rötliche Morgenröte
   ];
   var skyPositions = [0, 0.12, 0.25, 0.40, 0.55, 0.68, 0.80, 0.92, 1.0];
 
@@ -2129,10 +2129,9 @@ if (isLowEnd) {
     var morgenrot = pct > 0.82 ? Math.min((pct - 0.82) / 0.18, 1) : 0;
 
     bg += ', radial-gradient(ellipse at 50% 50%, rgba(30,50,110,' + (blueGlow * 0.12).toFixed(3) + ') 0%, transparent 55%)';
-    bg += ', radial-gradient(ellipse at 55% 80%, rgba(140,65,70,' + (warmDawn * 0.08).toFixed(3) + ') 0%, transparent 50%)';
-    bg += ', radial-gradient(ellipse at 50% 95%, rgba(175,55,80,' + (morgenrot * 0.15).toFixed(3) + ') 0%, transparent 45%)';
-    bg += ', radial-gradient(ellipse at 30% 90%, rgba(200,80,95,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 40%)';
-    bg += ', radial-gradient(ellipse at 70% 95%, rgba(180,60,90,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 35%)';
+    bg += ', radial-gradient(ellipse at 55% 80%, rgba(130,65,68,' + (warmDawn * 0.06).toFixed(3) + ') 0%, transparent 50%)';
+    bg += ', radial-gradient(ellipse at 50% 95%, rgba(160,60,75,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 45%)';
+    bg += ', radial-gradient(ellipse at 30% 90%, rgba(180,75,85,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 40%)';
 
     skyBg.style.background = bg;
   }
