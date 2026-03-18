@@ -1040,6 +1040,10 @@
     will-change: transform;
     transform: translateZ(0);
   }
+  .kontakt-crane.no-animate {
+    animation: none;
+    will-change: auto;
+  }
   .kontakt-crane:hover {
     opacity: 1;
     filter: drop-shadow(0 0 40px rgba(201,169,110,0.45));
@@ -1797,7 +1801,8 @@ function showTab(btn, id) {
 var supportsBackdropFilter = CSS.supports && (CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'));
 var isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
 var isAndroid = navigator.userAgent.indexOf('Android') > -1;
-var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 
 // Isar: swap SVG for lightweight CSS version on low-end devices
@@ -1806,6 +1811,8 @@ if (isLowEnd) {
   var isarSimple = document.getElementById('isarSimple');
   if (isarSvg) isarSvg.style.display = 'none';
   if (isarSimple) isarSimple.style.display = 'block';
+  var crane = document.querySelector('.kontakt-crane');
+  if (crane) crane.classList.add('no-animate');
 }
 
 (function() {

@@ -1838,7 +1838,8 @@
 <script>
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 var isAndroid = /Android/i.test(navigator.userAgent);
-var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
 if (isLowEnd) {
   var isarSvg = document.getElementById('isar');
   var isarSimple = document.getElementById('isarSimple');
