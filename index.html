@@ -1862,6 +1862,9 @@ if (isLowEnd) {
   var isarSimple = document.getElementById('isarSimple');
   if (isarSvg) isarSvg.style.display = 'none';
   if (isarSimple) isarSimple.style.display = 'block';
+}
+// Schwan-Animation auf allen mobilen Geräten und Low-End deaktivieren
+if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
   var crane = document.querySelector('.kontakt-crane');
   if (crane) crane.classList.add('no-animate');
 }
