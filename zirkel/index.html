@@ -92,6 +92,10 @@
   .isar.isar-lite .isar-flow:nth-child(5){opacity:.2}
   .isar.isar-lite .isar-flow:nth-child(6){opacity:.35}
 
+  /* iOS Performance — beautiful river but lighter GPU load */
+  .ios-perf .isar-glow{filter:drop-shadow(0 0 10px rgba(90,190,210,.2))!important}
+  .ios-perf .isar-shimmer{animation-duration:8s!important}
+
   @media(max-width:768px){
     .isar svg { transform: scaleX(1.3); }
     .isar-glow { filter: drop-shadow(0 0 10px rgba(90,190,210,.2)) drop-shadow(0 0 30px rgba(70,170,200,.1)) !important; }
@@ -1835,11 +1839,15 @@
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 var isAndroid = /Android/i.test(navigator.userAgent);
 var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
-if (isLowEnd) {
+var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
+var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+if (isLowEnd && !isIOS) {
   var isarSvg = document.getElementById('isar');
   if (isarSvg) isarSvg.classList.add('isar-lite');
   document.body.classList.add('low-end');
+}
+if (isIOS) {
+  document.body.classList.add('ios-perf');
 }
 (function(){
   /* ── Legal Tabs ── */
@@ -1981,7 +1989,7 @@ if (isLowEnd) {
     ctx.save();
     ctx.globalAlpha = this.opacity;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = isLowEnd ? 0 : this.size * 3;
+    ctx.shadowBlur = (isLowEnd || isMobile) ? 0 : this.size * 3;
     ctx.shadowColor = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -2056,7 +2064,7 @@ if (isLowEnd) {
       dctx.save();
       dctx.globalAlpha = alpha;
       dctx.fillStyle = '#c9a96e';
-      dctx.shadowBlur = isLowEnd ? 0 : p.size * 3;
+      dctx.shadowBlur = (isLowEnd || isMobile) ? 0 : p.size * 3;
       dctx.shadowColor = 'rgba(201,169,110,0.4)';
       dctx.beginPath();
       dctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);

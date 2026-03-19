@@ -41,7 +41,7 @@
   .sky-bg {
     position: fixed; inset: 0; z-index: 0;
     transition: background 0.8s ease;
-    will-change: background;
+    /* will-change removed — scroll-driven bg change doesn't need compositor layer */
   }
 
   /* ══ DUST PARTICLES CANVAS ══ */
@@ -163,7 +163,7 @@
   }
   .isar-shimmer{fill:none;stroke-linecap:round;opacity:0;animation:isarShimmer var(--is-d,6s) ease-in-out var(--is-del,0s) infinite;will-change:opacity;transform:translateZ(0)}
   @keyframes isarShimmer{0%,100%{opacity:0;stroke-dashoffset:30}40%{opacity:.7;stroke-dashoffset:0}60%{opacity:.5;stroke-dashoffset:-10}100%{opacity:0;stroke-dashoffset:-30}}
-  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));will-change:filter;transform:translateZ(0)}
+  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));transform:translateZ(0)}
 
   /* Isar Lite — same SVG shape, no filters/animations for low-end */
   .isar.isar-lite .isar-glow{filter:none!important}
@@ -175,6 +175,12 @@
   .isar.isar-lite .isar-flow:nth-child(4){opacity:.25}
   .isar.isar-lite .isar-flow:nth-child(5){opacity:.2}
   .isar.isar-lite .isar-flow:nth-child(6){opacity:.35}
+
+  /* iOS Performance — beautiful river but lighter GPU load */
+  .ios-perf .isar-glow{filter:drop-shadow(0 0 10px rgba(90,190,210,.2))!important}
+  .ios-perf .isar-shimmer{animation-duration:8s!important}
+  .ios-perf .sky-bg{will-change:auto!important;transition:background 1.2s ease!important}
+  .ios-perf .moon{will-change:auto!important}
 
   @media(max-width:768px){
     .moon{width:clamp(215px,40vw,375px)!important;height:clamp(215px,40vw,375px)!important}
@@ -524,7 +530,6 @@
       transparent 65%
     );
     transition: opacity 0.6s ease;
-    will-change: opacity;
   }
   .portrait-frame.eclipse .eclipse-corona {
     opacity: 1;
@@ -1857,16 +1862,22 @@ var supportsBackdropFilter = CSS.supports && (CSS.supports('backdrop-filter', 'b
 var isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
 var isAndroid = navigator.userAgent.indexOf('Android') > -1;
 var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
+var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
+var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 
-// Isar: swap SVG for lightweight CSS version on low-end devices
-if (isLowEnd) {
+// Isar: keep full SVG on all devices, but disable heavy filters/animations on low-end
+if (isLowEnd && !isIOS) {
   var isarSvg = document.getElementById('isar');
   if (isarSvg) isarSvg.classList.add('isar-lite');
   document.body.classList.add('low-end');
 }
-if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
+// iOS: keep beautiful river but disable drop-shadows for performance
+if (isIOS) {
+  document.body.classList.add('ios-perf');
+}
+// Crane: no animation on mobile
+if (isMobile) {
   var crane = document.querySelector('.kontakt-crane');
   if (crane) crane.classList.add('no-animate');
 }
@@ -1932,7 +1943,7 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
       ctx.save();
       ctx.globalAlpha = this.opacity;
       ctx.fillStyle = this.color;
-      ctx.shadowBlur = isLowEnd ? 0 : this.size * 3;
+      ctx.shadowBlur = (isLowEnd || isMobile) ? 0 : this.size * 3;
       ctx.shadowColor = this.color;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1954,7 +1965,7 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
     }
   }
 
-  const starCount = window.innerWidth < 768 ? 80 : 180;
+  const starCount = isMobile ? 50 : 180;
   for (let i = 0; i < starCount; i++) stars.push(new Star());
 
   function animateStars() {
@@ -2123,7 +2134,7 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
     function resizeDust() { dustCanvas.width = window.innerWidth; dustCanvas.height = window.innerHeight; }
     resizeDust();
     window.addEventListener('resize', resizeDust);
-    var dustCount = window.innerWidth < 768 ? 40 : 80;
+    var dustCount = isMobile ? 25 : 80;
     var dustParticles = [];
     for (var i = 0; i < dustCount; i++) {
       dustParticles.push({
@@ -2149,16 +2160,19 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
         var alpha = p.opacity * (0.5 + 0.5 * Math.sin(p.flicker));
         dCtx.globalAlpha = alpha;
         dCtx.fillStyle = '#c9a96e';
-        dCtx.shadowBlur = isLowEnd ? 0 : p.size * 3;
+        dCtx.shadowBlur = (isLowEnd || isMobile) ? 0 : p.size * 3;
         dCtx.shadowColor = 'rgba(201,169,110,0.5)';
         dCtx.beginPath();
         dCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         dCtx.fill();
       }
       dCtx.shadowBlur = 0;
-      rAF(animateDust);
+      if (!document.hidden) rAF(animateDust);
     }
     animateDust();
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) animateDust();
+    });
   })();
 
   /* ── Guiding Star ── */
@@ -2172,9 +2186,13 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
 
     var starDissolveTimer = null;
     var starPulseTimer = null;
+    var guidingStarTicking = false;
 
     window.addEventListener('scroll', function() {
+      if (guidingStarTicking) return;
+      guidingStarTicking = true;
       rAF(function() {
+        guidingStarTicking = false;
         var scrollY = window.scrollY;
         var anchorPageY = starAnchor.getBoundingClientRect().top + scrollY;
         var logoPageY = logoContainer.getBoundingClientRect().top + scrollY + logoContainer.offsetHeight / 2;
@@ -2317,8 +2335,10 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
   document.getElementById("introEclipse").style.opacity="0";
   document.getElementById("introEclipse").style.transition="opacity 2s ease";
 
-  // Create stars
-  for(var i=0;i<140;i++){
+  // Create stars — reduced on mobile, batch-appended
+  var introParticleCount = isMobile ? 40 : 140;
+  var particleFrag = document.createDocumentFragment();
+  for(var i=0;i<introParticleCount;i++){
     var p=document.createElement("div");
     p.className="intro-particle";
     var sz=1+Math.random()*2.5;
@@ -2328,8 +2348,9 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
     p.style.animationDelay=Math.random()*8+"s";
     p.style.animationDuration=3+Math.random()*5+"s";
     if(Math.random()>.7)p.style.background="rgba(232,226,212,.8)";
-    particles.appendChild(p);
+    particleFrag.appendChild(p);
   }
+  particles.appendChild(particleFrag);
 
   var phaseTime=5000;
   var totalityTime=8000;
@@ -2372,8 +2393,9 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
   function endIntro(){
     if(fadingOut)return;
     fadingOut=true;
+    running=false;
     window.scrollTo(0,0);
-    if(audio){audio.pause();}
+    if(audio){audio.pause();audio.currentTime=0;audio.src="";}
     var flash=document.createElement("div");
     flash.style.cssText="position:fixed;inset:0;z-index:10000;pointer-events:none;overflow:hidden";
     var sun=document.createElement("div");
@@ -2398,12 +2420,17 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
     },7500);
   }
 
+  var lastEclipseCx = 200;
   function tick(timestamp){
     if(!running)return;
     if(!startTime)startTime=timestamp;
     var elapsed=timestamp-startTime;
 
-    shadow.setAttribute("cx",getEclipseCx(elapsed));
+    var newCx = Math.round(getEclipseCx(elapsed));
+    if (newCx !== lastEclipseCx) {
+      lastEclipseCx = newCx;
+      shadow.setAttribute("cx", newCx);
+    }
 
     var ti=getTextIndex(elapsed);
     if(ti!==textShown&&ti>=0&&ti<texts.length){
@@ -2480,14 +2507,19 @@ if (isLowEnd || isIOS || isAndroid || window.innerWidth <= 768) {
     skipBtn.classList.remove("hidden");
     document.getElementById("introEclipse").style.opacity="1";
     if(audio){
-      audio.volume=0;
-      audio.play().catch(function(){});
-      var vol=0;
-      var fadeIn=setInterval(function(){
-        vol+=0.05;
-        if(vol>=0.7){vol=0.7;clearInterval(fadeIn);}
-        audio.volume=vol;
-      },150);
+      if(isIOS){
+        // iOS ignores programmatic volume — just play directly
+        audio.play().catch(function(){});
+      } else {
+        audio.volume=0;
+        audio.play().catch(function(){});
+        var vol=0;
+        var fadeIn=setInterval(function(){
+          vol+=0.05;
+          if(vol>=0.7){vol=0.7;clearInterval(fadeIn);}
+          audio.volume=vol;
+        },150);
+      }
     }
     running=true;
     rAF(tick);

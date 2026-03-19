@@ -138,6 +138,10 @@
   .isar.isar-lite .isar-flow:nth-child(5){opacity:.2}
   .isar.isar-lite .isar-flow:nth-child(6){opacity:.35}
 
+  /* iOS Performance — beautiful river but lighter GPU load */
+  .ios-perf .isar-glow{filter:drop-shadow(0 0 10px rgba(90,190,210,.2))!important}
+  .ios-perf .isar-shimmer{animation-duration:8s!important}
+
   @media (max-width: 768px) {
     .isar svg { transform: scaleX(1.3); }
     .isar-glow {
@@ -1136,11 +1140,15 @@
 
   var isAndroid = /Android/i.test(navigator.userAgent);
   var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  var isLowEnd = !isIOS && (isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
+  var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
+  var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 
-  if (isLowEnd) {
+  if (isLowEnd && !isIOS) {
     var isarSvg = document.getElementById('isar');
     if (isarSvg) isarSvg.classList.add('isar-lite');
+  }
+  if (isIOS) {
+    document.body.classList.add('ios-perf');
   }
 
   /* ═══ DAWN LIGHT + ISAR + MOON ARC SCROLL ═══ */
