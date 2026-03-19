@@ -69,28 +69,20 @@
   .isar { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.5s ease; will-change: transform; }
   .isar.visible { opacity: 1; }
   .isar svg { width: 100%; height: 100%; overflow: visible; }
-  .isar-flow { fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; animation: isarFlow var(--if-d,12s) ease-in-out var(--if-del,0s) infinite; will-change: opacity; transform: translateZ(0); }
-  @keyframes isarFlow {
-    0%,100% { opacity: .1; stroke-dashoffset: 0; }
-    25% { opacity: .45; }
-    50% { opacity: .35; }
-    75% { opacity: .45; }
-  }
-  .isar-shimmer { fill: none; stroke-linecap: round; opacity: 0; animation: isarShimmer var(--is-d,6s) ease-in-out var(--is-del,0s) infinite; will-change: opacity; }
-  @keyframes isarShimmer { 0%,100% { opacity: 0; stroke-dashoffset: 30; } 40% { opacity: .7; stroke-dashoffset: 0; } 60% { opacity: .5; stroke-dashoffset: -10; } 100% { opacity: 0; stroke-dashoffset: -30; } }
-  .isar-glow { filter: drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08)); will-change: filter; transform: translateZ(0); }
+  /* Isar — static river, no animations for max performance */
+  .isar-flow { fill: none; stroke-linecap: round; stroke-linejoin: round; transform: translateZ(0); }
+  .isar-flow:nth-child(1){opacity:.18}
+  .isar-flow:nth-child(2){opacity:.38}
+  .isar-flow:nth-child(3){opacity:.32}
+  .isar-flow:nth-child(4){opacity:.28}
+  .isar-flow:nth-child(5){opacity:.22}
+  .isar-flow:nth-child(6){opacity:.4}
+  .isar-shimmer { fill: none; stroke-linecap: round; opacity: .35; }
+  .isar-glow { filter: drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08)); transform: translateZ(0); }
 
-  /* Isar Simple — lightweight CSS fallback for low-end devices */
-  /* Isar Lite — same SVG shape, no filters/animations for low-end */
+  /* Isar Lite — no filters for very low-end */
   .isar.isar-lite .isar-glow{filter:none!important}
-  .isar.isar-lite .isar-flow{animation:none!important;will-change:auto}
   .isar.isar-lite .isar-shimmer{display:none}
-  .isar.isar-lite .isar-flow:nth-child(1){opacity:.2}
-  .isar.isar-lite .isar-flow:nth-child(2){opacity:.35}
-  .isar.isar-lite .isar-flow:nth-child(3){opacity:.3}
-  .isar.isar-lite .isar-flow:nth-child(4){opacity:.25}
-  .isar.isar-lite .isar-flow:nth-child(5){opacity:.2}
-  .isar.isar-lite .isar-flow:nth-child(6){opacity:.35}
 
 
   @media(max-width:768px){
