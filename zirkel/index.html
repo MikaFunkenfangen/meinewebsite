@@ -1838,6 +1838,16 @@ if (isLowEnd && !isIOS) {
 if (isIOS) {
   document.body.classList.add('ios-perf');
 }
+
+// Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
+if (isMobile) {
+  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    a.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }, { passive: false });
+  });
+}
 (function(){
   /* ── Legal Tabs ── */
   window.showTab = function(btn, id) {

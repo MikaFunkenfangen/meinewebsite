@@ -1266,6 +1266,8 @@
       margin: 0;
       transform: none !important;
       --wave-y: 0px !important;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
     .moon-label { font-size: 0.44rem; bottom: -1.4rem; }
 
@@ -1856,6 +1858,16 @@ var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
 var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
+
+// Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
+if (isMobile) {
+  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    a.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }, { passive: false });
+  });
+}
 
 // Isar: keep full SVG on all devices, but disable heavy filters/animations on low-end
 if (isLowEnd && !isIOS) {

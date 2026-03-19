@@ -1328,6 +1328,15 @@
 
 <!-- ══ SCROLL REVEAL + SUN MOVEMENT ══ -->
 <script>
+// Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768) {
+  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    a.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }, { passive: false });
+  });
+}
 (function(){
   var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 
