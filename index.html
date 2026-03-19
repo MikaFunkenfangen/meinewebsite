@@ -860,7 +860,7 @@
     height: clamp(36px, 5vw, 52px);
     transition: filter 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1);
     animation: moonItemFloat 5s ease-in-out infinite;
-    filter: drop-shadow(0 0 6px rgba(201,169,110,0.15));
+    filter: drop-shadow(0 0 8px rgba(201,169,110,0.3)) drop-shadow(0 0 20px rgba(201,169,110,0.1));
   }
   .moon-item:nth-child(1) .moon-icon { animation-delay: 0s; }
   .moon-item:nth-child(2) .moon-icon { animation-delay: 0.7s; }
@@ -883,15 +883,21 @@
 
   .moon-label {
     font-family: var(--font-heading);
-    font-size: clamp(0.55rem, 1vw, 0.72rem);
+    font-size: clamp(0.65rem, 1.1vw, 0.78rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0.5;
+    opacity: 0.75;
     color: var(--cream);
+    text-shadow: 0 0 8px rgba(201,169,110,0.25);
     transition: opacity 0.5s ease, text-shadow 0.5s ease, transform 0.5s ease, color 0.5s ease;
     position: absolute;
     bottom: -1.8rem;
+  }
+  .moon-label-short { display: none; }
+  @media (max-width: 768px) {
+    .moon-label-full { display: none; }
+    .moon-label-short { display: inline; }
   }
   .moon-item:hover .moon-label {
     opacity: 1;
@@ -1261,15 +1267,18 @@
     .moon-nav { padding: 2rem 0.5rem 3rem; }
     .moon-nav-wave { display: none; }
     .moon-nav-orbit { flex-wrap: wrap; gap: 1.2rem 1rem; justify-content: center; }
+    .moon-nav-orbit { flex-wrap: wrap; gap: 2.2rem 0.6rem; justify-content: center; padding: 0 0.5rem; }
     .moon-item {
-      width: 58px; height: 58px;
+      width: 56px; height: 56px;
       margin: 0;
       transform: none !important;
       --wave-y: 0px !important;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
+      box-shadow: 0 0 10px rgba(201,169,110,0.15), 0 0 24px rgba(90,190,210,0.08);
     }
-    .moon-label { font-size: 0.44rem; bottom: -1.4rem; }
+    .moon-icon { animation: none !important; filter: drop-shadow(0 0 5px rgba(201,169,110,0.3)); width: 28px; height: 28px; }
+    .moon-label { font-size: 0.52rem; bottom: -1.5rem; opacity: 0.85; letter-spacing: 0.08em; }
 
     /* moon and isar responsive handled in their own media queries above */
   }
@@ -1277,8 +1286,8 @@
   @media (max-width: 480px) {
     .deko-text { font-size: clamp(1.1rem, 5vw, 1.6rem); letter-spacing: 0.12em; line-height: 1.6; }
     .logo-container, .deko-logo-inline { width: 260px; height: 260px; }
-    .moon-item { width: 62px; height: 62px; }
-    .moon-label { font-size: 0.38rem; }
+    .moon-item { width: 52px; height: 52px; }
+    .moon-label { font-size: 0.48rem; }
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
@@ -1704,7 +1713,7 @@
     </svg>
     <a href="buecher/" class="moon-item" style="--wave-y:20px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.06"/></svg>
-      <span class="moon-label">Bücher & Kolumnen</span>
+      <span class="moon-label"><span class="moon-label-full">Bücher & Kolumnen</span><span class="moon-label-short">Bücher</span></span>
     </a>
     <a href="ueber-mich/" class="moon-item" style="--wave-y:-25px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
