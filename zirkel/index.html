@@ -602,27 +602,44 @@
     font-style: italic;
   }
 
-  .newsletter-btn {
-    display: inline-flex;
+  .newsletter-editions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .newsletter-edition {
+    display: flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 1rem 2.5rem;
-    border: 1px solid rgba(201,169,110,0.5);
-    color: var(--gold);
-    font-family: var(--font-heading);
-    font-size: clamp(0.82rem, 1.5vw, 0.95rem);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    justify-content: space-between;
+    padding: 0.9rem 1.8rem;
+    border: 1px solid rgba(201,169,110,0.25);
     text-decoration: none;
     transition: all 0.4s ease;
-    background: linear-gradient(135deg, rgba(160,100,200,0.08), rgba(201,169,110,0.06), rgba(90,160,210,0.08));
-    box-shadow: 0 0 15px rgba(160,100,200,0.06), 0 0 15px rgba(201,169,110,0.04);
+    background: linear-gradient(135deg, rgba(160,100,200,0.06), rgba(201,169,110,0.04), rgba(90,160,210,0.06));
   }
-  .newsletter-btn:hover {
-    background: linear-gradient(135deg, rgba(160,100,200,0.15), rgba(201,169,110,0.12), rgba(90,160,210,0.15));
-    box-shadow: 0 0 30px rgba(160,100,200,0.15), 0 0 30px rgba(201,169,110,0.1), 0 0 60px rgba(90,160,210,0.08);
-    transform: translateY(-2px);
+  .newsletter-edition:hover {
+    background: linear-gradient(135deg, rgba(160,100,200,0.14), rgba(201,169,110,0.1), rgba(90,160,210,0.14));
     border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(160,100,200,0.1), 0 0 20px rgba(201,169,110,0.08);
+    transform: translateX(4px);
+  }
+  .edition-date {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .edition-arrow {
+    font-size: 1.1rem;
+    color: var(--gold);
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .newsletter-edition:hover .edition-arrow {
+    opacity: 1;
+    transform: translateX(4px);
   }
 
   .newsletter-mail-hint {
@@ -641,10 +658,6 @@
     transition: opacity 0.3s ease;
   }
   .newsletter-mail-hint a:hover { opacity: 1; }
-  .newsletter-btn svg {
-    width: 18px; height: 18px;
-    fill: none; stroke: currentColor; stroke-width: 1.5;
-  }
 
   @media (max-width: 768px) {
     .newsletter-card { padding: 2rem 1.5rem; }
@@ -1840,17 +1853,18 @@
     <svg class="newsletter-seal" viewBox="0 0 64 64" fill="none">
       <circle cx="32" cy="32" r="30" stroke="rgba(160,120,200,0.35)" stroke-width="1"/>
       <circle cx="32" cy="32" r="22" stroke="rgba(90,160,210,0.25)" stroke-width="0.5"/>
-      <path d="M32 18 L44 28 L44 46 L20 46 L20 28 Z" stroke="rgba(201,169,110,0.6)" stroke-width="1" fill="rgba(160,120,200,0.06)"/>
-      <path d="M20 28 L32 38 L44 28" stroke="rgba(201,169,110,0.5)" stroke-width="1" fill="none"/>
-      <circle cx="32" cy="21" r="3" fill="rgba(160,120,200,0.2)" stroke="rgba(201,169,110,0.5)" stroke-width="0.5"/>
+      <path d="M32 12 L34 24 L46 24 L36 32 L40 44 L32 36 L24 44 L28 32 L18 24 L30 24 Z" stroke="rgba(201,169,110,0.6)" stroke-width="0.8" fill="rgba(201,169,110,0.08)"/>
+      <circle cx="32" cy="28" r="4" fill="rgba(160,120,200,0.15)" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
     </svg>
     <h3>Der Zirkel-Brief</h3>
     <div class="newsletter-divider"></div>
     <p class="newsletter-desc">Impulse, die zwischen den Treffen weiterwirken — Gedanken, Übungen und leise Funken für deinen Alltag.</p>
-    <a href="https://www.canva.com/design/DAHEe4pnykU/dw_hXT5WBfCtGRee-V15uQ/view?utm_content=DAHEe4pnykU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h061782eeda" class="newsletter-btn" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Newsletter lesen
-    </a>
+    <div class="newsletter-editions">
+      <a href="https://www.canva.com/design/DAHEe4pnykU/dw_hXT5WBfCtGRee-V15uQ/view?utm_content=DAHEe4pnykU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h061782eeda" class="newsletter-edition" target="_blank" rel="noopener">
+        <span class="edition-date">März 2026</span>
+        <span class="edition-arrow">→</span>
+      </a>
+    </div>
     <p class="newsletter-mail-hint">Du möchtest den Newsletter auch als PDF per E-Mail erhalten?<br>Schreib an <a href="mailto:kontakt@funkenfangen.com">kontakt@funkenfangen.com</a></p>
   </div>
 </section>
