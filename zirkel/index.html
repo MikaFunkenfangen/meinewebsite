@@ -532,6 +532,80 @@
   .moon-item:hover::after { transform: translateX(-50%) scaleX(1); }
 
   /* ══════════════════════════════════════
+     NEWSLETTER / ZIRKEL-BRIEF
+     ══════════════════════════════════════ */
+  .newsletter-section {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .newsletter-section.visible { opacity: 1; transform: translateY(0); }
+
+  .newsletter-card {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 2px;
+    background: rgba(20,18,15,0.4);
+  }
+
+  .newsletter-seal {
+    width: 64px; height: 64px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.85;
+  }
+
+  .newsletter-card h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .newsletter-card p {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.8vw, 1.12rem);
+    color: var(--cream);
+    opacity: 0.85;
+    line-height: 1.8;
+    margin-bottom: 1.8rem;
+    font-style: italic;
+  }
+
+  .newsletter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2.2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: clamp(0.78rem, 1.4vw, 0.9rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: none;
+  }
+  .newsletter-btn:hover {
+    background: rgba(201,169,110,0.12);
+    box-shadow: 0 0 25px rgba(201,169,110,0.15);
+  }
+  .newsletter-btn svg {
+    width: 18px; height: 18px;
+    fill: none; stroke: currentColor; stroke-width: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .newsletter-card { padding: 2rem 1.5rem; }
+  }
+
+  /* ══════════════════════════════════════
      LEGAL & FOOTER
      ══════════════════════════════════════ */
   .legal-section {
@@ -1713,6 +1787,25 @@
   <p class="portrait-duo-footer">
     Doch Funkenfangen sind nicht nur wir beide, sondern besteht aus ebenjener wachsenden Gemeinschaft von Menschen, die ihre <span class="highlight">Lebendigkeit zurückerobern</span> und einen heilsamen Weg jenseits alter Muster gehen und aktiv gestalten möchten.
   </p>
+</section>
+
+<!-- ═══ NEWSLETTER / ZIRKEL-BRIEF ═══ -->
+<section class="newsletter-section" data-reveal>
+  <div class="newsletter-card">
+    <svg class="newsletter-seal" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="30" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+      <circle cx="32" cy="32" r="22" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+      <path d="M32 18 L44 28 L44 46 L20 46 L20 28 Z" stroke="rgba(201,169,110,0.6)" stroke-width="1" fill="rgba(201,169,110,0.05)"/>
+      <path d="M20 28 L32 38 L44 28" stroke="rgba(201,169,110,0.5)" stroke-width="1" fill="none"/>
+      <circle cx="32" cy="21" r="3" fill="rgba(201,169,110,0.25)" stroke="rgba(201,169,110,0.5)" stroke-width="0.5"/>
+    </svg>
+    <h3>Der Zirkel-Brief</h3>
+    <p>Impulse, die zwischen den Treffen weiterwirken — Gedanken, Übungen und leise Funken für deinen Alltag.</p>
+    <a href="https://www.canva.com/design/DAHEe4pnykU/dw_hXT5WBfCtGRee-V15uQ/view?utm_content=DAHEe4pnykU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h061782eeda" class="newsletter-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Newsletter lesen
+    </a>
+  </div>
 </section>
 
 <!-- ═══ WHATSAPP & AKADEMIE ═══ -->
