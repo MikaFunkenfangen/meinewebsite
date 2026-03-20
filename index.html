@@ -1869,6 +1869,51 @@
   }
 </style>
 
+<!-- ═══ BOOK POPUP 2 — Grüne Seelen (Blattform) ═══ -->
+<div class="leaf-popup" id="leafPopup" aria-hidden="true">
+  <div class="leaf-popup-backdrop" onclick="closeLeafPopup()"></div>
+  <div class="leaf-popup-card">
+    <button class="leaf-popup-close" onclick="closeLeafPopup()" aria-label="Schließen">&times;</button>
+    <div class="leaf-popup-inner">
+      <div class="leaf-popup-cover">
+        <img src="images/gruene-seelen-cover.png" alt="Grüne Seelen" width="140" height="210" loading="lazy" decoding="async">
+      </div>
+      <div class="leaf-popup-text">
+        <p class="leaf-popup-eyebrow">Von Mika Schöberl</p>
+        <h3 class="leaf-popup-title">Grüne<br>Seelen</h3>
+        <p class="leaf-popup-desc">Über die Weisheit der Natur — ein Buch für alle, die spüren, dass die Erde mehr weiß als wir.</p>
+        <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" class="leaf-popup-btn" target="_blank" rel="noopener">Entdecken</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .leaf-popup{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s ease;pointer-events:none}
+  .leaf-popup.active{opacity:1;visibility:visible;pointer-events:auto}
+  .leaf-popup-backdrop{position:absolute;inset:0;background:rgba(4,12,6,0.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .leaf-popup-card{position:relative;max-width:500px;width:88%;padding:2.5rem 2rem;overflow:hidden;background:linear-gradient(160deg,rgba(15,32,18,0.96),rgba(28,48,26,0.94),rgba(18,36,20,0.97));border:1px solid rgba(120,180,90,0.2);box-shadow:0 0 50px rgba(80,140,60,0.1),0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(120,180,90,0.08);transform:translateY(20px) scale(0.96);transition:transform .5s cubic-bezier(.22,1,.36,1);border-radius:60% 4% 55% 5% / 4% 50% 4% 50%}
+  .leaf-popup.active .leaf-popup-card{transform:translateY(0) scale(1)}
+  .leaf-popup-close{position:absolute;top:16px;right:20px;background:none;border:none;color:rgba(180,220,160,0.7);font-size:1.8rem;cursor:pointer;opacity:0.6;transition:opacity .3s;z-index:2;line-height:1}
+  .leaf-popup-close:hover{opacity:1}
+  .leaf-popup-inner{display:flex;gap:1.5rem;align-items:center}
+  .leaf-popup-cover{flex-shrink:0}
+  .leaf-popup-cover img{width:130px;height:auto;border-radius:6px;box-shadow:0 8px 30px rgba(0,0,0,0.4),0 0 15px rgba(80,140,60,0.12)}
+  .leaf-popup-eyebrow{font-family:var(--font-heading);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(160,200,120,0.7);margin-bottom:0.4rem}
+  .leaf-popup-title{font-family:var(--font-heading);font-size:clamp(1.4rem,3vw,1.8rem);letter-spacing:0.08em;margin-bottom:0.8rem;line-height:1.2;background:linear-gradient(135deg,#a8d08d,#6b9e4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .leaf-popup-desc{font-family:var(--font-body);font-size:0.82rem;color:rgba(200,220,190,0.7);line-height:1.6;margin-bottom:1.2rem}
+  .leaf-popup-btn{display:inline-block;font-family:var(--font-heading);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(180,220,160,0.9);padding:0.6rem 1.8rem;border:1px solid rgba(120,180,90,0.35);border-radius:50px;text-decoration:none;transition:all .4s ease}
+  .leaf-popup-btn:hover{background:rgba(80,140,60,0.15);border-color:rgba(120,180,90,0.6);box-shadow:0 0 20px rgba(80,140,60,0.2)}
+  /* Blattadern-Dekoration */
+  .leaf-popup-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(80,140,60,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(120,180,90,0.04) 0%,transparent 50%);pointer-events:none}
+  .leaf-popup-card::after{content:'';position:absolute;top:50%;left:8%;width:84%;height:1px;background:linear-gradient(90deg,transparent,rgba(120,180,90,0.12) 20%,rgba(120,180,90,0.08) 80%,transparent);pointer-events:none;transform:rotate(-2deg)}
+  @media(max-width:520px){
+    .leaf-popup-inner{flex-direction:column;text-align:center}
+    .leaf-popup-cover img{width:110px}
+    .leaf-popup-card{padding:2rem 1.5rem;border-radius:50% 4% 45% 5% / 4% 40% 4% 40%}
+  }
+</style>
+
 </div><!-- /page-content -->
 
 <!-- Alpen Skyline (fixed behind footer) -->
@@ -2617,7 +2662,7 @@ if (isMobile) {
 <!-- RAINDROP CLICK MAGIC -->
 
 <script>
-/* ═══ Book Popup — every 5 minutes ═══ */
+/* ═══ Book Popups — alternating every 5 minutes ═══ */
 function closeBookPopup(){
   var p=document.getElementById('bookPopup');
   if(p){p.classList.remove('active');p.setAttribute('aria-hidden','true')}
@@ -2626,14 +2671,30 @@ function showBookPopup(){
   var p=document.getElementById('bookPopup');
   if(p){p.classList.add('active');p.setAttribute('aria-hidden','false')}
 }
+function closeLeafPopup(){
+  var p=document.getElementById('leafPopup');
+  if(p){p.classList.remove('active');p.setAttribute('aria-hidden','true')}
+}
+function showLeafPopup(){
+  var p=document.getElementById('leafPopup');
+  if(p){p.classList.add('active');p.setAttribute('aria-hidden','false')}
+}
 (function(){
   var INTERVAL=5*60*1000;
   var FIRST_DELAY=60*1000;
+  var popupIndex=0;
+  var popups=[showBookPopup,showLeafPopup];
+  function showNext(){
+    popups[popupIndex]();
+    popupIndex=(popupIndex+1)%popups.length;
+  }
   setTimeout(function(){
-    showBookPopup();
-    setInterval(showBookPopup,INTERVAL);
+    showNext();
+    setInterval(showNext,INTERVAL);
   },FIRST_DELAY);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBookPopup()});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){closeBookPopup();closeLeafPopup()}
+  });
 })();
 </script>
 
