@@ -532,6 +532,122 @@
   .moon-item:hover::after { transform: translateX(-50%) scaleX(1); }
 
   /* ══════════════════════════════════════
+     MOONBOW / SONG SECTION
+     ══════════════════════════════════════ */
+  .moonbow-section {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 5rem 2rem;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .moonbow-section.visible { opacity: 1; transform: translateY(0); }
+
+  .moonbow-card {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 3.5rem 3rem;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 30%, rgba(60,40,90,0.5) 0%, rgba(20,15,40,0.7) 40%, rgba(10,10,20,0.8) 100%);
+    border: 1px solid rgba(140,100,200,0.2);
+    border-radius: 50% / 8%;
+    box-shadow: 0 0 60px rgba(140,100,200,0.08), 0 0 120px rgba(90,60,160,0.04), inset 0 0 80px rgba(140,100,200,0.04);
+  }
+  .moonbow-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50% / 8%;
+    background: linear-gradient(180deg, rgba(180,140,240,0.2), transparent 30%, transparent 70%, rgba(201,169,110,0.15));
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 1px;
+  }
+
+  .moonbow-intro {
+    font-family: var(--font-sans);
+    font-size: clamp(0.78rem, 1.3vw, 0.9rem);
+    color: var(--cream-dim);
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+
+  .moonbow-lyrics {
+    margin-bottom: 2.2rem;
+    padding: 1.5rem 0;
+  }
+  .moonbow-lyric {
+    font-family: var(--font-serif);
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .moonbow-lyric:last-child { margin-bottom: 0; }
+  .moonbow-lyric-en {
+    font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+    color: rgba(232,226,212,0.6);
+    letter-spacing: 0.04em;
+  }
+  .moonbow-lyric-de {
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+    color: rgba(201,169,110,0.85);
+    letter-spacing: 0.04em;
+    margin-top: 0.3rem;
+  }
+
+  .moonbow-divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(140,100,200,0.5), rgba(201,169,110,0.4), transparent);
+    margin: 1.5rem auto;
+    opacity: 0.6;
+  }
+
+  .moonbow-credit {
+    font-family: var(--font-sans);
+    font-size: clamp(0.65rem, 1vw, 0.75rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.4);
+    margin-bottom: 1.8rem;
+  }
+
+  .moonbow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(30,215,96,0.35);
+    color: rgba(30,215,96,0.85);
+    font-family: var(--font-heading);
+    font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: rgba(30,215,96,0.04);
+    border-radius: 50px;
+  }
+  .moonbow-btn:hover {
+    background: rgba(30,215,96,0.12);
+    border-color: rgba(30,215,96,0.6);
+    box-shadow: 0 0 25px rgba(30,215,96,0.1);
+    transform: translateY(-2px);
+  }
+  .moonbow-btn svg {
+    width: 20px; height: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .moonbow-card { padding: 2.5rem 1.8rem; border-radius: 40% / 6%; }
+  }
+
+  /* ══════════════════════════════════════
      NEWSLETTER / ZIRKEL-BRIEF
      ══════════════════════════════════════ */
   .newsletter-section {
@@ -1804,6 +1920,32 @@
 </section>
 
 </div>
+
+<!-- ═══ MOONBOW / SONG ═══ -->
+<section class="moonbow-section" data-reveal>
+  <div class="moonbow-card">
+    <p class="moonbow-intro">Dir gefällt der Song aus unserem Intro?<br>Mika hat <em>Moonbow</em> für unseren Zirkel geschrieben.</p>
+
+    <div class="moonbow-lyrics">
+      <div class="moonbow-lyric">
+        <div class="moonbow-lyric-en">Light only bends when something in you healed before</div>
+        <div class="moonbow-lyric-de">Licht beugt sich nur, wenn etwas in dir zuvor heil geworden ist</div>
+      </div>
+      <div class="moonbow-divider"></div>
+      <div class="moonbow-lyric">
+        <div class="moonbow-lyric-en">For my heart to know where its true north lived</div>
+        <div class="moonbow-lyric-de">Damit mein Herz wusste, wo sein wahrer Norden liegt</div>
+      </div>
+    </div>
+
+    <p class="moonbow-credit">"Moonbow" by Summerchild (Mika Schöberl)</p>
+
+    <a href="https://open.spotify.com/intl-de/track/0fVNWzUIvCkNcovGdesN0U?si=6a67c889ccde49bc" class="moonbow-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="rgba(30,215,96,0.85)"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      Auf Spotify hören
+    </a>
+  </div>
+</section>
 
 <!-- ═══ EINLADUNG ═══ -->
 <section style="padding: 1rem 2rem;">
