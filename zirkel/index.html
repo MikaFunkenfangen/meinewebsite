@@ -544,58 +544,103 @@
   .newsletter-section.visible { opacity: 1; transform: translateY(0); }
 
   .newsletter-card {
-    max-width: 560px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 3rem 2.5rem;
-    border: 1px solid rgba(201,169,110,0.15);
-    border-radius: 2px;
-    background: rgba(20,18,15,0.4);
+    padding: 3.5rem 3rem;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 3px;
+    background: linear-gradient(165deg, rgba(45,25,50,0.7) 0%, rgba(20,15,35,0.85) 30%, rgba(15,20,40,0.8) 60%, rgba(50,25,20,0.6) 100%);
+    box-shadow: 0 0 50px rgba(160,100,200,0.08), 0 0 80px rgba(201,169,110,0.06), 0 0 120px rgba(90,140,200,0.04), inset 0 0 80px rgba(160,100,200,0.03);
+    position: relative;
+  }
+  .newsletter-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(180,120,220,0.3), rgba(201,169,110,0.2) 30%, transparent 50%, rgba(90,160,210,0.2) 70%, rgba(201,169,110,0.25));
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 1px;
   }
 
   .newsletter-seal {
-    width: 64px; height: 64px;
-    margin: 0 auto 1.5rem;
-    opacity: 0.85;
+    width: 72px; height: 72px;
+    margin: 0 auto 1.8rem;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 12px rgba(180,120,220,0.3)) drop-shadow(0 0 6px rgba(201,169,110,0.3));
   }
 
   .newsletter-card h3 {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
     color: var(--gold);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(201,169,110,0.25);
   }
 
-  .newsletter-card p {
+  .newsletter-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(180,120,220,0.6), var(--gold), rgba(90,160,210,0.6), transparent);
+    margin: 1rem auto 1.5rem;
+    opacity: 0.7;
+  }
+
+  .newsletter-card .newsletter-desc {
     font-family: var(--font-serif);
-    font-size: clamp(1rem, 1.8vw, 1.12rem);
+    font-size: clamp(1.05rem, 1.9vw, 1.18rem);
     color: var(--cream);
-    opacity: 0.85;
-    line-height: 1.8;
-    margin-bottom: 1.8rem;
+    opacity: 0.9;
+    line-height: 1.9;
+    margin-bottom: 2rem;
     font-style: italic;
   }
 
   .newsletter-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 2.2rem;
-    border: 1px solid var(--gold);
+    gap: 0.7rem;
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(201,169,110,0.5);
     color: var(--gold);
     font-family: var(--font-heading);
-    font-size: clamp(0.78rem, 1.4vw, 0.9rem);
+    font-size: clamp(0.82rem, 1.5vw, 0.95rem);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.4s ease;
-    background: none;
+    background: linear-gradient(135deg, rgba(160,100,200,0.08), rgba(201,169,110,0.06), rgba(90,160,210,0.08));
+    box-shadow: 0 0 15px rgba(160,100,200,0.06), 0 0 15px rgba(201,169,110,0.04);
   }
   .newsletter-btn:hover {
-    background: rgba(201,169,110,0.12);
-    box-shadow: 0 0 25px rgba(201,169,110,0.15);
+    background: linear-gradient(135deg, rgba(160,100,200,0.15), rgba(201,169,110,0.12), rgba(90,160,210,0.15));
+    box-shadow: 0 0 30px rgba(160,100,200,0.15), 0 0 30px rgba(201,169,110,0.1), 0 0 60px rgba(90,160,210,0.08);
+    transform: translateY(-2px);
+    border-color: var(--gold);
   }
+
+  .newsletter-mail-hint {
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+    color: var(--cream-dim);
+    opacity: 0.6;
+    margin-top: 1.8rem;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+  .newsletter-mail-hint a {
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  .newsletter-mail-hint a:hover { opacity: 1; }
   .newsletter-btn svg {
     width: 18px; height: 18px;
     fill: none; stroke: currentColor; stroke-width: 1.5;
@@ -1793,18 +1838,20 @@
 <section class="newsletter-section" data-reveal>
   <div class="newsletter-card">
     <svg class="newsletter-seal" viewBox="0 0 64 64" fill="none">
-      <circle cx="32" cy="32" r="30" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
-      <circle cx="32" cy="32" r="22" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
-      <path d="M32 18 L44 28 L44 46 L20 46 L20 28 Z" stroke="rgba(201,169,110,0.6)" stroke-width="1" fill="rgba(201,169,110,0.05)"/>
+      <circle cx="32" cy="32" r="30" stroke="rgba(160,120,200,0.35)" stroke-width="1"/>
+      <circle cx="32" cy="32" r="22" stroke="rgba(90,160,210,0.25)" stroke-width="0.5"/>
+      <path d="M32 18 L44 28 L44 46 L20 46 L20 28 Z" stroke="rgba(201,169,110,0.6)" stroke-width="1" fill="rgba(160,120,200,0.06)"/>
       <path d="M20 28 L32 38 L44 28" stroke="rgba(201,169,110,0.5)" stroke-width="1" fill="none"/>
-      <circle cx="32" cy="21" r="3" fill="rgba(201,169,110,0.25)" stroke="rgba(201,169,110,0.5)" stroke-width="0.5"/>
+      <circle cx="32" cy="21" r="3" fill="rgba(160,120,200,0.2)" stroke="rgba(201,169,110,0.5)" stroke-width="0.5"/>
     </svg>
     <h3>Der Zirkel-Brief</h3>
-    <p>Impulse, die zwischen den Treffen weiterwirken — Gedanken, Übungen und leise Funken für deinen Alltag.</p>
+    <div class="newsletter-divider"></div>
+    <p class="newsletter-desc">Impulse, die zwischen den Treffen weiterwirken — Gedanken, Übungen und leise Funken für deinen Alltag.</p>
     <a href="https://www.canva.com/design/DAHEe4pnykU/dw_hXT5WBfCtGRee-V15uQ/view?utm_content=DAHEe4pnykU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h061782eeda" class="newsletter-btn" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Newsletter lesen
     </a>
+    <p class="newsletter-mail-hint">Du möchtest den Newsletter auch als PDF per E-Mail erhalten?<br>Schreib an <a href="mailto:kontakt@funkenfangen.com">kontakt@funkenfangen.com</a></p>
   </div>
 </section>
 
