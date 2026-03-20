@@ -1825,6 +1825,50 @@
   <p class="footer-copy">© 2026 Mika Schöberl · München<br><a href="#legal" onclick="showTab(document.querySelector('.legal-tab'),'impressum')">Impressum</a> &nbsp;·&nbsp; <a href="#legal" onclick="showTab(document.querySelectorAll('.legal-tab')[1],'datenschutz')">Datenschutz</a></p>
 </footer>
 
+<!-- ═══ BOOK POPUP — 50 Wörter für Liebe ═══ -->
+<div class="book-popup" id="bookPopup" aria-hidden="true">
+  <div class="book-popup-backdrop" onclick="closeBookPopup()"></div>
+  <div class="book-popup-card">
+    <button class="book-popup-close" onclick="closeBookPopup()" aria-label="Schließen">&times;</button>
+    <div class="book-popup-inner">
+      <div class="book-popup-cover">
+        <img src="images/50woerter-cover.png" alt="50 Wörter für Liebe" width="160" height="240" loading="lazy" decoding="async">
+      </div>
+      <div class="book-popup-text">
+        <p class="book-popup-eyebrow">Neues Buch von Mika Schöberl</p>
+        <h3 class="book-popup-title">50 Wörter<br>für Liebe</h3>
+        <p class="book-popup-desc">Fünfzig Wörter. Fünfzig Türen zu dem,<br>was wir meinen, wenn wir <em>Liebe</em> sagen.</p>
+        <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" class="book-popup-btn" target="_blank" rel="noopener">Entdecken</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .book-popup{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;pointer-events:none}
+  .book-popup.active{opacity:1;visibility:visible;pointer-events:auto}
+  .book-popup-backdrop{position:absolute;inset:0;background:rgba(6,6,12,0.75);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .book-popup-card{position:relative;max-width:520px;width:90%;border-radius:16px;overflow:hidden;background:linear-gradient(145deg,rgba(20,18,30,0.95),rgba(35,30,50,0.92));border:1px solid rgba(201,169,110,0.2);box-shadow:0 0 60px rgba(201,169,110,0.08),0 20px 60px rgba(0,0,0,0.5);transform:translateY(20px) scale(0.96);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .book-popup.active .book-popup-card{transform:translateY(0) scale(1)}
+  .book-popup-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--cream);font-size:1.8rem;cursor:pointer;opacity:0.5;transition:opacity .3s;z-index:2;line-height:1}
+  .book-popup-close:hover{opacity:1}
+  .book-popup-inner{display:flex;gap:1.5rem;padding:2rem;align-items:center}
+  .book-popup-cover{flex-shrink:0}
+  .book-popup-cover img{width:140px;height:auto;border-radius:6px;box-shadow:0 8px 30px rgba(0,0,0,0.4),0 0 20px rgba(201,169,110,0.1)}
+  .book-popup-eyebrow{font-family:var(--font-heading);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:0.4rem}
+  .book-popup-title{font-family:var(--font-heading);font-size:clamp(1.4rem,3vw,1.8rem);color:var(--cream);letter-spacing:0.08em;margin-bottom:0.8rem;line-height:1.2}
+  .book-popup-title br+span,.book-popup-title{background:linear-gradient(135deg,var(--cream),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .book-popup-desc{font-family:var(--font-body);font-size:0.85rem;color:rgba(245,240,230,0.7);line-height:1.6;margin-bottom:1.2rem}
+  .book-popup-desc em{color:var(--gold);font-style:normal}
+  .book-popup-btn{display:inline-block;font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);padding:0.6rem 1.8rem;border:1px solid rgba(201,169,110,0.4);border-radius:50px;text-decoration:none;transition:all .4s ease}
+  .book-popup-btn:hover{background:rgba(201,169,110,0.15);border-color:var(--gold);box-shadow:0 0 20px rgba(201,169,110,0.2)}
+  @media(max-width:520px){
+    .book-popup-inner{flex-direction:column;text-align:center;padding:1.5rem 1.2rem}
+    .book-popup-cover img{width:120px}
+    .book-popup-desc br{display:none}
+  }
+</style>
+
 </div><!-- /page-content -->
 
 <!-- Alpen Skyline (fixed behind footer) -->
@@ -2571,6 +2615,27 @@ if (isMobile) {
 </script>
 
 <!-- RAINDROP CLICK MAGIC -->
+
+<script>
+/* ═══ Book Popup — every 5 minutes ═══ */
+function closeBookPopup(){
+  var p=document.getElementById('bookPopup');
+  if(p){p.classList.remove('active');p.setAttribute('aria-hidden','true')}
+}
+function showBookPopup(){
+  var p=document.getElementById('bookPopup');
+  if(p){p.classList.add('active');p.setAttribute('aria-hidden','false')}
+}
+(function(){
+  var INTERVAL=5*60*1000;
+  var FIRST_DELAY=60*1000;
+  setTimeout(function(){
+    showBookPopup();
+    setInterval(showBookPopup,INTERVAL);
+  },FIRST_DELAY);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBookPopup()});
+})();
+</script>
 
 </body>
 </html>
