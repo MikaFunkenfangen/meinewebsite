@@ -41,7 +41,7 @@
   .sky-bg {
     position: fixed; inset: 0; z-index: 0;
     transition: background 0.8s ease;
-    will-change: background;
+    /* will-change removed — scroll-driven bg change doesn't need compositor layer */
   }
 
   /* ══ DUST PARTICLES CANVAS ══ */
@@ -154,24 +154,24 @@
   .isar{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;will-change:transform}
   .isar.visible{opacity:1}
   .isar svg{width:100%;height:100%;overflow:visible}
-  .isar-flow{fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;animation:isarFlow var(--if-d,12s) ease-in-out var(--if-del,0s) infinite;will-change:opacity;transform:translateZ(0)}
-  @keyframes isarFlow{
-    0%,100%{opacity:.1;stroke-dashoffset:0}
-    25%{opacity:.45}
-    50%{opacity:.35}
-    75%{opacity:.45}
-  }
-  .isar-shimmer{fill:none;stroke-linecap:round;opacity:0;animation:isarShimmer var(--is-d,6s) ease-in-out var(--is-del,0s) infinite;will-change:opacity;transform:translateZ(0)}
-  @keyframes isarShimmer{0%,100%{opacity:0;stroke-dashoffset:30}40%{opacity:.7;stroke-dashoffset:0}60%{opacity:.5;stroke-dashoffset:-10}100%{opacity:0;stroke-dashoffset:-30}}
-  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));will-change:filter;transform:translateZ(0)}
+  /* Isar — static river, no animations for max performance */
+  .isar-flow{fill:none;stroke-linecap:round;stroke-linejoin:round;transform:translateZ(0)}
+  .isar-flow:nth-child(1){opacity:.18}
+  .isar-flow:nth-child(2){opacity:.38}
+  .isar-flow:nth-child(3){opacity:.32}
+  .isar-flow:nth-child(4){opacity:.28}
+  .isar-flow:nth-child(5){opacity:.22}
+  .isar-flow:nth-child(6){opacity:.4}
+  .isar-shimmer{fill:none;stroke-linecap:round;opacity:.35;transform:translateZ(0)}
+  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));transform:translateZ(0)}
 
-  /* Isar Simple — lightweight CSS fallback for low-end devices */
-  .isar-simple{position:fixed;top:0;left:50%;width:4px;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;transform:translateX(-50%)}
-  .isar-simple.visible{opacity:1}
-  .isar-simple::before,.isar-simple::after{content:'';position:absolute;top:0;left:50%;width:100%;height:100%;border-radius:50px;transform:translateX(-50%)}
-  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(60,150,185,0.08) 10%,rgba(80,185,210,0.18) 30%,rgba(100,220,230,0.15) 50%,rgba(80,185,210,0.18) 70%,rgba(60,150,185,0.08) 90%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
-  .isar-simple::after{width:20px;background:linear-gradient(180deg,transparent 0%,rgba(170,240,250,0.06) 15%,rgba(200,250,255,0.12) 40%,rgba(170,240,250,0.1) 60%,rgba(200,250,255,0.12) 80%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
-  @keyframes isarSimplePulse{0%,100%{opacity:.4}50%{opacity:1}}
+  /* Isar Lite — no filters for very low-end */
+  .isar.isar-lite .isar-glow{filter:none!important}
+  .isar.isar-lite .isar-shimmer{display:none}
+
+  /* iOS Performance — reduce compositor overhead, no visual change to river */
+  .ios-perf .sky-bg{will-change:auto!important;transition:background 1.2s ease!important}
+  .ios-perf .moon{will-change:auto!important}
 
   @media(max-width:768px){
     .moon{width:clamp(215px,40vw,375px)!important;height:clamp(215px,40vw,375px)!important}
@@ -467,39 +467,15 @@
     width: clamp(220px, 35vw, 380px);
     height: clamp(220px, 35vw, 380px);
     border-radius: 50%;
-    overflow: visible;
+    overflow: hidden;
     opacity: 0;
     transform: scale(0.85) translateY(30px);
     transition: opacity 1.8s ease, transform 1.8s ease;
-    box-shadow:
-      0 0 60px rgba(201,169,110,0.12),
-      0 0 120px rgba(30,42,28,0.15),
-      inset 0 0 40px rgba(0,0,0,0.3);
   }
 
   .portrait-frame.visible {
     opacity: 1;
     transform: scale(1) translateY(0);
-  }
-
-  .portrait-frame::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(201,169,110,0.25), transparent 40%, transparent 60%, rgba(201,169,110,0.15));
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .portrait-frame::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    box-shadow: inset 0 0 50px rgba(8,10,8,0.5);
-    z-index: 2;
-    pointer-events: none;
   }
 
   .portrait-img {
@@ -545,7 +521,6 @@
       transparent 65%
     );
     transition: opacity 0.6s ease;
-    will-change: opacity;
   }
   .portrait-frame.eclipse .eclipse-corona {
     opacity: 1;
@@ -702,6 +677,42 @@
     font-weight: 500;
     color: var(--gold);
     letter-spacing: 0.1em;
+  }
+
+  /* ══════════════════════════════════════
+     PROJEKTE STATEMENT
+     ══════════════════════════════════════ */
+  .projekte-statement {
+    position: relative;
+    padding: 4.5rem 2.5rem;
+    margin: 0 auto;
+    max-width: 780px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .projekte-statement.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .projekte-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.35rem, 3.2vw, 1.9rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 2.2;
+    color: var(--cream);
+    letter-spacing: 0.03em;
+  }
+  .projekte-text .gold { color: var(--gold); font-weight: 400; }
+  .projekte-daisy-icon {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.15em;
+    margin: 0 0.15em;
+    opacity: 0.8;
   }
 
   /* ══════════════════════════════════════
@@ -878,7 +889,7 @@
     height: clamp(36px, 5vw, 52px);
     transition: filter 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1);
     animation: moonItemFloat 5s ease-in-out infinite;
-    filter: drop-shadow(0 0 6px rgba(201,169,110,0.15));
+    filter: drop-shadow(0 0 8px rgba(201,169,110,0.3)) drop-shadow(0 0 20px rgba(201,169,110,0.1));
   }
   .moon-item:nth-child(1) .moon-icon { animation-delay: 0s; }
   .moon-item:nth-child(2) .moon-icon { animation-delay: 0.7s; }
@@ -901,15 +912,21 @@
 
   .moon-label {
     font-family: var(--font-heading);
-    font-size: clamp(0.55rem, 1vw, 0.72rem);
+    font-size: clamp(0.65rem, 1.1vw, 0.78rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0.5;
+    opacity: 0.75;
     color: var(--cream);
+    text-shadow: 0 0 8px rgba(201,169,110,0.25);
     transition: opacity 0.5s ease, text-shadow 0.5s ease, transform 0.5s ease, color 0.5s ease;
     position: absolute;
     bottom: -1.8rem;
+  }
+  .moon-label-short { display: none; }
+  @media (max-width: 768px) {
+    .moon-label-full { display: none; }
+    .moon-label-short { display: inline; }
   }
   .moon-item:hover .moon-label {
     opacity: 1;
@@ -1076,6 +1093,11 @@
     will-change: transform;
     transform: translateZ(0);
   }
+  .kontakt-crane.no-animate {
+    animation: none;
+    will-change: auto;
+    filter: none;
+  }
   .kontakt-crane:hover {
     opacity: 1;
     filter: drop-shadow(0 0 40px rgba(201,169,110,0.45));
@@ -1220,6 +1242,22 @@
 
   .section-glow.small { height: 60px; }
 
+  /* === CONSTELLATION DIVIDERS === */
+  .sep-constellation{position:relative;z-index:2;height:clamp(100px,25vw,200px);display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden}
+  .constellation-line{width:clamp(180px,45vw,320px);height:clamp(100px,25vw,200px);pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+  .constellation-line.visible{opacity:1}
+  .constellation-line svg{width:100%;height:100%;overflow:visible}
+  .star-dot{fill:var(--gold);filter:drop-shadow(0 0 3px rgba(201,169,110,.6)) drop-shadow(0 0 8px rgba(201,169,110,.25));opacity:0;animation:starPulse var(--sp-d,2.8s) ease-in-out var(--sp-del,0s) infinite}
+  @keyframes starPulse{0%,100%{opacity:.25;r:1.5}20%{opacity:1;r:2.8}50%{opacity:.5;r:2}80%{opacity:.9;r:2.5}}
+  .star-path{stroke:var(--gold);stroke-width:.7;fill:none;opacity:0;stroke-dasharray:200;stroke-dashoffset:200;filter:drop-shadow(0 0 2px rgba(201,169,110,.3))}
+  .constellation-line.visible .star-path{animation:drawConstellation 3.5s ease forwards}
+  .constellation-line.visible .star-path:nth-of-type(2){animation-delay:.4s}
+  .constellation-line.visible .star-path:nth-of-type(3){animation-delay:.8s}
+  @keyframes drawConstellation{0%{opacity:0;stroke-dashoffset:200}20%{opacity:.4}100%{opacity:.25;stroke-dashoffset:0}}
+  /* Low-end: keine Filter, statische Sichtbarkeit, durchgezogene Linien */
+  .low-end .star-dot{filter:none;opacity:.6;animation:none}
+  .low-end .star-path{filter:none;opacity:.25;animation:none;stroke-dasharray:none;stroke-dashoffset:0}
+
   /* ══════════════════════════════════════
      ANIMATIONS
      ══════════════════════════════════════ */
@@ -1255,16 +1293,22 @@
     .about-section { padding: 3rem 1.5rem 2rem; }
     .about-content { padding: 2.5rem 1.8rem; }
     .about-quote { font-size: 1rem; padding: 0; }
+    .projekte-statement { padding: 2rem 1.5rem; }
     .moon-nav { padding: 2rem 0.5rem 3rem; }
     .moon-nav-wave { display: none; }
     .moon-nav-orbit { flex-wrap: wrap; gap: 1.2rem 1rem; justify-content: center; }
+    .moon-nav-orbit { flex-wrap: wrap; gap: 2.2rem 0.6rem; justify-content: center; padding: 0 0.5rem; }
     .moon-item {
-      width: 58px; height: 58px;
+      width: 56px; height: 56px;
       margin: 0;
       transform: none !important;
       --wave-y: 0px !important;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 0 10px rgba(201,169,110,0.15), 0 0 24px rgba(90,190,210,0.08);
     }
-    .moon-label { font-size: 0.44rem; bottom: -1.4rem; }
+    .moon-icon { animation: none !important; filter: drop-shadow(0 0 5px rgba(201,169,110,0.3)); width: 28px; height: 28px; }
+    .moon-label { font-size: 0.52rem; bottom: -1.5rem; opacity: 0.85; letter-spacing: 0.08em; }
 
     /* moon and isar responsive handled in their own media queries above */
   }
@@ -1272,8 +1316,8 @@
   @media (max-width: 480px) {
     .deko-text { font-size: clamp(1.1rem, 5vw, 1.6rem); letter-spacing: 0.12em; line-height: 1.6; }
     .logo-container, .deko-logo-inline { width: 260px; height: 260px; }
-    .moon-item { width: 62px; height: 62px; }
-    .moon-label { font-size: 0.38rem; }
+    .moon-item { width: 52px; height: 52px; }
+    .moon-label { font-size: 0.48rem; }
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
@@ -1285,8 +1329,9 @@
      DESKTOP OPTIMIZATION
      ══════════════════════════════════════ */
   @media (min-width: 1025px) {
-    .about-quote {
-      font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    .about-text {
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+      line-height: 2.2;
     }
     .portrait-frame {
       width: clamp(280px, 25vw, 380px);
@@ -1532,7 +1577,7 @@
 </div>
 
 <!-- Isar River — simple CSS fallback for low-end devices -->
-<div class="isar-simple" id="isarSimple"></div>
+<div class="isar-simple" id="isarSimple"><div class="isar-simple-mid"></div></div>
 <!-- Isar River — full SVG version -->
 <div class="isar" id="isar">
   <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="isar-glow" preserveAspectRatio="none">
@@ -1634,7 +1679,9 @@
 <div class="page-content">
 
 <!-- ═══ DEKO TEXT 1 + LOGO-HERZ ═══ -->
-<div class="section-glow"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 240 120"><circle class="star-dot" cx="15" cy="60" r="2.2" style="--sp-d:2.4s;--sp-del:0s"/><circle class="star-dot" cx="65" cy="25" r="2.5" style="--sp-d:3.1s;--sp-del:.3s"/><circle class="star-dot" cx="120" cy="70" r="2" style="--sp-d:2.7s;--sp-del:.7s"/><circle class="star-dot" cx="175" cy="25" r="2.8" style="--sp-d:3.5s;--sp-del:.2s"/><circle class="star-dot" cx="225" cy="60" r="2.2" style="--sp-d:2.2s;--sp-del:.9s"/>
+<path class="star-path" d="M15 60 L65 25 L120 70 L175 25 L225 60"/></svg></div></div>
 <section class="deko-section deko-with-logo" id="logoSection">
   <p class="deko-text deko-text-top" data-reveal>
     Naturverbunden in Wort und Tat,
@@ -1662,17 +1709,29 @@
   </div>
 </section>
 
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 200 120"><circle class="star-dot" cx="100" cy="8" r="3" style="--sp-d:2s;--sp-del:0s"/><circle class="star-dot" cx="55" cy="50" r="2" style="--sp-d:3.4s;--sp-del:.5s"/><circle class="star-dot" cx="145" cy="50" r="2" style="--sp-d:2.6s;--sp-del:.8s"/><circle class="star-dot" cx="70" cy="100" r="1.8" style="--sp-d:3.8s;--sp-del:.2s"/><circle class="star-dot" cx="130" cy="100" r="1.8" style="--sp-d:2.9s;--sp-del:1.1s"/>
+<path class="star-path" d="M100 8 L55 50 L70 100 L130 100 L145 50 Z"/></svg></div></div>
+
+<!-- ═══ PROJEKTE STATEMENT ═══ -->
+<div class="projekte-statement" data-reveal>
+  <p class="projekte-text">
+    Meine Projekte wachsen wie Gänseblümchen<svg class="projekte-daisy-icon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="9" fill="#c9a96e"/><g fill="rgba(232,226,212,0.8)"><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(0,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(30,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(60,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(90,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(120,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(150,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(180,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(210,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(240,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(270,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(300,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(330,50,50)"/></g></svg>im Betongrau einer Welt im Umbruch: <span class="gold">zart, wild und widerständig.</span>
+  </p>
+</div>
+
 <!-- ═══ PORTRAIT ═══ -->
 <section class="portrait-section">
-  <div class="portrait-glow"></div>
   <div style="display:flex;flex-direction:column;align-items:center;">
     <div class="portrait-frame" data-reveal>
       <img src="images/portrait.jpg" alt="Mika Schöberl" class="portrait-img" loading="lazy" decoding="async">
-      <div class="eclipse-diamond"></div>
-      <div class="eclipse-corona"></div>
     </div>
   </div>
 </section>
+
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 220 120"><circle class="star-dot" cx="25" cy="30" r="2" style="--sp-d:3s;--sp-del:.1s"/><circle class="star-dot" cx="70" cy="80" r="2.5" style="--sp-d:2.3s;--sp-del:.5s"/><circle class="star-dot" cx="115" cy="25" r="2" style="--sp-d:3.7s;--sp-del:.8s"/><circle class="star-dot" cx="155" cy="90" r="2.2" style="--sp-d:2.1s;--sp-del:0s"/><circle class="star-dot" cx="195" cy="40" r="2.8" style="--sp-d:2.6s;--sp-del:1.2s"/>
+<path class="star-path" d="M25 30 L70 80 L155 90 L115 25 Z"/><path class="star-path" d="M115 25 L155 90 L195 40"/></svg></div></div>
 
 <!-- ═══ MOON PHASE NAVIGATION — Celestial Observatory ═══ -->
 <nav class="moon-nav" data-reveal>
@@ -1684,7 +1743,7 @@
     </svg>
     <a href="buecher/" class="moon-item" style="--wave-y:20px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.06"/></svg>
-      <span class="moon-label">Bücher & Kolumnen</span>
+      <span class="moon-label"><span class="moon-label-full">Bücher & Kolumnen</span><span class="moon-label-short">Bücher</span></span>
     </a>
     <a href="ueber-mich/" class="moon-item" style="--wave-y:-25px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
@@ -1697,6 +1756,10 @@
     <a href="zirkel/" class="moon-item" style="--wave-y:-35px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.65"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/></svg>
       <span class="moon-label">Zirkel</span>
+    </a>
+    <a href="zirkel/#newsletter" class="moon-item" style="--wave-y:22px">
+      <svg class="moon-icon" viewBox="0 0 32 32"><defs><radialGradient id="pl" cx="40%" cy="35%" r="50%"><stop offset="0%" stop-color="rgba(160,200,220,.7)"/><stop offset="50%" stop-color="rgba(120,170,200,.55)"/><stop offset="100%" stop-color="rgba(80,140,180,.4)"/></radialGradient></defs><ellipse cx="16" cy="16" rx="15" ry="5.3" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".7" transform="rotate(-25 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="4.3" fill="none" stroke="rgba(140,185,210,.25)" stroke-width=".5" transform="rotate(-25 16 16)"/><circle cx="16" cy="16" r="9" fill="url(#pl)"/><circle cx="16" cy="16" r="9" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".6"/><circle cx="13" cy="14" r="1.3" fill="rgba(170,210,230,.2)"/><circle cx="19" cy="18" r="1" fill="rgba(160,200,220,.15)"/></svg>
+      <span class="moon-label">Newsletter</span>
     </a>
     <a href="#kontakt" class="moon-item" style="--wave-y:25px">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.5"/></svg>
@@ -1735,12 +1798,14 @@
   </div>
 </section>
 
-<div class="section-glow"></div>
+<div class="sep-constellation"><div class="constellation-line" data-reveal>
+<svg viewBox="0 0 200 120"><circle class="star-dot" cx="100" cy="10" r="2.8" style="--sp-d:2.2s;--sp-del:0s"/><circle class="star-dot" cx="40" cy="95" r="2" style="--sp-d:3.3s;--sp-del:.6s"/><circle class="star-dot" cx="160" cy="95" r="2" style="--sp-d:2.8s;--sp-del:.3s"/><circle class="star-dot" cx="100" cy="60" r="1.5" style="--sp-d:4s;--sp-del:1s"/>
+<path class="star-path" d="M100 10 L40 95 L160 95 Z"/><path class="star-path" d="M100 10 L100 60"/></svg></div></div>
 
 <!-- ═══ KONTAKT ═══ -->
 <section class="kontakt-section" id="kontakt">
   <div class="kontakt-inner">
-    <img class="kontakt-crane" src="images/origami-schwan.png" alt="" loading="lazy" decoding="async" data-reveal>
+    <img class="kontakt-crane no-animate" src="images/origami-schwan.png" alt="" loading="lazy" decoding="async" data-reveal>
     <div class="kontakt-label" data-reveal>Kontakt</div>
     <h2 data-reveal>Starte<br><em>das Gespräch.</em></h2>
     <p class="kontakt-body" data-reveal>Keine langen Formulare. Kein Fragebogen. Schreib einfach — was dich bewegt, was du suchst, oder nur: dass du da bist. Ich antworte persönlich.</p>
@@ -1832,15 +1897,35 @@ function showTab(btn, id) {
 var supportsBackdropFilter = CSS.supports && (CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'));
 var isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
 var isAndroid = navigator.userAgent.indexOf('Android') > -1;
+var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
 var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 
-// Isar: swap SVG for lightweight CSS version on low-end devices
-if (isLowEnd) {
+// Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
+if (isMobile) {
+  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    a.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }, { passive: false });
+  });
+}
+
+// Isar: keep full SVG on all devices, but disable heavy filters/animations on low-end
+if (isLowEnd && !isIOS) {
   var isarSvg = document.getElementById('isar');
-  var isarSimple = document.getElementById('isarSimple');
-  if (isarSvg) isarSvg.style.display = 'none';
-  if (isarSimple) isarSimple.style.display = 'block';
+  if (isarSvg) isarSvg.classList.add('isar-lite');
+  document.body.classList.add('low-end');
+}
+// iOS: keep beautiful river but disable drop-shadows for performance
+if (isIOS) {
+  document.body.classList.add('ios-perf');
+}
+// Crane: no animation on mobile
+if (isMobile) {
+  var crane = document.querySelector('.kontakt-crane');
+  if (crane) crane.classList.add('no-animate');
 }
 
 (function() {
@@ -1904,7 +1989,7 @@ if (isLowEnd) {
       ctx.save();
       ctx.globalAlpha = this.opacity;
       ctx.fillStyle = this.color;
-      ctx.shadowBlur = isLowEnd ? 0 : this.size * 3;
+      ctx.shadowBlur = (isLowEnd || isMobile) ? 0 : this.size * 3;
       ctx.shadowColor = this.color;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1926,7 +2011,7 @@ if (isLowEnd) {
     }
   }
 
-  const starCount = window.innerWidth < 768 ? 80 : 180;
+  const starCount = isMobile ? 50 : 180;
   for (let i = 0; i < starCount; i++) stars.push(new Star());
 
   function animateStars() {
@@ -1944,7 +2029,7 @@ if (isLowEnd) {
   /* ── Sky Gradient System (ported from zirkel) ── */
   (function(){
     var skyBg = document.getElementById('skyBg');
-    var isar = isLowEnd ? document.getElementById('isarSimple') : document.getElementById('isar');
+    var isar = document.getElementById('isar');
     var moon = document.getElementById('moon');
     var starsCanvas = document.getElementById('stars-canvas');
     var alpen = document.getElementById('alpenSkyline');
@@ -1955,16 +2040,17 @@ if (isLowEnd) {
     if (!hero || !skyBg) return;
 
     var skyStops = [
-      { r: 6, g: 5, b: 10 },
-      { r: 6, g: 5, b: 10 },
-      { r: 10, g: 10, b: 18 },
-      { r: 14, g: 16, b: 28 },
-      { r: 22, g: 30, b: 50 },
-      { r: 32, g: 48, b: 72 },
-      { r: 52, g: 72, b: 95 },
-      { r: 82, g: 62, b: 52 }
+      { r: 6, g: 5, b: 10 },      // 0% — Schwarz
+      { r: 6, g: 5, b: 10 },      // 15% — Schwarz
+      { r: 10, g: 10, b: 18 },    // 25% — Tiefe Nacht
+      { r: 14, g: 16, b: 28 },    // 40% — Andeutung Blau
+      { r: 22, g: 30, b: 50 },    // 55% — Nachtblau
+      { r: 35, g: 42, b: 68 },    // 70% — Tiefes Blau
+      { r: 55, g: 50, b: 62 },    // 82% — Dämmerungsgrau
+      { r: 95, g: 60, b: 65 },    // 92% — Sanftes Rosé
+      { r: 120, g: 70, b: 72 }    // 100% — Warmes Magenta-Rosé
     ];
-    var skyPositions = [0, 0.15, 0.25, 0.40, 0.55, 0.70, 0.85, 1.0];
+    var skyPositions = [0, 0.15, 0.25, 0.40, 0.55, 0.70, 0.82, 0.92, 1.0];
 
     function lerpColor(c1, c2, t) {
       return {
@@ -1991,13 +2077,13 @@ if (isLowEnd) {
       var cDark = lerpColor(c, { r: Math.max(0, c.r - 4), g: Math.max(0, c.g - 3), b: Math.max(0, c.b - 2) }, 0.5);
       var bg = 'linear-gradient(180deg, rgb(' + c.r + ',' + c.g + ',' + c.b + ') 0%, rgb(' + cDark.r + ',' + cDark.g + ',' + cDark.b + ') 100%)';
       var blueGlow = pct > 0.25 && pct < 0.7 ? Math.sin((pct - 0.25) / 0.45 * Math.PI) * 0.08 : 0;
-      var dawnGlow = pct > 0.75 ? Math.min((pct - 0.75) / 0.25, 1) * 0.1 : 0;
-      var morgenrot = pct > 0.85 ? Math.min((pct - 0.85) / 0.15, 1) : 0;
+      var dawnGlow = pct > 0.70 ? Math.min((pct - 0.70) / 0.20, 1) * 0.08 : 0;
+      var morgenrot = pct > 0.82 ? Math.min((pct - 0.82) / 0.18, 1) : 0;
       if (blueGlow > 0.001) bg += ', radial-gradient(ellipse at 50% 60%, rgba(40,60,100,' + blueGlow.toFixed(3) + ') 0%, transparent 50%)';
-      if (dawnGlow > 0.001) bg += ', radial-gradient(ellipse at 50% 85%, rgba(120,80,50,' + dawnGlow.toFixed(3) + ') 0%, transparent 50%)';
+      if (dawnGlow > 0.001) bg += ', radial-gradient(ellipse at 55% 80%, rgba(120,60,65,' + dawnGlow.toFixed(3) + ') 0%, transparent 50%)';
       if (morgenrot > 0.01) {
-        bg += ', radial-gradient(ellipse at 50% 95%, rgba(180,100,50,' + (morgenrot * 0.12).toFixed(3) + ') 0%, transparent 45%)';
-        bg += ', radial-gradient(ellipse at 30% 95%, rgba(200,140,60,' + (morgenrot * 0.08).toFixed(3) + ') 0%, transparent 40%)';
+        bg += ', radial-gradient(ellipse at 50% 95%, rgba(150,55,70,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 45%)';
+        bg += ', radial-gradient(ellipse at 30% 90%, rgba(170,70,80,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 40%)';
       }
       skyBg.style.background = bg;
     }
@@ -2094,7 +2180,7 @@ if (isLowEnd) {
     function resizeDust() { dustCanvas.width = window.innerWidth; dustCanvas.height = window.innerHeight; }
     resizeDust();
     window.addEventListener('resize', resizeDust);
-    var dustCount = window.innerWidth < 768 ? 40 : 80;
+    var dustCount = isMobile ? 25 : 80;
     var dustParticles = [];
     for (var i = 0; i < dustCount; i++) {
       dustParticles.push({
@@ -2120,16 +2206,19 @@ if (isLowEnd) {
         var alpha = p.opacity * (0.5 + 0.5 * Math.sin(p.flicker));
         dCtx.globalAlpha = alpha;
         dCtx.fillStyle = '#c9a96e';
-        dCtx.shadowBlur = isLowEnd ? 0 : p.size * 3;
+        dCtx.shadowBlur = (isLowEnd || isMobile) ? 0 : p.size * 3;
         dCtx.shadowColor = 'rgba(201,169,110,0.5)';
         dCtx.beginPath();
         dCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         dCtx.fill();
       }
       dCtx.shadowBlur = 0;
-      rAF(animateDust);
+      if (!document.hidden) rAF(animateDust);
     }
     animateDust();
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) animateDust();
+    });
   })();
 
   /* ── Guiding Star ── */
@@ -2143,9 +2232,13 @@ if (isLowEnd) {
 
     var starDissolveTimer = null;
     var starPulseTimer = null;
+    var guidingStarTicking = false;
 
     window.addEventListener('scroll', function() {
+      if (guidingStarTicking) return;
+      guidingStarTicking = true;
       rAF(function() {
+        guidingStarTicking = false;
         var scrollY = window.scrollY;
         var anchorPageY = starAnchor.getBoundingClientRect().top + scrollY;
         var logoPageY = logoContainer.getBoundingClientRect().top + scrollY + logoContainer.offsetHeight / 2;
@@ -2288,8 +2381,10 @@ if (isLowEnd) {
   document.getElementById("introEclipse").style.opacity="0";
   document.getElementById("introEclipse").style.transition="opacity 2s ease";
 
-  // Create stars
-  for(var i=0;i<140;i++){
+  // Create stars — reduced on mobile, batch-appended
+  var introParticleCount = isMobile ? 40 : 140;
+  var particleFrag = document.createDocumentFragment();
+  for(var i=0;i<introParticleCount;i++){
     var p=document.createElement("div");
     p.className="intro-particle";
     var sz=1+Math.random()*2.5;
@@ -2299,8 +2394,9 @@ if (isLowEnd) {
     p.style.animationDelay=Math.random()*8+"s";
     p.style.animationDuration=3+Math.random()*5+"s";
     if(Math.random()>.7)p.style.background="rgba(232,226,212,.8)";
-    particles.appendChild(p);
+    particleFrag.appendChild(p);
   }
+  particles.appendChild(particleFrag);
 
   var phaseTime=5000;
   var totalityTime=8000;
@@ -2343,8 +2439,9 @@ if (isLowEnd) {
   function endIntro(){
     if(fadingOut)return;
     fadingOut=true;
+    running=false;
     window.scrollTo(0,0);
-    if(audio){audio.pause();}
+    if(audio){audio.pause();audio.currentTime=0;audio.src="";}
     var flash=document.createElement("div");
     flash.style.cssText="position:fixed;inset:0;z-index:10000;pointer-events:none;overflow:hidden";
     var sun=document.createElement("div");
@@ -2369,12 +2466,17 @@ if (isLowEnd) {
     },7500);
   }
 
+  var lastEclipseCx = 200;
   function tick(timestamp){
     if(!running)return;
     if(!startTime)startTime=timestamp;
     var elapsed=timestamp-startTime;
 
-    shadow.setAttribute("cx",getEclipseCx(elapsed));
+    var newCx = Math.round(getEclipseCx(elapsed));
+    if (newCx !== lastEclipseCx) {
+      lastEclipseCx = newCx;
+      shadow.setAttribute("cx", newCx);
+    }
 
     var ti=getTextIndex(elapsed);
     if(ti!==textShown&&ti>=0&&ti<texts.length){
@@ -2464,14 +2566,19 @@ if (isLowEnd) {
     skipBtn.classList.remove("hidden");
     document.getElementById("introEclipse").style.opacity="1";
     if(audio){
-      audio.volume=0;
-      audio.play().catch(function(){});
-      var vol=0;
-      var fadeIn=setInterval(function(){
-        vol+=0.05;
-        if(vol>=0.7){vol=0.7;clearInterval(fadeIn);}
-        audio.volume=vol;
-      },150);
+      if(isIOS){
+        // iOS ignores programmatic volume — just play directly
+        audio.play().catch(function(){});
+      } else {
+        audio.volume=0;
+        audio.play().catch(function(){});
+        var vol=0;
+        var fadeIn=setInterval(function(){
+          vol+=0.05;
+          if(vol>=0.7){vol=0.7;clearInterval(fadeIn);}
+          audio.volume=vol;
+        },150);
+      }
     }
     running=true;
     rAF(tick);
@@ -2487,7 +2594,6 @@ if (isLowEnd) {
     lyricShown=-1;
     titleShown=false;
     fadingOut=false;
-    eclipsePulsed=false;
     startTime=null;
     running=false;
     textEl.style.opacity="0";
@@ -2515,6 +2621,8 @@ if (isLowEnd) {
 </script>
 
 <!-- RAINDROP CLICK MAGIC -->
+
+<script src="js/book-popups.js" defer></script>
 
 </body>
 </html>
