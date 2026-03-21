@@ -69,24 +69,21 @@
   .isar { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.5s ease; will-change: transform; }
   .isar.visible { opacity: 1; }
   .isar svg { width: 100%; height: 100%; overflow: visible; }
-  .isar-flow { fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; animation: isarFlow var(--if-d,12s) ease-in-out var(--if-del,0s) infinite; will-change: opacity; transform: translateZ(0); }
-  @keyframes isarFlow {
-    0%,100% { opacity: .1; stroke-dashoffset: 0; }
-    25% { opacity: .45; }
-    50% { opacity: .35; }
-    75% { opacity: .45; }
-  }
-  .isar-shimmer { fill: none; stroke-linecap: round; opacity: 0; animation: isarShimmer var(--is-d,6s) ease-in-out var(--is-del,0s) infinite; will-change: opacity; }
-  @keyframes isarShimmer { 0%,100% { opacity: 0; stroke-dashoffset: 30; } 40% { opacity: .7; stroke-dashoffset: 0; } 60% { opacity: .5; stroke-dashoffset: -10; } 100% { opacity: 0; stroke-dashoffset: -30; } }
-  .isar-glow { filter: drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08)); will-change: filter; transform: translateZ(0); }
+  /* Isar — static river, no animations for max performance */
+  .isar-flow { fill: none; stroke-linecap: round; stroke-linejoin: round; transform: translateZ(0); }
+  .isar-flow:nth-child(1){opacity:.18}
+  .isar-flow:nth-child(2){opacity:.38}
+  .isar-flow:nth-child(3){opacity:.32}
+  .isar-flow:nth-child(4){opacity:.28}
+  .isar-flow:nth-child(5){opacity:.22}
+  .isar-flow:nth-child(6){opacity:.4}
+  .isar-shimmer { fill: none; stroke-linecap: round; opacity: .35; }
+  .isar-glow { filter: drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08)); transform: translateZ(0); }
 
-  /* Isar Simple — lightweight CSS fallback for low-end devices */
-  .isar-simple{position:fixed;top:0;left:50%;width:4px;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;transform:translateX(-50%)}
-  .isar-simple.visible{opacity:1}
-  .isar-simple::before,.isar-simple::after{content:'';position:absolute;top:0;left:50%;width:100%;height:100%;border-radius:50px;transform:translateX(-50%)}
-  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(60,150,185,0.08) 10%,rgba(80,185,210,0.18) 30%,rgba(100,220,230,0.15) 50%,rgba(80,185,210,0.18) 70%,rgba(60,150,185,0.08) 90%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
-  .isar-simple::after{width:20px;background:linear-gradient(180deg,transparent 0%,rgba(170,240,250,0.06) 15%,rgba(200,250,255,0.12) 40%,rgba(170,240,250,0.1) 60%,rgba(200,250,255,0.12) 80%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
-  @keyframes isarSimplePulse{0%,100%{opacity:.4}50%{opacity:1}}
+  /* Isar Lite — no filters for very low-end */
+  .isar.isar-lite .isar-glow{filter:none!important}
+  .isar.isar-lite .isar-shimmer{display:none}
+
 
   @media(max-width:768px){
     .isar svg { transform: scaleX(1.3); }
@@ -130,14 +127,17 @@
     will-change: transform, opacity;
   }
 
-  .poem-stage { position: relative; text-align: center; overflow: visible; }
+  .poem-stage {
+    position: relative; text-align: center; overflow: visible;
+    background: radial-gradient(ellipse at 50% 60%, rgba(60,50,80,0.15) 0%, rgba(30,25,50,0.08) 40%, transparent 70%);
+  }
 
   .poem-line {
     font-family: var(--font-serif);
     font-weight: 300; font-style: italic;
     line-height: 1.5; color: var(--cream);
     display: block; margin-bottom: 0.5rem;
-    text-shadow: 0 0 40px rgba(14,12,20,0.9), 0 0 80px rgba(14,12,20,0.6);
+    text-shadow: 0 0 30px rgba(14,12,20,0.7), 0 0 60px rgba(14,12,20,0.4);
     opacity: 0; transform: translateY(12px);
     animation-fill-mode: both; animation-duration: 1.2s;
     animation-timing-function: ease; animation-name: fadeInUp;
@@ -145,13 +145,13 @@
   }
   .poem-line-1 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); color: var(--cream-dim); letter-spacing: 0.04em; animation-delay: 1.2s; }
   .poem-line-2 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--cream); letter-spacing: 0.04em; animation-delay: 1.6s; }
-  .poem-line-3 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--cream); letter-spacing: 0.04em; animation-delay: 2s; }
+  .poem-line-3 { font-size: clamp(1.3rem, 3vw, 1.8rem); color: rgba(220,210,190,1); letter-spacing: 0.04em; animation-delay: 2s; }
   .poem-line-4 {
     font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 400;
     letter-spacing: 0.06em; margin-top: 0.3rem; animation-delay: 2.6s;
-    background: linear-gradient(135deg, var(--gold) 0%, #e8c87a 40%, var(--cream) 60%, var(--gold) 100%);
+    background: linear-gradient(135deg, #d4a85c 0%, #e8c87a 35%, #f0dca0 55%, #e8c87a 75%, #c9a96e 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(201,169,110,0.2));
+    filter: drop-shadow(0 0 25px rgba(201,169,110,0.35)) drop-shadow(0 0 60px rgba(201,169,110,0.15));
     will-change: filter;
   }
   .poem-dots { color: var(--gold); font-style: normal; -webkit-text-fill-color: var(--gold); }
@@ -159,7 +159,7 @@
   .poem-crack {
     display: block; width: 2px; height: 50px;
     margin: 0.5rem auto 0;
-    background: linear-gradient(to bottom, transparent, rgba(150,190,220,0.15), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(180,160,130,0.2), transparent);
     opacity: 0; animation: fadeInUp 1.5s ease 3s both;
   }
 
@@ -207,14 +207,33 @@
      SECTION STYLES
      ══════════════════════════════════════ */
   .section-glow {
-    width: 100%; height: 100px;
-    background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
+    width: 100%; height: 120px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
   .section-glow.small { height: 60px; }
   .section-glow.ember {
-    background: radial-gradient(ellipse at 50% 50%, rgba(184,90,58,0.06) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 50%, rgba(184,90,58,0.08) 0%, transparent 70%);
   }
+  .section-glow.violet {
+    background: radial-gradient(ellipse at 50% 50%, rgba(100,60,130,0.06) 0%, transparent 70%);
+  }
+
+  /* ══ CONSTELLATION DIVIDERS ══ */
+  .sep-constellation{position:relative;z-index:2;height:clamp(80px,20vw,160px);display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden}
+  .constellation-line{width:clamp(160px,40vw,280px);height:clamp(80px,20vw,160px);pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+  .constellation-line.visible{opacity:1}
+  .constellation-line svg{width:100%;height:100%;overflow:visible}
+  .star-dot{fill:var(--gold);filter:drop-shadow(0 0 3px rgba(201,169,110,.6)) drop-shadow(0 0 8px rgba(201,169,110,.25));opacity:0;animation:starPulse var(--sp-d,2.8s) ease-in-out var(--sp-del,0s) infinite}
+  @keyframes starPulse{0%,100%{opacity:.25;r:1.5}20%{opacity:1;r:2.8}50%{opacity:.5;r:2}80%{opacity:.9;r:2.5}}
+  .star-path{stroke:var(--gold);stroke-width:.7;fill:none;opacity:0;stroke-dasharray:200;stroke-dashoffset:200;filter:drop-shadow(0 0 2px rgba(201,169,110,.3))}
+  .constellation-line.visible .star-path{animation:drawConstellation 3.5s ease forwards}
+  .constellation-line.visible .star-path:nth-of-type(2){animation-delay:.4s}
+  .constellation-line.visible .star-path:nth-of-type(3){animation-delay:.8s}
+  @keyframes drawConstellation{0%{opacity:0;stroke-dashoffset:200}20%{opacity:.4}100%{opacity:.25;stroke-dashoffset:0}}
+  /* Low-end: keine Filter, statische Sichtbarkeit */
+  .low-end .star-dot{filter:none;opacity:.5;animation:none}
+  .low-end .star-path{filter:none;opacity:.2;animation:none;stroke-dashoffset:0}
 
   /* ══ ZIRKEL TITLE ══ */
   .zirkel-title-section {
@@ -513,6 +532,191 @@
   .moon-item:hover::after { transform: translateX(-50%) scaleX(1); }
 
   /* ══════════════════════════════════════
+     MOONBOW / SONG SECTION
+     ══════════════════════════════════════ */
+  .moonbow-section {
+    position: relative; z-index: 5;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .moonbow-section.visible { opacity: 1; transform: translateY(0); }
+
+  .moonbow-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    color: var(--cream);
+    opacity: 0.85;
+    line-height: 2;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .moonbow-text .song-name {
+    color: var(--gold);
+    font-style: normal;
+    letter-spacing: 0.05em;
+  }
+  .moonbow-text .song-artist {
+    font-size: 0.85em;
+    opacity: 0.6;
+    font-style: normal;
+  }
+
+  .moonbow-stream {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(30,215,96,0.8);
+    font-family: var(--font-sans);
+    font-size: clamp(0.78rem, 1.3vw, 0.88rem);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .moonbow-stream:hover {
+    color: rgba(30,215,96,1);
+  }
+  .moonbow-stream svg {
+    width: 22px; height: 22px;
+  }
+
+  /* ══════════════════════════════════════
+     NEWSLETTER / ZIRKEL-BRIEF
+     ══════════════════════════════════════ */
+  .newsletter-section {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .newsletter-section.visible { opacity: 1; transform: translateY(0); }
+
+  .newsletter-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3.5rem 3rem;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 3px;
+    background: linear-gradient(165deg, rgba(45,25,50,0.7) 0%, rgba(20,15,35,0.85) 30%, rgba(15,20,40,0.8) 60%, rgba(50,25,20,0.6) 100%);
+    box-shadow: 0 0 50px rgba(160,100,200,0.08), 0 0 80px rgba(201,169,110,0.06), 0 0 120px rgba(90,140,200,0.04), inset 0 0 80px rgba(160,100,200,0.03);
+    position: relative;
+  }
+  .newsletter-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(180,120,220,0.3), rgba(201,169,110,0.2) 30%, transparent 50%, rgba(90,160,210,0.2) 70%, rgba(201,169,110,0.25));
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 1px;
+  }
+
+  .newsletter-seal {
+    width: 250px; height: auto;
+    margin: 0 auto 1.5rem;
+    opacity: 0.9;
+    mix-blend-mode: lighten;
+    filter: drop-shadow(0 0 12px rgba(180,120,220,0.2));
+  }
+
+  .newsletter-card h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(201,169,110,0.25);
+  }
+
+  .newsletter-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(180,120,220,0.6), var(--gold), rgba(90,160,210,0.6), transparent);
+    margin: 1rem auto 1.5rem;
+    opacity: 0.7;
+  }
+
+  .newsletter-card .newsletter-desc {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1.9vw, 1.18rem);
+    color: var(--cream);
+    opacity: 0.9;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .newsletter-editions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .newsletter-edition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.8rem;
+    border: 1px solid rgba(201,169,110,0.25);
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: linear-gradient(135deg, rgba(160,100,200,0.06), rgba(201,169,110,0.04), rgba(90,160,210,0.06));
+  }
+  .newsletter-edition:hover {
+    background: linear-gradient(135deg, rgba(160,100,200,0.14), rgba(201,169,110,0.1), rgba(90,160,210,0.14));
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(160,100,200,0.1), 0 0 20px rgba(201,169,110,0.08);
+    transform: translateX(4px);
+  }
+  .edition-date {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .edition-arrow {
+    font-size: 1.1rem;
+    color: var(--gold);
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .newsletter-edition:hover .edition-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  .newsletter-mail-hint {
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+    color: var(--cream-dim);
+    opacity: 0.6;
+    margin-top: 1.8rem;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+  .newsletter-mail-hint a {
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  .newsletter-mail-hint a:hover { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .newsletter-card { padding: 2rem 1.5rem; }
+  }
+
+  /* ══════════════════════════════════════
      LEGAL & FOOTER
      ══════════════════════════════════════ */
   .legal-section {
@@ -695,10 +899,10 @@
   .contact-card {
     position: relative;
     padding: 2.5rem 2rem;
-    background: linear-gradient(135deg, rgba(201,169,110,0.14) 0%, rgba(20,18,25,0.6) 30%, rgba(15,13,20,0.65) 60%, rgba(201,169,110,0.16) 100%);
-    border: 1px solid rgba(201,169,110,0.3);
-    border-radius: 20px;
-    box-shadow: 0 0 60px rgba(201,169,110,0.08), inset 0 0 60px rgba(0,0,0,0.3);
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden;
   }
   .contact-card h3 {
@@ -1354,7 +1558,7 @@
     pointer-events: none;
     transition: opacity 1.5s ease;
   }
-  .alpen-skyline.visible { opacity: 0.3; }
+  .alpen-skyline.visible { opacity: 0.5; }
   .alpen-skyline img {
     display: block;
     width: 100%;
@@ -1465,7 +1669,7 @@
 </div>
 
 <!-- Isar River -->
-<div class="isar-simple" id="isarSimple"></div>
+<div class="isar-simple" id="isarSimple"><div class="isar-simple-mid"></div></div>
 <div class="isar" id="isar">
   <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="isar-glow" preserveAspectRatio="none">
     <defs>
@@ -1539,7 +1743,7 @@
     </div>
     <img src="../images/Logo-1.png.webp" alt="Funkenfangen" class="logo-img" data-reveal>
   </div>
-  <a href="https://chat.whatsapp.com/HDREyO8dzso3VhpdhDfAfi?mode=wwt" class="kostenlos-badge" data-reveal target="_blank" rel="noopener" style="text-decoration:none;">Ohne Kosten, ohne Hürden — komm, wie du bist</a>
+  <a href="https://chat.whatsapp.com/HDREyO8dzso3VhpdhDfAfi?mode=wwt" class="kostenlos-badge" data-reveal target="_blank" rel="noopener" style="text-decoration:none;">Kostenlos. Offen. Jetzt dabei sein.</a>
 </section>
 
 <!-- ═══ ZIRKEL TITLE ═══ -->
@@ -1571,6 +1775,10 @@
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
       <span class="moon-label">Zirkel</span>
     </a>
+    <a href="#newsletter" class="moon-item">
+      <svg class="moon-icon" viewBox="0 0 32 32"><defs><radialGradient id="pl" cx="40%" cy="35%" r="50%"><stop offset="0%" stop-color="rgba(160,200,220,.7)"/><stop offset="50%" stop-color="rgba(120,170,200,.55)"/><stop offset="100%" stop-color="rgba(80,140,180,.4)"/></radialGradient></defs><ellipse cx="16" cy="16" rx="15" ry="5.3" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".7" transform="rotate(-25 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="4.3" fill="none" stroke="rgba(140,185,210,.25)" stroke-width=".5" transform="rotate(-25 16 16)"/><circle cx="16" cy="16" r="9" fill="url(#pl)"/><circle cx="16" cy="16" r="9" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".6"/><circle cx="13" cy="14" r="1.3" fill="rgba(170,210,230,.2)"/><circle cx="19" cy="18" r="1" fill="rgba(160,200,220,.15)"/></svg>
+      <span class="moon-label">Newsletter</span>
+    </a>
     <a href="#kontakt" class="moon-item">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
       <span class="moon-label">Kontakt</span>
@@ -1587,7 +1795,6 @@
 </nav>
 
 <!-- ═══ INTRO TEXT ═══ -->
-<div class="section-glow small"></div>
 <section class="zirkel-section" data-reveal>
   <div id="textIntro">
     <p>Seit Jahrhunderten haben sich Menschen in Zirkeln versammelt: um Wissen zu teilen, um einander zuzuhören, um Rituale zu pflegen oder einfach, um nicht allein zu sein. Immer brannte in diesen Kreisen ein kleiner Funke – <span class="glow-line">der Funke von Verbindung, Erkenntnis, Wärme.</span></p>
@@ -1649,32 +1856,7 @@
   <button class="weiterlesen-btn" onclick="toggleText('textKreis', this)">Weiterlesen</button>
 </section>
 
-<!-- ═══ POEM & IMAGE CAROUSEL ═══ -->
-<section class="poem-interlude" data-reveal>
-  <div class="poem-interlude-text">
-    <p class="poem-interlude-line"><span class="poem-dots">…</span>Sie löste heimlich den strengen</p>
-    <p class="poem-interlude-line">Zopf um Mitternacht –</p>
-    <p class="poem-interlude-line">Eine stille Krone aus zerzausten</p>
-    <p class="poem-interlude-line">Ideen auf ihrem Kopf.</p>
-    <p class="poem-interlude-line poem-interlude-pause">Kein Applaus, kein Like –</p>
-    <p class="poem-interlude-line">nur ihr Spiegel als Mitwisser,</p>
-    <p class="poem-interlude-line">während sie barfuß durch die</p>
-    <p class="poem-interlude-line">Küche tanzt, frei von der</p>
-    <p class="poem-interlude-line">Schwerkraft der Rollenbilder.</p>
-    <p class="poem-interlude-line poem-interlude-pause">Sie speichert diesen Moment im</p>
-    <p class="poem-interlude-line poem-interlude-highlight">Inkognito-Modus ihres Herzens</p>
-    <p class="poem-interlude-line">– ein kleiner Sieg,</p>
-    <p class="poem-interlude-line">der am nächsten Morgen mit<span class="poem-dots">…</span></p>
-    <div class="poem-signature" style="margin-top: 1.2rem; opacity: 1; animation: none;">
-      <img src="../images/Portrait1.png" alt="" class="poem-portrait" loading="lazy" decoding="async">
-      <span class="poem-author">Mika Schöberl</span>
-    </div>
-  </div>
-</section>
-
 </div>
-
-<div class="section-glow ember"></div>
 
 <!-- ═══ EINLADUNG ═══ -->
 <section style="padding: 1rem 2rem;">
@@ -1695,8 +1877,6 @@
   </div>
 </section>
 
-<div class="section-glow small"></div>
-
 <!-- ═══ PORTRAITS ═══ -->
 <section class="portrait-duo-section" data-reveal>
   <h2 class="portrait-duo-title">Die Handschrift einer Leitung,<br>die viele Welten kennt</h2>
@@ -1704,11 +1884,11 @@
 
   <div class="portrait-duo">
     <div class="portrait-card">
-      <div class="portrait-frame">
+      <a href="../ueber-mich/" class="portrait-frame" style="display:block;text-decoration:none;">
         <img src="../images/mika.png" alt="Mika Schöberl" style="object-position: center 35%; transform: scale(1.1);" loading="lazy" decoding="async">
-      </div>
+      </a>
       <h3 class="portrait-name">Mika Schöberl</h3>
-      <p class="portrait-role">Schriftsteller, Heilpraktiker, sowie Lehrer für Religionslehre. Mikas Arbeit verbindet Naturheilkunde, Spiritualität, Kunst, Körperarbeit und Poesie – getragen von vielen Jahren Erfahrung in Pädagogik, Musikwissenschaft und Persönlichkeitsentwicklung.</p>
+      <p class="portrait-role">Schriftsteller, Heilpraktiker, sowie Lehrer für Religionslehre. Mikas Arbeit verbindet Naturheilkunde, Spiritualität, Kunst, Körperarbeit und Poesie.</p>
     </div>
     <div class="portrait-card">
       <div class="portrait-frame">
@@ -1722,6 +1902,23 @@
   <p class="portrait-duo-footer">
     Doch Funkenfangen sind nicht nur wir beide, sondern besteht aus ebenjener wachsenden Gemeinschaft von Menschen, die ihre <span class="highlight">Lebendigkeit zurückerobern</span> und einen heilsamen Weg jenseits alter Muster gehen und aktiv gestalten möchten.
   </p>
+</section>
+
+<!-- ═══ NEWSLETTER / ZIRKEL-BRIEF ═══ -->
+<section class="newsletter-section" id="newsletter" data-reveal>
+  <div class="newsletter-card">
+    <img class="newsletter-seal" src="../images/zirkel-brief-vogel.png" alt="Zirkel-Brief Vogel" loading="lazy" decoding="async">
+    <h3>Der Zirkel-Brief</h3>
+    <div class="newsletter-divider"></div>
+    <p class="newsletter-desc">Impulse, die zwischen den Treffen weiterwirken — Gedanken, Übungen und leise Funken für deinen Alltag.</p>
+    <div class="newsletter-editions">
+      <a href="https://www.canva.com/design/DAHEe4pnykU/dw_hXT5WBfCtGRee-V15uQ/view?utm_content=DAHEe4pnykU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h061782eeda" class="newsletter-edition" target="_blank" rel="noopener">
+        <span class="edition-date">März 2026</span>
+        <span class="edition-arrow">→</span>
+      </a>
+    </div>
+    <p class="newsletter-mail-hint">Du möchtest den Newsletter auch als PDF per E-Mail erhalten?<br>Schreib an <a href="mailto:kontakt@funkenfangen.com">kontakt@funkenfangen.com</a></p>
+  </div>
 </section>
 
 <!-- ═══ WHATSAPP & AKADEMIE ═══ -->
@@ -1750,7 +1947,17 @@
   </div>
 </section>
 
-<div class="section-glow"></div>
+<!-- ═══ MOONBOW / SONG ═══ -->
+<section class="moonbow-section" data-reveal>
+  <p class="moonbow-text">
+    Dir gefällt der Song aus unserem Intro? Mika hat <span class="song-name">Moonbow</span> für diesen Zirkel geschrieben — ein Lied über das Licht, das sich nur zeigt, wenn etwas in uns heil geworden ist. Über Sehnsucht, die sich an ihre eigene Form erinnert. Und über den Moment, in dem das Herz weiß, wo es hingehört.
+    <br><span class="song-artist">Summerchild (Mika Schöberl)</span>
+  </p>
+  <a href="https://open.spotify.com/intl-de/track/0fVNWzUIvCkNcovGdesN0U?si=6a67c889ccde49bc" class="moonbow-stream" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="rgba(30,215,96,0.8)"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+    Auf Spotify hören
+  </a>
+</section>
 
 <!-- ═══ MOON NAV (bottom) ═══ -->
 <nav class="moon-nav moon-nav-bottom" data-reveal>
@@ -1774,6 +1981,10 @@
     <a href="../zirkel/" class="moon-item" style="color: var(--gold); opacity: 1;">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/></svg>
       <span class="moon-label">Zirkel</span>
+    </a>
+    <a href="#newsletter" class="moon-item">
+      <svg class="moon-icon" viewBox="0 0 32 32"><defs><radialGradient id="pl" cx="40%" cy="35%" r="50%"><stop offset="0%" stop-color="rgba(160,200,220,.7)"/><stop offset="50%" stop-color="rgba(120,170,200,.55)"/><stop offset="100%" stop-color="rgba(80,140,180,.4)"/></radialGradient></defs><ellipse cx="16" cy="16" rx="15" ry="5.3" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".7" transform="rotate(-25 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="4.3" fill="none" stroke="rgba(140,185,210,.25)" stroke-width=".5" transform="rotate(-25 16 16)"/><circle cx="16" cy="16" r="9" fill="url(#pl)"/><circle cx="16" cy="16" r="9" fill="none" stroke="rgba(150,195,215,.35)" stroke-width=".6"/><circle cx="13" cy="14" r="1.3" fill="rgba(170,210,230,.2)"/><circle cx="19" cy="18" r="1" fill="rgba(160,200,220,.15)"/></svg>
+      <span class="moon-label">Newsletter</span>
     </a>
     <a href="#kontakt" class="moon-item">
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
@@ -1838,12 +2049,26 @@
 <script>
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 var isAndroid = /Android/i.test(navigator.userAgent);
+var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
 var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-if (isLowEnd) {
+if (isLowEnd && !isIOS) {
   var isarSvg = document.getElementById('isar');
-  var isarSimple = document.getElementById('isarSimple');
-  if (isarSvg) isarSvg.style.display = 'none';
-  if (isarSimple) isarSimple.style.display = 'block';
+  if (isarSvg) isarSvg.classList.add('isar-lite');
+  document.body.classList.add('low-end');
+}
+if (isIOS) {
+  document.body.classList.add('ios-perf');
+}
+
+// Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
+if (isMobile) {
+  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    a.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener');
+    }, { passive: false });
+  });
 }
 (function(){
   /* ── Legal Tabs ── */
@@ -1985,7 +2210,7 @@ if (isLowEnd) {
     ctx.save();
     ctx.globalAlpha = this.opacity;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = isLowEnd ? 0 : this.size * 3;
+    ctx.shadowBlur = (isLowEnd || isMobile) ? 0 : this.size * 3;
     ctx.shadowColor = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -2060,7 +2285,7 @@ if (isLowEnd) {
       dctx.save();
       dctx.globalAlpha = alpha;
       dctx.fillStyle = '#c9a96e';
-      dctx.shadowBlur = isLowEnd ? 0 : p.size * 3;
+      dctx.shadowBlur = (isLowEnd || isMobile) ? 0 : p.size * 3;
       dctx.shadowColor = 'rgba(201,169,110,0.4)';
       dctx.beginPath();
       dctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -2074,16 +2299,17 @@ if (isLowEnd) {
   /* ── Dynamic Sky: Abendrot → Night → Morgendämmerung ── */
   var skyBg = document.getElementById('skyBg');
   var skyStops = [
-    { r: 6, g: 5, b: 10 },      // 0% — Pure black
-    { r: 6, g: 5, b: 10 },      // 15% — Still black (poem + ariadne + heart)
-    { r: 10, g: 10, b: 18 },    // 25% — Barely perceptible deep night
-    { r: 14, g: 16, b: 28 },    // 40% — Hint of blue
-    { r: 22, g: 30, b: 50 },    // 55% — Night blue
-    { r: 32, g: 48, b: 72 },    // 70% — Deeper blue
-    { r: 52, g: 72, b: 95 },    // 85% — Dawn blue
-    { r: 82, g: 62, b: 52 }     // 100% — Morgenrot
+    { r: 8, g: 6, b: 14 },      // 0% — Dunkles Indigo
+    { r: 10, g: 10, b: 22 },    // 12% — Tiefe Nacht
+    { r: 16, g: 18, b: 38 },    // 25% — Nacht mit Blauandeutung
+    { r: 24, g: 32, b: 58 },    // 40% — Sattes Nachtblau
+    { r: 35, g: 42, b: 72 },    // 55% — Tiefes Blau
+    { r: 48, g: 48, b: 68 },    // 68% — Blau-Grau Dämmerung
+    { r: 65, g: 55, b: 62 },    // 80% — Zartes Dämmerungsgrau
+    { r: 105, g: 65, b: 68 },   // 92% — Sanftes Rosé
+    { r: 130, g: 75, b: 78 }    // 100% — Zarte rötliche Morgenröte
   ];
-  var skyPositions = [0, 0.15, 0.25, 0.40, 0.55, 0.70, 0.85, 1.0];
+  var skyPositions = [0, 0.12, 0.25, 0.40, 0.55, 0.68, 0.80, 0.92, 1.0];
 
   function lerpColor(c1, c2, t) {
     return {
@@ -2113,21 +2339,21 @@ if (isLowEnd) {
     var c = getSkyColor(pct);
     var bg = 'linear-gradient(180deg, rgb(' + c.r + ',' + c.g + ',' + c.b + ') 0%, rgb(' + Math.max(c.r - 8, 0) + ',' + Math.max(c.g - 5, 0) + ',' + Math.max(c.b - 3, 0) + ') 100%)';
 
-    // Atmospheric overlays (black → blue → morgenrot)
-    var blueGlow = pct > 0.25 && pct < 0.7 ? Math.sin((pct - 0.25) / 0.45 * Math.PI) : 0;
-    var dawnGlow = pct > 0.75 ? Math.min((pct - 0.75) / 0.25, 1) : 0;
-    var morgenrot = pct > 0.85 ? Math.min((pct - 0.85) / 0.15, 1) : 0;
+    // Atmospheric overlays (night blue → warm dawn → morgenröte)
+    var blueGlow = pct > 0.20 && pct < 0.65 ? Math.sin((pct - 0.20) / 0.45 * Math.PI) : 0;
+    var warmDawn = pct > 0.65 ? Math.min((pct - 0.65) / 0.25, 1) : 0;
+    var morgenrot = pct > 0.82 ? Math.min((pct - 0.82) / 0.18, 1) : 0;
 
-    bg += ', radial-gradient(ellipse at 50% 50%, rgba(30,60,120,' + (blueGlow * 0.1).toFixed(3) + ') 0%, transparent 55%)';
-    bg += ', radial-gradient(ellipse at 60% 85%, rgba(80,120,180,' + (dawnGlow * 0.1).toFixed(3) + ') 0%, transparent 50%)';
-    bg += ', radial-gradient(ellipse at 50% 95%, rgba(180,100,50,' + (morgenrot * 0.12).toFixed(3) + ') 0%, transparent 45%)';
-    bg += ', radial-gradient(ellipse at 30% 95%, rgba(200,140,60,' + (morgenrot * 0.08).toFixed(3) + ') 0%, transparent 40%)';
+    bg += ', radial-gradient(ellipse at 50% 50%, rgba(30,50,110,' + (blueGlow * 0.12).toFixed(3) + ') 0%, transparent 55%)';
+    bg += ', radial-gradient(ellipse at 55% 80%, rgba(130,65,68,' + (warmDawn * 0.06).toFixed(3) + ') 0%, transparent 50%)';
+    bg += ', radial-gradient(ellipse at 50% 95%, rgba(160,60,75,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 45%)';
+    bg += ', radial-gradient(ellipse at 30% 90%, rgba(180,75,85,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 40%)';
 
     skyBg.style.background = bg;
   }
 
   /* ── Moon + Isar + Stars Scroll ── */
-  var isar = isLowEnd ? document.getElementById('isarSimple') : document.getElementById('isar');
+  var isar = document.getElementById('isar');
   var moon = document.getElementById('moon');
   var starsCanvas = document.getElementById('stars-canvas');
   var hero = document.getElementById('hero');
@@ -2541,5 +2767,6 @@ if (isLowEnd) {
 })();
 </script>
 
+<script src="../js/book-popups.js" defer></script>
 </body>
 </html>
