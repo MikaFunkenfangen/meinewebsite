@@ -1412,7 +1412,7 @@
   .eclipse-sun{filter:url(#coronaGlow)}
   .eclipse-corona{animation:coronaPulse 4s ease-in-out infinite}
   @keyframes coronaPulse{0%,100%{opacity:.4;transform-origin:center;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
-  .intro-text{font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.4rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;transition:opacity .8s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:3rem;display:flex;align-items:center;justify-content:center}
+  .intro-text{font-family:var(--font-serif);font-size:clamp(1.05rem,2.1vw,1.5rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;transition:opacity 1s ease,transform 1s ease,color .8s ease,text-shadow .8s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:auto;min-height:3rem;display:flex;align-items:center;justify-content:center;transform:translateY(6px);text-shadow:0 0 15px rgba(201,169,110,.06)}
   .intro-lyrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.2rem,.5vw,.4rem);opacity:0;transition:opacity 1s ease;text-align:center;padding:0 1.5rem;max-width:600px;margin-top:clamp(2rem,4vw,3.5rem);width:100%;position:relative;z-index:3;height:clamp(8rem,15vw,10rem)}
   .intro-lyric-en{font-family:var(--font-serif);font-size:clamp(.7rem,1.3vw,1rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.65);letter-spacing:.06em;line-height:1.4}
   .intro-lyric-de{font-family:var(--font-serif);font-size:clamp(.75rem,1.5vw,1.1rem);font-weight:300;font-style:italic;color:rgba(201,169,110,.85);letter-spacing:.06em;line-height:1.4;margin-bottom:.2rem}
@@ -1422,7 +1422,7 @@
   .intro-spotify-icon{display:inline-block;margin-top:.5rem;opacity:.5;transition:opacity .3s}
   .intro-spotify-icon:hover{opacity:1}
   .intro-spotify-icon svg{width:21px;height:21px}
-  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.05rem;padding:0 1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
+  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.08rem;padding:0 1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
   .intro-title{font-family:var(--font-heading);font-size:clamp(1.3rem,4vw,3rem);font-weight:400;color:rgba(232,226,212,.95);letter-spacing:.2em;opacity:0;transition:opacity 3s ease;text-align:center;text-shadow:0 0 60px rgba(201,169,110,.4),0 0 120px rgba(201,169,110,.15);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90%;line-height:1.8}
   .intro-title.visible{opacity:1}
   .intro-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 70%);pointer-events:none;animation:introGlow 3s ease-in-out infinite}
@@ -2380,12 +2380,21 @@ if (isLowEnd) {
     if(ti!==textShown&&ti>=0&&ti<texts.length){
       textShown=ti;
       textEl.style.opacity="0";
+      textEl.style.transform="translateY(6px)";
       setTimeout(function(idx){
         return function(){
           textEl.textContent=texts[idx];
+          if(idx===3||idx===8){
+            textEl.style.color="rgba(201,169,110,.95)";
+            textEl.style.textShadow="0 0 25px rgba(201,169,110,.35), 0 0 50px rgba(201,169,110,.12)";
+          }else{
+            textEl.style.color="rgba(232,226,212,.7)";
+            textEl.style.textShadow="0 0 15px rgba(201,169,110,.06)";
+          }
           textEl.style.opacity="1";
+          textEl.style.transform="translateY(0)";
         };
-      }(ti),500);
+      }(ti),550);
     }
 
     var audioElapsed=audio&&audio.currentTime?audio.currentTime*1000:elapsed;
@@ -2413,17 +2422,21 @@ if (isLowEnd) {
 
     var welcomeTime=53000;
     if(!titleShown&&elapsed>=welcomeTime&&elapsed<welcomeTime+100){
-      textEl.style.transition="opacity 1.5s ease";
+      textEl.style.transition="opacity 1.5s ease, transform 1.5s ease";
       textEl.style.opacity="0";
+      textEl.style.transform="translateY(6px)";
       setTimeout(function(){
         textEl.style.transition="none";
         textEl.textContent="Willkommen.";
         textEl.style.color="rgba(201,169,110,1)";
-        textEl.style.textShadow="0 0 30px rgba(201,169,110,.6), 0 0 60px rgba(201,169,110,.3)";
-        textEl.style.fontSize="clamp(1.3rem,3vw,2rem)";
+        textEl.style.textShadow="0 0 40px rgba(201,169,110,.6), 0 0 80px rgba(201,169,110,.25), 0 0 120px rgba(201,169,110,.1)";
+        textEl.style.fontSize="clamp(1.5rem,3.5vw,2.4rem)";
+        textEl.style.letterSpacing=".18em";
+        textEl.style.transform="translateY(8px)";
         void textEl.offsetHeight;
-        textEl.style.transition="opacity 2.5s ease";
+        textEl.style.transition="opacity 3s cubic-bezier(.4,0,.2,1), transform 3s cubic-bezier(.4,0,.2,1)";
         textEl.style.opacity="1";
+        textEl.style.transform="translateY(0)";
       },1600);
     }
 
@@ -2478,10 +2491,13 @@ if (isLowEnd) {
     startTime=null;
     running=false;
     textEl.style.opacity="0";
+    textEl.style.transform="translateY(6px)";
     textEl.textContent="";
     textEl.style.color="";
     textEl.style.textShadow="";
     textEl.style.fontSize="";
+    textEl.style.letterSpacing="";
+    textEl.style.transition="";
     titleEl.style.opacity="0";
     lyricsEl.style.opacity="0";
     lyricEnEl.innerHTML="";
