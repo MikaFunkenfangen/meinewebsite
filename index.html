@@ -154,24 +154,24 @@
   .isar{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;will-change:transform}
   .isar.visible{opacity:1}
   .isar svg{width:100%;height:100%;overflow:visible}
-  /* Isar — static river, no animations for max performance */
-  .isar-flow{fill:none;stroke-linecap:round;stroke-linejoin:round;transform:translateZ(0)}
-  .isar-flow:nth-child(1){opacity:.18}
-  .isar-flow:nth-child(2){opacity:.38}
-  .isar-flow:nth-child(3){opacity:.32}
-  .isar-flow:nth-child(4){opacity:.28}
-  .isar-flow:nth-child(5){opacity:.22}
-  .isar-flow:nth-child(6){opacity:.4}
-  .isar-shimmer{fill:none;stroke-linecap:round;opacity:.35;transform:translateZ(0)}
-  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));transform:translateZ(0)}
+  .isar-flow{fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;animation:isarFlow var(--if-d,12s) ease-in-out var(--if-del,0s) infinite;will-change:opacity;transform:translateZ(0)}
+  @keyframes isarFlow{
+    0%,100%{opacity:.1;stroke-dashoffset:0}
+    25%{opacity:.45}
+    50%{opacity:.35}
+    75%{opacity:.45}
+  }
+  .isar-shimmer{fill:none;stroke-linecap:round;opacity:0;animation:isarShimmer var(--is-d,6s) ease-in-out var(--is-del,0s) infinite;will-change:opacity;transform:translateZ(0)}
+  @keyframes isarShimmer{0%,100%{opacity:0;stroke-dashoffset:30}40%{opacity:.7;stroke-dashoffset:0}60%{opacity:.5;stroke-dashoffset:-10}100%{opacity:0;stroke-dashoffset:-30}}
+  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));will-change:filter;transform:translateZ(0)}
 
-  /* Isar Lite — no filters for very low-end */
-  .isar.isar-lite .isar-glow{filter:none!important}
-  .isar.isar-lite .isar-shimmer{display:none}
-
-  /* iOS Performance — reduce compositor overhead, no visual change to river */
-  .ios-perf .sky-bg{will-change:auto!important;transition:background 1.2s ease!important}
-  .ios-perf .moon{will-change:auto!important}
+  /* Isar Simple — lightweight CSS fallback for low-end devices */
+  .isar-simple{position:fixed;top:0;left:50%;width:4px;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;transform:translateX(-50%)}
+  .isar-simple.visible{opacity:1}
+  .isar-simple::before,.isar-simple::after{content:'';position:absolute;top:0;left:50%;width:100%;height:100%;border-radius:50px;transform:translateX(-50%)}
+  .isar-simple::before{width:60px;background:linear-gradient(180deg,transparent 0%,rgba(60,150,185,0.08) 10%,rgba(80,185,210,0.18) 30%,rgba(100,220,230,0.15) 50%,rgba(80,185,210,0.18) 70%,rgba(60,150,185,0.08) 90%,transparent 100%);animation:isarSimplePulse 8s ease-in-out infinite}
+  .isar-simple::after{width:20px;background:linear-gradient(180deg,transparent 0%,rgba(170,240,250,0.06) 15%,rgba(200,250,255,0.12) 40%,rgba(170,240,250,0.1) 60%,rgba(200,250,255,0.12) 80%,transparent 100%);animation:isarSimplePulse 6s ease-in-out 2s infinite}
+  @keyframes isarSimplePulse{0%,100%{opacity:.4}50%{opacity:1}}
 
   @media(max-width:768px){
     .moon{width:clamp(215px,40vw,375px)!important;height:clamp(215px,40vw,375px)!important}
