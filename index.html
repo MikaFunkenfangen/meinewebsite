@@ -1412,13 +1412,8 @@
   .eclipse-sun{filter:url(#coronaGlow)}
   .eclipse-corona{animation:coronaPulse 4s ease-in-out infinite}
   @keyframes coronaPulse{0%,100%{opacity:.4;transform-origin:center;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
-  .intro-text{font-family:var(--font-serif);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;filter:blur(8px);transform:scale(0.97);transition:opacity 1.2s cubic-bezier(.4,0,.2,1),filter 1.2s cubic-bezier(.4,0,.2,1),transform 1.2s cubic-bezier(.4,0,.2,1),color .6s ease,font-size .6s ease,text-shadow .6s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:3rem;display:flex;align-items:center;justify-content:center;text-shadow:0 0 20px rgba(201,169,110,.08);will-change:opacity,filter,transform}
-  .intro-text.visible{opacity:1;filter:blur(0);transform:scale(1)}
-  .intro-text.emphasis{color:rgba(201,169,110,.95);font-size:clamp(1.2rem,2.4vw,1.75rem);text-shadow:0 0 30px rgba(201,169,110,.4),0 0 60px rgba(201,169,110,.15)}
-  .intro-text.welcome{font-size:clamp(1.5rem,3.5vw,2.5rem);color:rgba(201,169,110,1);letter-spacing:.15em;animation:welcomeGlow 3s ease-out forwards}
-  @keyframes welcomeGlow{0%{text-shadow:0 0 0 transparent;letter-spacing:.1em}50%{text-shadow:0 0 40px rgba(201,169,110,.6),0 0 80px rgba(201,169,110,.3);letter-spacing:.2em}100%{text-shadow:0 0 30px rgba(201,169,110,.4),0 0 60px rgba(201,169,110,.2);letter-spacing:.25em}}
-  .intro-lyrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.3rem,.6vw,.5rem);opacity:0;filter:blur(6px);transform:scale(0.98);transition:opacity 1.2s cubic-bezier(.4,0,.2,1),filter 1.2s cubic-bezier(.4,0,.2,1),transform 1.2s cubic-bezier(.4,0,.2,1);text-align:center;padding:0 1.5rem;max-width:600px;margin-top:clamp(2rem,4vw,3.5rem);width:100%;position:relative;z-index:3;height:clamp(8rem,15vw,10rem);will-change:opacity,filter,transform}
-  .intro-lyrics.visible{opacity:1;filter:blur(0);transform:scale(1)}
+  .intro-text{font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.4rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;transition:opacity .8s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:3rem;display:flex;align-items:center;justify-content:center}
+  .intro-lyrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.2rem,.5vw,.4rem);opacity:0;transition:opacity 1s ease;text-align:center;padding:0 1.5rem;max-width:600px;margin-top:clamp(2rem,4vw,3.5rem);width:100%;position:relative;z-index:3;height:clamp(8rem,15vw,10rem)}
   .intro-lyric-en{font-family:var(--font-serif);font-size:clamp(.7rem,1.3vw,1rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.65);letter-spacing:.06em;line-height:1.4}
   .intro-lyric-de{font-family:var(--font-serif);font-size:clamp(.75rem,1.5vw,1.1rem);font-weight:300;font-style:italic;color:rgba(201,169,110,.85);letter-spacing:.06em;line-height:1.4;margin-bottom:.2rem}
   .intro-song-credit{font-family:var(--font-sans);font-size:clamp(.5rem,.9vw,.7rem);font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,169,110,.35);margin-top:clamp(.3rem,.6vw,.6rem);text-decoration:none;transition:color .3s}
@@ -1427,7 +1422,7 @@
   .intro-spotify-icon{display:inline-block;margin-top:.5rem;opacity:.5;transition:opacity .3s}
   .intro-spotify-icon:hover{opacity:1}
   .intro-spotify-icon svg{width:21px;height:21px}
-  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.1rem;padding:0 1.5rem}.intro-text.emphasis{font-size:1.2rem}.intro-text.welcome{font-size:1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
+  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.05rem;padding:0 1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
   .intro-title{font-family:var(--font-heading);font-size:clamp(1.3rem,4vw,3rem);font-weight:400;color:rgba(232,226,212,.95);letter-spacing:.2em;opacity:0;transition:opacity 3s ease;text-align:center;text-shadow:0 0 60px rgba(201,169,110,.4),0 0 120px rgba(201,169,110,.15);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90%;line-height:1.8}
   .intro-title.visible{opacity:1}
   .intro-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 70%);pointer-events:none;animation:introGlow 3s ease-in-out infinite}
@@ -1438,11 +1433,7 @@
   .intro-enter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;cursor:pointer;border:1px solid rgba(201,169,110,.3);background:transparent;padding:clamp(.8rem,1.5vw,1.2rem) clamp(2rem,4vw,3.5rem);border-radius:60px;font-family:var(--font-serif);font-size:clamp(.9rem,1.3vw,1.1rem);font-weight:300;font-style:italic;color:var(--cream);letter-spacing:.15em;transition:all .6s ease;opacity:0;animation:fadeUp 1.5s ease .3s forwards;-webkit-tap-highlight-color:transparent}
   @keyframes fadeUp{0%{opacity:0;transform:translate(-50%,-40%)}100%{opacity:1;transform:translate(-50%,-50%)}}
   .intro-enter:hover{border-color:rgba(201,169,110,.6);color:var(--gold);box-shadow:0 0 25px rgba(201,169,110,.15)}
-  .intro-enter.hidden{display:none}
-  .intro-skip{opacity:0;transition:opacity 1.5s ease}
-  .intro-skip.fade-in{opacity:.35}
-  .intro-skip.fade-in:hover{opacity:.7}
-  .intro-skip.hidden{display:none}
+  .intro-enter.hidden,.intro-skip.hidden{display:none}
   .intro-skip{position:absolute;bottom:clamp(1.5rem,3vw,2.5rem);right:clamp(1.5rem,3vw,2.5rem);z-index:2;cursor:pointer;border:none;background:transparent;font-family:var(--font-sans);font-size:clamp(.7rem,.9vw,.8rem);font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,212,.3);transition:color .4s;padding:.5rem 1rem;-webkit-tap-highlight-color:transparent}
   .intro-skip:hover{color:rgba(232,226,212,.7)}
 
@@ -2322,7 +2313,6 @@ if (isLowEnd) {
   var textShown=-1;
   var titleShown=false;
   var fadingOut=false;
-  var eclipsePulsed=false;
   var startTime=null;
   var running=false;
 
@@ -2389,60 +2379,58 @@ if (isLowEnd) {
     var ti=getTextIndex(elapsed);
     if(ti!==textShown&&ti>=0&&ti<texts.length){
       textShown=ti;
-      textEl.classList.remove("visible","emphasis");
+      textEl.style.opacity="0";
       setTimeout(function(idx){
         return function(){
           textEl.textContent=texts[idx];
-          textEl.classList.remove("emphasis");
-          if(idx===3||idx===8) textEl.classList.add("emphasis");
-          void textEl.offsetHeight;
-          textEl.classList.add("visible");
+          textEl.style.opacity="1";
         };
-      }(ti),600);
+      }(ti),500);
     }
 
     var audioElapsed=audio&&audio.currentTime?audio.currentTime*1000:elapsed;
     if(audioElapsed>=lyricsTimes[0]){
-      if(!eclipsePulsed){
-        eclipsePulsed=true;
-        var ecl=document.getElementById("introEclipse");
-        ecl.style.transition="transform .6s cubic-bezier(.4,0,.2,1)";
-        ecl.style.transform="scale(1.08)";
-        setTimeout(function(){ecl.style.transform="scale(1)";},600);
-      }
       var li=-1;for(var t=lyricsTimes.length-1;t>=0;t--){if(audioElapsed>=lyricsTimes[t]){li=t;break;}}
       if(li!==lyricShown&&li>=0&&li<lyrics.length){
         lyricShown=li;
-        lyricsEl.classList.remove("visible");
+        lyricsEl.style.transition="opacity .4s ease";
+        lyricsEl.style.opacity="0";
         setTimeout(function(idx){
           return function(){
             lyricEnEl.innerHTML=lyrics[idx][0].replace(/\n/g,"<br>");
             lyricDeEl.innerHTML=lyrics[idx][1].replace(/\n/g,"<br>");
-            void lyricsEl.offsetHeight;
-            lyricsEl.classList.add("visible");
+            lyricsEl.style.transition="opacity .8s ease";
+            lyricsEl.style.opacity="1";
           };
-        }(li),500);
+        }(li),450);
       }
     }
 
-    if(!fadingOut&&audioElapsed>=43000&&lyricsEl.classList.contains("visible")){
-      lyricsEl.classList.remove("visible");
+    if(!fadingOut&&audioElapsed>=43000&&lyricsEl.style.opacity!=="0"){
+      lyricsEl.style.transition="opacity 2s ease";
+      lyricsEl.style.opacity="0";
     }
 
     var welcomeTime=53000;
     if(!titleShown&&elapsed>=welcomeTime&&elapsed<welcomeTime+100){
-      textEl.classList.remove("visible","emphasis");
+      textEl.style.transition="opacity 1.5s ease";
+      textEl.style.opacity="0";
       setTimeout(function(){
+        textEl.style.transition="none";
         textEl.textContent="Willkommen.";
-        textEl.className="intro-text welcome";
+        textEl.style.color="rgba(201,169,110,1)";
+        textEl.style.textShadow="0 0 30px rgba(201,169,110,.6), 0 0 60px rgba(201,169,110,.3)";
+        textEl.style.fontSize="clamp(1.3rem,3vw,2rem)";
         void textEl.offsetHeight;
-        textEl.classList.add("visible");
+        textEl.style.transition="opacity 2.5s ease";
+        textEl.style.opacity="1";
       },1600);
     }
 
     if(!titleShown&&elapsed>=58000){
       titleShown=true;
-      textEl.classList.remove("visible");
+      textEl.style.transition="opacity 1.5s ease";
+      textEl.style.opacity="0";
       setTimeout(function(){
         titleEl.style.transition="opacity 3s ease";
         titleEl.style.opacity="1";
@@ -2461,7 +2449,6 @@ if (isLowEnd) {
   enterBtn.addEventListener("click",function(){
     enterBtn.classList.add("hidden");
     skipBtn.classList.remove("hidden");
-    setTimeout(function(){skipBtn.classList.add("fade-in");},3000);
     document.getElementById("introEclipse").style.opacity="1";
     if(audio){
       audio.volume=0;
@@ -2490,10 +2477,13 @@ if (isLowEnd) {
     eclipsePulsed=false;
     startTime=null;
     running=false;
-    textEl.className="intro-text";
+    textEl.style.opacity="0";
     textEl.textContent="";
+    textEl.style.color="";
+    textEl.style.textShadow="";
+    textEl.style.fontSize="";
     titleEl.style.opacity="0";
-    lyricsEl.classList.remove("visible");
+    lyricsEl.style.opacity="0";
     lyricEnEl.innerHTML="";
     lyricDeEl.innerHTML="";
     shadow.setAttribute("cx","200");
@@ -2503,7 +2493,6 @@ if (isLowEnd) {
     overlay.style.opacity="1";
     enterBtn.classList.remove("hidden");
     skipBtn.classList.add("hidden");
-    skipBtn.classList.remove("fade-in");
     window.scrollTo({top:0,behavior:"smooth"});
   };
 })();
