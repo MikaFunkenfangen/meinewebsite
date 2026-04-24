@@ -19,11 +19,39 @@
     --mauve-dark: #5c3a50;
     --sand: #e8dfd0;
     --font-heading: 'Cinzel', serif;
+    --font-display: 'CCSBjork', 'Cinzel', serif;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Jost', sans-serif;
   }
 
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('../assets/fonts/bjork-serif/CCSBjork-Light.otf') format('opentype');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('../assets/fonts/bjork-serif/CCSBjork.otf') format('opentype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('../assets/fonts/bjork-serif/CCSBjork-Bold.otf') format('opentype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
+
+  /* ══ Display-Font für große Überschriften ══ */
+  .book-hero h1,
+  .book-hero h2,
+  .moon-nav-title,
+  .audiobook h2,
+  .book-section h2,
+  .video-grid h3 {
+    font-family: var(--font-display) !important;
+    letter-spacing: 0.04em;
+  }
 
   body {
     background: #0c0e12;

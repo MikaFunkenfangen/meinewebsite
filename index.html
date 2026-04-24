@@ -18,11 +18,48 @@
     --cream: #e8e2d4;
     --cream-dim: #a8a090;
     --font-heading: 'Cinzel', serif;
+    --font-display: 'CCSBjork', 'Cinzel', serif;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Jost', sans-serif;
   }
 
+  /* ══ CCSBjork — großes Display-Font für Headings ══ */
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('assets/fonts/bjork-serif/CCSBjork-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('assets/fonts/bjork-serif/CCSBjork.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'CCSBjork';
+    src: url('assets/fonts/bjork-serif/CCSBjork-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
+
+  /* ══ Display-Font für große Überschriften ══ */
+  .intro-title,
+  .deko-text,
+  .moon-nav-title,
+  .about-name,
+  .projekte-statement,
+  .presse-title,
+  .contact-section h2,
+  .book-popup-title {
+    font-family: var(--font-display) !important;
+    letter-spacing: 0.04em;
+  }
 
   body {
     background: #080a08;
