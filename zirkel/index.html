@@ -968,39 +968,6 @@
     100% { opacity: 0; transform: scale(0) translateY(-20px); }
   }
 
-  /* ══ INTRO OVERLAY ══ */
-  .intro-overlay{position:fixed;inset:0;z-index:9999;background:#080807;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease;overflow:hidden}
-  .intro-overlay.fade-out{opacity:0;pointer-events:none;transition:opacity 1.2s ease}
-  .intro-overlay.hidden{display:none}
-  .intro-eclipse{margin-bottom:clamp(2rem,4vw,3rem);position:relative;opacity:0;transition:opacity 2s ease}
-  .eclipse-svg{width:clamp(140px,25vw,220px);height:clamp(140px,25vw,220px)}
-  .eclipse-sun{filter:url(#coronaGlow)}
-  .eclipse-corona{animation:coronaPulse 4s ease-in-out infinite}
-  @keyframes coronaPulse{0%,100%{opacity:.4;transform-origin:center;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
-  .intro-text{font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.4rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;transition:opacity .8s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:3rem;display:flex;align-items:center;justify-content:center}
-  .intro-lyrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.2rem,.5vw,.4rem);opacity:0;transition:opacity 1s ease;text-align:center;padding:0 1.5rem;max-width:600px;margin-top:clamp(2rem,4vw,3.5rem);width:100%;position:relative;z-index:3;height:clamp(8rem,15vw,10rem)}
-  .intro-lyric-en{font-family:var(--font-serif);font-size:clamp(.7rem,1.3vw,1rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.65);letter-spacing:.06em;line-height:1.4}
-  .intro-lyric-de{font-family:var(--font-serif);font-size:clamp(.75rem,1.5vw,1.1rem);font-weight:300;font-style:italic;color:rgba(201,169,110,.85);letter-spacing:.06em;line-height:1.4;margin-bottom:.2rem}
-  .intro-song-credit{font-family:var(--font-sans);font-size:clamp(.5rem,.9vw,.7rem);font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,169,110,.35);margin-top:clamp(.3rem,.6vw,.6rem);text-decoration:none;transition:color .3s}
-  .intro-song-credit:hover{color:rgba(201,169,110,.7)}
-  .intro-song-artist{font-family:var(--font-sans);font-size:clamp(.5rem,.85vw,.65rem);font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,169,110,.45);margin-top:clamp(.5rem,.8vw,.8rem)}
-  .intro-spotify-icon{display:inline-block;margin-top:.5rem;opacity:.5;transition:opacity .3s}
-  .intro-spotify-icon:hover{opacity:1}
-  .intro-spotify-icon svg{width:21px;height:21px}
-  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.05rem;padding:0 1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
-  .intro-title{font-family:var(--font-heading);font-size:clamp(1.3rem,4vw,3rem);font-weight:400;color:rgba(232,226,212,.95);letter-spacing:.2em;opacity:0;transition:opacity 3s ease;text-align:center;text-shadow:0 0 60px rgba(201,169,110,.4),0 0 120px rgba(201,169,110,.15);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90%;line-height:1.8}
-  .intro-title.visible{opacity:1}
-  .intro-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 70%);pointer-events:none;animation:introGlow 3s ease-in-out infinite}
-  @keyframes introGlow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.3);opacity:1}}
-  .intro-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-  .intro-particle{position:absolute;width:2px;height:2px;background:rgba(201,169,110,.6);border-radius:50%;animation:introParticle ease-in-out infinite}
-  @keyframes introParticle{0%,100%{opacity:.1;transform:scale(.5)}50%{opacity:1;transform:scale(1.2)}}
-  .intro-enter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;cursor:pointer;border:1px solid rgba(201,169,110,.3);background:transparent;padding:clamp(.8rem,1.5vw,1.2rem) clamp(2rem,4vw,3.5rem);border-radius:60px;font-family:var(--font-serif);font-size:clamp(.9rem,1.3vw,1.1rem);font-weight:300;font-style:italic;color:var(--cream);letter-spacing:.15em;transition:all .6s ease;opacity:0;animation:fadeUp 1.5s ease .3s forwards;-webkit-tap-highlight-color:transparent}
-  @keyframes fadeUp{0%{opacity:0;transform:translate(-50%,-40%)}100%{opacity:1;transform:translate(-50%,-50%)}}
-  .intro-enter:hover{border-color:rgba(201,169,110,.6);color:var(--gold);box-shadow:0 0 25px rgba(201,169,110,.15)}
-  .intro-enter.hidden,.intro-skip.hidden{display:none}
-  .intro-skip{position:absolute;bottom:clamp(1.5rem,3vw,2.5rem);right:clamp(1.5rem,3vw,2.5rem);z-index:2;cursor:pointer;border:none;background:transparent;font-family:var(--font-sans);font-size:clamp(.7rem,.9vw,.8rem);font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,212,.3);transition:color .4s;padding:.5rem 1rem;-webkit-tap-highlight-color:transparent}
-  .intro-skip:hover{color:rgba(232,226,212,.7)}
 
   /* ══════════════════════════════════════
      RESPONSIVE
@@ -1489,42 +1456,6 @@
 </head>
 <body>
 
-<!-- INTRO OVERLAY -->
-<div class="intro-overlay" id="introOverlay">
-  <div class="intro-glow"></div>
-  <div class="intro-particles" id="introParticles"></div>
-  <div class="intro-eclipse" id="introEclipse">
-    <svg viewBox="0 0 200 200" class="eclipse-svg">
-      <defs>
-        <radialGradient id="coronaGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="60%" stop-color="rgba(201,169,110,0)"/>
-          <stop offset="85%" stop-color="rgba(201,169,110,.15)"/>
-          <stop offset="100%" stop-color="rgba(201,169,110,0)"/>
-        </radialGradient>
-        <filter id="coronaGlow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <circle cx="100" cy="100" r="90" fill="url(#coronaGrad)" class="eclipse-corona"/>
-      <circle cx="100" cy="100" r="52" fill="rgba(232,226,212,.85)" class="eclipse-sun"/>
-      <circle cx="100" cy="100" r="53" fill="#080807" class="eclipse-shadow" id="eclipseShadow"/>
-    </svg>
-  </div>
-  <div class="intro-text" id="introText"></div>
-  <div class="intro-lyrics" id="introLyrics">
-    <div class="intro-lyric-en" id="introLyricEn"></div>
-    <div class="intro-lyric-de" id="introLyricDe"></div>
-    <span class="intro-song-artist">"Moonbow" by Summerchild (Mika Schöberl)</span>
-    <a class="intro-spotify-icon" href="https://open.spotify.com/intl-de/artist/2ptdAWeYGiNLPKbbXTsnYX?si=1z-e11TaSTSWtfA3tD1JRQ" target="_blank" rel="noopener" title="Auf Spotify hören"><svg width="21" height="21" viewBox="0 0 24 24" fill="rgba(201,169,110,.6)"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
-  </div>
-  <div class="intro-title" id="introTitle"><span style="font-size:1em;letter-spacing:.2em;text-transform:uppercase;font-weight:400">Funkenfangen</span><br><span style="font-size:.4em;letter-spacing:.3em;font-weight:300;opacity:.6;font-style:italic;text-transform:uppercase">A Softer Kind Of Knowing</span></div>
-  <button class="intro-enter" id="introEnter">Eintreten</button>
-  <button class="intro-skip hidden" id="introSkip">Überspringen →</button>
-</div>
-
-<!-- Audio for intro -->
-<audio id="introAudio" preload="auto" src="../audio/moonbow.m4a"></audio>
 
 <!-- Guiding Star (fixed, scroll-driven) -->
 <div class="guiding-star" id="guidingStar">
