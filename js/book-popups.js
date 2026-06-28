@@ -79,7 +79,7 @@
   createPopup(
     'bkpop1', 'gold',
     base + 'images/50woerter-cover.png',
-    'Neues Buch von Mika Schöberl',
+    'Neues Buch von Mika Maria Schöberl',
     '50 Wörter<br>für Liebe',
     'Fünfzig Wörter. Fünfzig Türen zu dem, was wir meinen, wenn wir <em>Liebe</em> sagen.',
     'Entdecken',
@@ -89,7 +89,7 @@
   createPopup(
     'bkpop2', 'green',
     base + 'images/gruene-seelen-cover.png',
-    'Von Mika Schöberl',
+    'Von Mika Maria Schöberl',
     'Grüne<br>Seelen',
     'Über die Weisheit der Natur — ein Buch für alle, die spüren, dass die Erde mehr weiß als wir.',
     'Entdecken',
