@@ -805,10 +805,13 @@
     opacity: 0.35;
     stroke-dasharray: 4 6;
     animation: waveFlicker 6s ease-in-out infinite alternate;
+    will-change: opacity;
   }
+  /* Nur Deckkraft bewegen. stroke-dashoffset zwingt den Browser, den Pfad in
+     jedem Einzelbild neu zu zeichnen — auf schwachen Rechnern sichtbares Stocken. */
   @keyframes waveFlicker {
-    0% { opacity: 0.2; stroke-dashoffset: 0; }
-    100% { opacity: 0.45; stroke-dashoffset: 20; }
+    0% { opacity: 0.2; }
+    100% { opacity: 0.45; }
   }
 
   .moon-item {
@@ -834,17 +837,19 @@
     transition: color 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease, background 0.5s ease, border-color 0.5s ease, box-shadow 0.6s ease;
     animation: moonItemEntrance 1s ease-out forwards;
     flex-shrink: 0;
-    will-change: transform, opacity, box-shadow;
+    will-change: transform;
   }
 
-  /* Wave pattern — sine offset per item */
-  .moon-item:nth-child(1) { animation-delay: 0.05s; transform: translateY(20px); }
-  .moon-item:nth-child(2) { animation-delay: 0.12s; transform: translateY(-25px); }
-  .moon-item:nth-child(3) { animation-delay: 0.19s; transform: translateY(30px); }
-  .moon-item:nth-child(4) { animation-delay: 0.26s; transform: translateY(-35px); }
-  .moon-item:nth-child(5) { animation-delay: 0.33s; transform: translateY(25px); }
-  .moon-item:nth-child(6) { animation-delay: 0.40s; transform: translateY(-20px); }
-  .moon-item:nth-child(7) { animation-delay: 0.47s; transform: translateY(15px); }
+  /* Auftritt gestaffelt. Der Wellenversatz steht inline als --wave-y an jedem
+     Element; hier zaehlt nur die Verzoegerung. Das erste Kind der Bahn ist das
+     Wellen-SVG, die Monde sind also Kind 2 bis 8. */
+  .moon-item:nth-child(2) { animation-delay: 0.05s; }
+  .moon-item:nth-child(3) { animation-delay: 0.12s; }
+  .moon-item:nth-child(4) { animation-delay: 0.19s; }
+  .moon-item:nth-child(5) { animation-delay: 0.26s; }
+  .moon-item:nth-child(6) { animation-delay: 0.33s; }
+  .moon-item:nth-child(7) { animation-delay: 0.40s; }
+  .moon-item:nth-child(8) { animation-delay: 0.47s; }
 
   @keyframes moonItemEntrance {
     0% { opacity: 0; transform: translateY(var(--wave-y, 0px)) scale(0.4); filter: blur(8px); }
@@ -918,18 +923,25 @@
     transition: filter 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1);
     animation: moonItemFloat 5s ease-in-out infinite;
     filter: drop-shadow(0 0 8px rgba(201,169,110,0.3)) drop-shadow(0 0 20px rgba(201,169,110,0.1));
+    /* Der Schein bleibt im Ruhezustand unveraendert. Zusammen mit will-change
+       darf der Browser das fertig gezeichnete Bild samt Schatten behalten und
+       nur noch verschieben, statt den Schatten in jedem Einzelbild neu zu
+       rechnen — das war die Ursache des Zitterns. */
+    will-change: transform;
   }
-  .moon-item:nth-child(1) .moon-icon { animation-delay: 0s; }
-  .moon-item:nth-child(2) .moon-icon { animation-delay: 0.7s; }
-  .moon-item:nth-child(3) .moon-icon { animation-delay: 1.4s; }
-  .moon-item:nth-child(4) .moon-icon { animation-delay: 2.1s; }
-  .moon-item:nth-child(5) .moon-icon { animation-delay: 2.8s; }
-  .moon-item:nth-child(6) .moon-icon { animation-delay: 3.5s; }
-  .moon-item:nth-child(7) .moon-icon { animation-delay: 4.2s; }
+  /* Erstes Kind der Bahn ist das Wellen-SVG, die Monde sind Kind 2 bis 8. */
+  .moon-item:nth-child(2) .moon-icon { animation-delay: 0s; }
+  .moon-item:nth-child(3) .moon-icon { animation-delay: 0.7s; }
+  .moon-item:nth-child(4) .moon-icon { animation-delay: 1.4s; }
+  .moon-item:nth-child(5) .moon-icon { animation-delay: 2.1s; }
+  .moon-item:nth-child(6) .moon-icon { animation-delay: 2.8s; }
+  .moon-item:nth-child(7) .moon-icon { animation-delay: 3.5s; }
+  .moon-item:nth-child(8) .moon-icon { animation-delay: 4.2s; }
 
+  /* translate3d statt translateY: haelt die Bewegung auf der Grafikkarte. */
   @keyframes moonItemFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -5px, 0); }
   }
 
   .moon-item:hover .moon-icon {
@@ -1287,6 +1299,35 @@
   .low-end .star-path{filter:none;opacity:.25;animation:none;stroke-dasharray:none;stroke-dashoffset:0}
 
   /* ══════════════════════════════════════
+     SPARMODUS — großes Mondmenü
+     Auf schwachen Rechnern laufen im Mondmenü sonst sieben Dauer-Animationen
+     gleichzeitig, jede über einem Weichzeichner und zwei Schlagschatten. Das
+     Ergebnis ist kein Schweben mehr, sondern ein Zittern. Hier bleibt das Bild
+     stehen — der Schein und die Wellenlinie bleiben, nur die Bewegung ruht.
+     Alles, was beim Überfahren passiert, bleibt unberührt.
+     ══════════════════════════════════════ */
+  .low-end .moon-icon {
+    animation: none !important;
+    filter: drop-shadow(0 0 6px rgba(201,169,110,0.3));
+    will-change: auto;
+  }
+  .low-end .moon-item {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    will-change: auto;
+  }
+  .low-end .moon-nav-wave path {
+    animation: none !important;
+    opacity: 0.3;
+    will-change: auto;
+  }
+  /* Die Umlaufbahn beim Überfahren dreht einen Ring mit zwei weichen Schatten —
+     auf schwachen Geräten das Teuerste am ganzen Menü. Der Ring bleibt sichtbar,
+     er dreht sich nur nicht mehr. */
+  .low-end .moon-item:hover::before { animation: none !important; }
+  .low-end .moon-item:hover::after { animation: none !important; opacity: 0; }
+
+  /* ══════════════════════════════════════
      ANIMATIONS
      ══════════════════════════════════════ */
   @keyframes fadeInUp {
@@ -1471,6 +1512,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    /* Kurze Dauer allein nimmt den Weichzeichner nicht weg — hier ausdruecklich. */
+    .moon-item { backdrop-filter: none; -webkit-backdrop-filter: none; will-change: auto; }
+    .moon-icon { animation: none !important; will-change: auto; }
     #stars-canvas, #dust-canvas, .guiding-star { display: none; }
     .isar { opacity: .3 !important; }
     .isar-flow, .isar-shimmer { animation: none !important; opacity: .3 !important; }
@@ -1928,7 +1972,14 @@ var isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
 var isAndroid = navigator.userAgent.indexOf('Android') > -1;
 var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 var isMobile = isIOS || isAndroid || window.innerWidth <= 768;
-var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+var prefersCalm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Ein Rechner gilt als schwach, wenn er wenige Kerne ODER wenig Arbeitsspeicher
+// meldet. deviceMemory kennt nicht jeder Browser — fehlt die Angabe, wird sie
+// stillschweigend uebergangen.
+var isLowEnd = isAndroid
+  || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+  || (navigator.deviceMemory && navigator.deviceMemory <= 4)
+  || prefersCalm;
 var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { setTimeout(cb, 16); };
 
 // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
@@ -1947,6 +1998,46 @@ if (isLowEnd && !isIOS) {
   if (isarSvg) isarSvg.classList.add('isar-lite');
   document.body.classList.add('low-end');
 }
+
+// Ein Rechner ist nicht erst dann schwach, wenn er wenige Kerne meldet — viele
+// guenstige Geraete geben acht Kerne an und kommen trotzdem nicht mit. Darum
+// einmal, kurz nachdem sich die Seite gesetzt hat, nachzaehlen, wie viele Bilder
+// pro Sekunde tatsaechlich ankommen, und den Sparmodus notfalls nachtraeglich
+// einschalten. Die Messung laeuft genau eine Sekunde und hoert dann von selbst
+// auf; im Hintergrund misst sie gar nicht erst.
+(function watchFrameRate() {
+  if (document.body.classList.contains('low-end')) return;
+
+  var MESSDAUER = 1000;   // eine Sekunde zaehlen
+  var SCHWELLE  = 45;     // darunter gilt der Rechner als ueberfordert
+  var frames = 0, start = 0, laeuft = false;
+
+  function tick() {
+    if (document.hidden) { laeuft = false; return; }   // Abbruch, kein Urteil
+    var jetzt = performance.now();
+    if (!start) start = jetzt;
+    frames++;
+    if (jetzt - start < MESSDAUER) { rAF(tick); return; }
+    laeuft = false;
+    if (frames * 1000 / (jetzt - start) < SCHWELLE) {
+      document.body.classList.add('low-end');
+    }
+  }
+
+  function messen() {
+    if (laeuft || document.hidden) return;
+    if (document.body.classList.contains('low-end')) return;
+    laeuft = true; frames = 0; start = 0;
+    rAF(tick);
+  }
+
+  // Erst messen, wenn Aufbau und Auftritts-Animationen durch sind.
+  setTimeout(messen, 2500);
+  // Wurde die Seite waehrenddessen weggelegt, spaeter noch einmal ansetzen.
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) setTimeout(messen, 500);
+  });
+})();
 // iOS: keep beautiful river but disable drop-shadows for performance
 if (isIOS) {
   document.body.classList.add('ios-perf');
