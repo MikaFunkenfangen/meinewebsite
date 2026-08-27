@@ -1,0 +1,19 @@
+# Was macOS von allein anlegt — gehört zum Rechner, nicht zur Seite.
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows-Entsprechungen, falls die Seite je woanders bearbeitet wird.
+Thumbs.db
+ehthumbs.db
+
+# Editor-Krimskrams
+*.swp
+*~
+.idea/
+.vscode/
+
+# Persönliche Claude-Einstellungen (die geteilten in .claude/ bleiben drin).
+.claude/settings.local.json
