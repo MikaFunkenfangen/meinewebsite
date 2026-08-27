@@ -49,7 +49,6 @@
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
 
   /* ══ Display-Font für große Überschriften ══ */
-  .intro-title,
   .deko-text,
   .moon-nav-title,
   .about-name,
@@ -849,7 +848,6 @@
   .moon-item:nth-child(5) { animation-delay: 0.26s; }
   .moon-item:nth-child(6) { animation-delay: 0.33s; }
   .moon-item:nth-child(7) { animation-delay: 0.40s; }
-  .moon-item:nth-child(8) { animation-delay: 0.47s; }
 
   @keyframes moonItemEntrance {
     0% { opacity: 0; transform: translateY(var(--wave-y, 0px)) scale(0.4); filter: blur(8px); }
@@ -936,7 +934,6 @@
   .moon-item:nth-child(5) .moon-icon { animation-delay: 2.1s; }
   .moon-item:nth-child(6) .moon-icon { animation-delay: 2.8s; }
   .moon-item:nth-child(7) .moon-icon { animation-delay: 3.5s; }
-  .moon-item:nth-child(8) .moon-icon { animation-delay: 4.2s; }
 
   /* translate3d statt translateY: haelt die Bewegung auf der Grafikkarte. */
   @keyframes moonItemFloat {
@@ -1520,40 +1517,6 @@
     .isar-flow, .isar-shimmer { animation: none !important; opacity: .3 !important; }
   }
 
-  /* === INTRO OVERLAY === */
-  .intro-overlay{position:fixed;inset:0;z-index:9999;background:#080807;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease;overflow:hidden}
-  .intro-overlay.fade-out{opacity:0;pointer-events:none;transition:opacity 1.2s ease}
-  .intro-overlay.hidden{display:none}
-  .intro-eclipse{margin-bottom:clamp(2rem,4vw,3rem);position:relative;opacity:0;transition:opacity 2s ease}
-  .eclipse-svg{width:clamp(140px,25vw,220px);height:clamp(140px,25vw,220px)}
-  .eclipse-sun{filter:url(#coronaGlow)}
-  .eclipse-corona{animation:coronaPulse 4s ease-in-out infinite}
-  @keyframes coronaPulse{0%,100%{opacity:.4;transform-origin:center;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
-  .intro-text{font-family:var(--font-serif);font-size:clamp(1.05rem,2.1vw,1.5rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.7);letter-spacing:.08em;opacity:0;transition:opacity 1s ease,transform 1s ease,color .8s ease,text-shadow .8s ease;text-align:center;padding:0 2rem;position:relative;z-index:3;height:auto;min-height:3rem;display:flex;align-items:center;justify-content:center;transform:translateY(6px);text-shadow:0 0 15px rgba(201,169,110,.06)}
-  .intro-lyrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.2rem,.5vw,.4rem);opacity:0;transition:opacity 1s ease;text-align:center;padding:0 1.5rem;max-width:600px;margin-top:clamp(2rem,4vw,3.5rem);width:100%;position:relative;z-index:3;height:clamp(8rem,15vw,10rem)}
-  .intro-lyric-en{font-family:var(--font-serif);font-size:clamp(.7rem,1.3vw,1rem);font-weight:300;font-style:italic;color:rgba(232,226,212,.65);letter-spacing:.06em;line-height:1.4}
-  .intro-lyric-de{font-family:var(--font-serif);font-size:clamp(.75rem,1.5vw,1.1rem);font-weight:300;font-style:italic;color:rgba(201,169,110,.85);letter-spacing:.06em;line-height:1.4;margin-bottom:.2rem}
-  .intro-song-credit{font-family:var(--font-sans);font-size:clamp(.5rem,.9vw,.7rem);font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,169,110,.35);margin-top:clamp(.3rem,.6vw,.6rem);text-decoration:none;transition:color .3s}
-  .intro-song-credit:hover{color:rgba(201,169,110,.7)}
-  .intro-song-artist{font-family:var(--font-sans);font-size:clamp(.5rem,.85vw,.65rem);font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,169,110,.45);margin-top:clamp(.5rem,.8vw,.8rem)}
-  .intro-spotify-icon{display:inline-block;margin-top:.5rem;opacity:.5;transition:opacity .3s}
-  .intro-spotify-icon:hover{opacity:1}
-  .intro-spotify-icon svg{width:21px;height:21px}
-  @media(max-width:768px){.intro-overlay{padding-top:6vh}.eclipse-svg{width:175px;height:175px}.intro-eclipse{margin-bottom:1.2rem}.intro-text{font-size:1.08rem;padding:0 1.5rem}.intro-lyrics{margin-top:2.5rem;margin-bottom:0;gap:.2rem;padding:0 1rem;height:9rem}.intro-lyric-en{font-size:.95rem;line-height:1.4}.intro-lyric-de{font-size:1rem;line-height:1.4;margin-bottom:.15rem}.intro-song-credit{font-size:.55rem;margin-top:1.5rem;white-space:normal;text-align:center;line-height:1.6;color:rgba(201,169,110,.7);padding:0 .5rem}}
-  .intro-title{font-family:var(--font-heading);font-size:clamp(1.3rem,4vw,3rem);font-weight:400;color:rgba(232,226,212,.95);letter-spacing:.2em;opacity:0;transition:opacity 3s ease;text-align:center;text-shadow:0 0 60px rgba(201,169,110,.4),0 0 120px rgba(201,169,110,.15);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90%;line-height:1.8}
-  .intro-title.visible{opacity:1}
-  .intro-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 70%);pointer-events:none;animation:introGlow 3s ease-in-out infinite}
-  @keyframes introGlow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.3);opacity:1}}
-  .intro-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-  .intro-particle{position:absolute;width:2px;height:2px;background:rgba(201,169,110,.6);border-radius:50%;animation:introParticle ease-in-out infinite}
-  @keyframes introParticle{0%,100%{opacity:.1;transform:scale(.5)}50%{opacity:1;transform:scale(1.2)}}
-  .intro-enter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;cursor:pointer;border:1px solid rgba(201,169,110,.3);background:transparent;padding:clamp(.8rem,1.5vw,1.2rem) clamp(2rem,4vw,3.5rem);border-radius:60px;font-family:var(--font-serif);font-size:clamp(.9rem,1.3vw,1.1rem);font-weight:300;font-style:italic;color:var(--cream);letter-spacing:.15em;transition:all .6s ease;opacity:0;animation:fadeUp 1.5s ease .3s forwards;-webkit-tap-highlight-color:transparent}
-  @keyframes fadeUp{0%{opacity:0;transform:translate(-50%,-40%)}100%{opacity:1;transform:translate(-50%,-50%)}}
-  .intro-enter:hover{border-color:rgba(201,169,110,.6);color:var(--gold);box-shadow:0 0 25px rgba(201,169,110,.15)}
-  .intro-enter.hidden,.intro-skip.hidden{display:none}
-  .intro-skip{position:absolute;bottom:clamp(1.5rem,3vw,2.5rem);right:clamp(1.5rem,3vw,2.5rem);z-index:2;cursor:pointer;border:none;background:transparent;font-family:var(--font-sans);font-size:clamp(.7rem,.9vw,.8rem);font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,212,.3);transition:color .4s;padding:.5rem 1rem;-webkit-tap-highlight-color:transparent}
-  .intro-skip:hover{color:rgba(232,226,212,.7)}
-
   /* ══════════════════════════════════════
      CROSS-BROWSER COMPATIBILITY
      ══════════════════════════════════════ */
@@ -1575,40 +1538,6 @@
 </style>
 </head>
 <body>
-
-<!-- INTRO OVERLAY -->
-<div class="intro-overlay" id="introOverlay">
-  <div class="intro-glow"></div>
-  <div class="intro-particles" id="introParticles"></div>
-  <div class="intro-eclipse" id="introEclipse">
-    <svg viewBox="0 0 200 200" class="eclipse-svg">
-      <defs>
-        <radialGradient id="coronaGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="60%" stop-color="rgba(201,169,110,0)"/>
-          <stop offset="85%" stop-color="rgba(201,169,110,.15)"/>
-          <stop offset="100%" stop-color="rgba(201,169,110,0)"/>
-        </radialGradient>
-        <filter id="coronaGlow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <circle cx="100" cy="100" r="90" fill="url(#coronaGrad)" class="eclipse-corona"/>
-      <circle cx="100" cy="100" r="52" fill="rgba(232,226,212,.85)" class="eclipse-sun"/>
-      <circle cx="200" cy="100" r="53" fill="#080807" class="eclipse-shadow" id="eclipseShadow"/>
-    </svg>
-  </div>
-  <div class="intro-text" id="introText"></div>
-  <div class="intro-lyrics" id="introLyrics">
-    <div class="intro-lyric-en" id="introLyricEn"></div>
-    <div class="intro-lyric-de" id="introLyricDe"></div>
-    <span class="intro-song-artist">"Moonbow" by Summerchild (Mika Maria Schöberl)</span>
-    <a class="intro-spotify-icon" href="https://open.spotify.com/intl-de/artist/2ptdAWeYGiNLPKbbXTsnYX?si=1z-e11TaSTSWtfA3tD1JRQ" target="_blank" rel="noopener" title="Auf Spotify hören"><svg width="21" height="21" viewBox="0 0 24 24" fill="rgba(201,169,110,.6)"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
-  </div>
-  <div class="intro-title" id="introTitle"><span style="font-size:1em;letter-spacing:.2em;text-transform:uppercase;font-weight:400">Funkenfangen</span><br><span style="font-size:.4em;letter-spacing:.3em;font-weight:300;opacity:.6;font-style:italic;text-transform:uppercase">A Softer Kind Of Knowing</span></div>
-  <button class="intro-enter" id="introEnter">Eintreten</button>
-  <button class="intro-skip hidden" id="introSkip">Überspringen →</button>
-</div>
 
 <!-- Sky background -->
 <div class="sky-bg" id="skyBg"></div>
@@ -1837,10 +1766,6 @@
       <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.12"/><path d="M9 5 L9 27" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 5 Q19 4 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 27 Q21 25 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><line x1="12.5" y1="5" x2="13" y2="26.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="16" y1="4.5" x2="17" y2="24.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="19.5" y1="5.3" x2="20.5" y2="21" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="22.5" y1="8.5" x2="23" y2="17" stroke="currentColor" stroke-width="0.6" opacity="0.85"/></svg>
       <span class="moon-label">Summerchild</span>
     </a>
-    <a href="javascript:void(0)" class="moon-item" style="--wave-y:15px" onclick="if(window.replayIntro)window.replayIntro();else{window.scrollTo(0,0);location.reload();}">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.6"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.3"/></svg>
-      <span class="moon-label">Intro</span>
-    </a>
   </div>
 </nav>
 
@@ -1939,9 +1864,6 @@
   <img src="images/alpen-skyline.png" alt="" loading="lazy" decoding="async">
 </div>
 
-<audio id="introAudio" preload="auto" src="audio/moonbow.m4a"></audio>
-
-
 <script>
 function showTab(btn, id) {
   document.querySelectorAll('.legal-tab').forEach(function(t){ t.classList.remove('active'); });
@@ -1951,13 +1873,11 @@ function showTab(btn, id) {
   document.getElementById('legal').scrollIntoView({behavior:'smooth'});
 }
 
-/* Auto-skip intro & jump to legal tab when arriving via ?tab=impressum or ?tab=datenschutz */
+/* Sprung zum passenden Reiter, wenn ueber ?tab=impressum oder ?tab=datenschutz aufgerufen */
 (function(){
   var params = new URLSearchParams(window.location.search);
   var tab = params.get('tab');
   if(tab === 'impressum' || tab === 'datenschutz'){
-    var ov = document.getElementById('introOverlay');
-    if(ov){ ov.classList.add('hidden'); ov.style.opacity='0'; }
     var idx = tab === 'datenschutz' ? 1 : 0;
     var btn = document.querySelectorAll('.legal-tab')[idx];
     if(btn) showTab(btn, tab);
@@ -2446,299 +2366,6 @@ if (isMobile) {
 </script>
 
 
-
-<!-- INTRO ANIMATION SCRIPT -->
-<script>
-(function(){
-  var overlay=document.getElementById("introOverlay");
-  if(!overlay)return;
-  // Skip intro when navigating to a specific section via hash
-  if(window.location.hash && window.location.hash !== "#"){
-    overlay.style.display="none";
-    document.body.style.overflow="";
-    setTimeout(function(){
-      var target=document.querySelector(window.location.hash);
-      if(target) target.scrollIntoView({behavior:"smooth"});
-    },200);
-    return;
-  }
-  var shadow=document.getElementById("eclipseShadow");
-  var textEl=document.getElementById("introText");
-  var titleEl=document.getElementById("introTitle");
-  var particles=document.getElementById("introParticles");
-  var enterBtn=document.getElementById("introEnter");
-  var skipBtn=document.getElementById("introSkip");
-  var audio=document.getElementById("introAudio");
-
-  var texts=[
-    "Der Mond hängt schief an leeren Tagen,",
-    "Die Wellen branden ohne Port.",
-    "Wer je versuchte nichts zu wagen,",
-    "Den reißt das Niemals mit an Bord.",
-    "Der Wind verflucht,",
-    "Die Tiefe schweigt,",
-    "Die See nimmt fort, was ihr gefällt.",
-    "Er zieht, sie fließt, er ruft, sie steigt,",
-    "Denn sie gehört nicht dieser Welt."
-  ];
-
-  var lyrics=[
-    ["Across its quiet arc, every longing remembers\nthe shape it once dared to take.","Entlang seines stillen Bogens erinnert sich jede Sehnsucht\nan die Form, die sie einst anzunehmen wagte."],
-    ["Light only bends when something in you\nhealed before,","Licht beugt sich nur,\nwenn etwas in dir zuvor heil geworden ist,"],
-    ["and I swear the world tilted then,\njust enough","und ich schwöre,\ndie Welt neigte sich damals ein wenig,"],
-    ["for my heart to know\nwhere its true north lived.","gerade genug,\ndamit mein Herz wusste,\nwo sein wahrer Norden liegt."]
-  ];
-  var lyricsTimes=[15000,25000,29000,34000];
-
-  var lyricsEl=document.getElementById("introLyrics");
-  var lyricEnEl=document.getElementById("introLyricEn");
-  var lyricDeEl=document.getElementById("introLyricDe");
-  var lyricShown=-1;
-
-  textEl.style.opacity="0";
-  titleEl.style.opacity="0";
-  lyricsEl.style.opacity="0";
-  document.getElementById("introEclipse").style.opacity="0";
-  document.getElementById("introEclipse").style.transition="opacity 2s ease";
-
-  // Create stars — reduced on mobile, batch-appended
-  var introParticleCount = isMobile ? 40 : 140;
-  var particleFrag = document.createDocumentFragment();
-  for(var i=0;i<introParticleCount;i++){
-    var p=document.createElement("div");
-    p.className="intro-particle";
-    var sz=1+Math.random()*2.5;
-    p.style.width=sz+"px";p.style.height=sz+"px";
-    p.style.left=Math.random()*100+"%";
-    p.style.top=Math.random()*100+"%";
-    p.style.animationDelay=Math.random()*8+"s";
-    p.style.animationDuration=3+Math.random()*5+"s";
-    if(Math.random()>.7)p.style.background="rgba(232,226,212,.8)";
-    particleFrag.appendChild(p);
-  }
-  particles.appendChild(particleFrag);
-
-  var phaseTime=5000;
-  var totalityTime=8000;
-  var preDelay=2000;
-  var phase1End=preDelay+5*phaseTime;
-  var totalityEnd=phase1End+totalityTime;
-  var phase3End=totalityEnd+3*phaseTime;
-  var fadeTime=63000;
-
-  var textShown=-1;
-  var titleShown=false;
-  var fadingOut=false;
-  var startTime=null;
-  var running=false;
-
-  function getTextIndex(elapsed){
-    var t=elapsed-preDelay;
-    if(t<0)return -1;
-    if(t<5*phaseTime)return Math.floor(t/phaseTime);
-    t-=5*phaseTime;
-    if(t<totalityTime)return 5;
-    t-=totalityTime;
-    if(t<3*phaseTime)return 6+Math.floor(t/phaseTime);
-    return 9;
-  }
-
-  function getEclipseCx(elapsed){
-    var t=elapsed-preDelay;
-    if(t<0)return 200;
-    var p1=5*phaseTime;
-    if(t<p1)return 200-100*(t/p1);
-    t-=p1;
-    if(t<totalityTime)return 100;
-    t-=totalityTime;
-    var p3=3*phaseTime;
-    if(t<p3)return 100-200*(t/p3);
-    return -100;
-  }
-
-  function endIntro(){
-    if(fadingOut)return;
-    fadingOut=true;
-    running=false;
-    window.scrollTo(0,0);
-    if(audio){audio.pause();audio.currentTime=0;audio.src="";}
-    var flash=document.createElement("div");
-    flash.style.cssText="position:fixed;inset:0;z-index:10000;pointer-events:none;overflow:hidden";
-    var sun=document.createElement("div");
-    sun.style.cssText="position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) scale(0);width:250vmax;height:250vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,252,240,1) 0%,rgba(255,245,220,.97) 10%,rgba(240,220,180,.85) 25%,rgba(201,169,110,.5) 50%,rgba(201,169,110,.15) 75%,transparent 100%);transition:transform 4s cubic-bezier(.22,.61,.36,1)";
-    flash.appendChild(sun);
-    document.body.appendChild(flash);
-    rAF(function(){
-      sun.style.transform="translate(-50%,-50%) scale(1)";
-    });
-    setTimeout(function(){
-      overlay.style.transition="opacity 2s ease";
-      overlay.style.opacity="0";
-    },1200);
-    setTimeout(function(){
-      overlay.classList.add("hidden");
-      overlay.style.opacity="";
-      sun.style.transition="opacity 4s cubic-bezier(.4,0,.05,1)";
-      sun.style.opacity="0";
-    },3200);
-    setTimeout(function(){
-      flash.remove();
-    },7500);
-  }
-
-  var lastEclipseCx = 200;
-  function tick(timestamp){
-    if(!running)return;
-    if(!startTime)startTime=timestamp;
-    var elapsed=timestamp-startTime;
-
-    var newCx = Math.round(getEclipseCx(elapsed));
-    if (newCx !== lastEclipseCx) {
-      lastEclipseCx = newCx;
-      shadow.setAttribute("cx", newCx);
-    }
-
-    var ti=getTextIndex(elapsed);
-    if(ti!==textShown&&ti>=0&&ti<texts.length){
-      textShown=ti;
-      textEl.style.opacity="0";
-      textEl.style.transform="translateY(6px)";
-      setTimeout(function(idx){
-        return function(){
-          textEl.textContent=texts[idx];
-          if(idx===3||idx===8){
-            textEl.style.color="rgba(201,169,110,.95)";
-            textEl.style.textShadow="0 0 25px rgba(201,169,110,.35), 0 0 50px rgba(201,169,110,.12)";
-          }else{
-            textEl.style.color="rgba(232,226,212,.7)";
-            textEl.style.textShadow="0 0 15px rgba(201,169,110,.06)";
-          }
-          textEl.style.opacity="1";
-          textEl.style.transform="translateY(0)";
-        };
-      }(ti),550);
-    }
-
-    var audioElapsed=audio&&audio.currentTime?audio.currentTime*1000:elapsed;
-    if(audioElapsed>=lyricsTimes[0]){
-      var li=-1;for(var t=lyricsTimes.length-1;t>=0;t--){if(audioElapsed>=lyricsTimes[t]){li=t;break;}}
-      if(li!==lyricShown&&li>=0&&li<lyrics.length){
-        lyricShown=li;
-        lyricsEl.style.transition="opacity .4s ease";
-        lyricsEl.style.opacity="0";
-        setTimeout(function(idx){
-          return function(){
-            lyricEnEl.innerHTML=lyrics[idx][0].replace(/\n/g,"<br>");
-            lyricDeEl.innerHTML=lyrics[idx][1].replace(/\n/g,"<br>");
-            lyricsEl.style.transition="opacity .8s ease";
-            lyricsEl.style.opacity="1";
-          };
-        }(li),450);
-      }
-    }
-
-    if(!fadingOut&&audioElapsed>=43000&&lyricsEl.style.opacity!=="0"){
-      lyricsEl.style.transition="opacity 2s ease";
-      lyricsEl.style.opacity="0";
-    }
-
-    var welcomeTime=53000;
-    if(!titleShown&&elapsed>=welcomeTime&&elapsed<welcomeTime+100){
-      textEl.style.transition="opacity 1.5s ease, transform 1.5s ease";
-      textEl.style.opacity="0";
-      textEl.style.transform="translateY(6px)";
-      setTimeout(function(){
-        textEl.style.transition="none";
-        textEl.textContent="Willkommen.";
-        textEl.style.color="rgba(201,169,110,1)";
-        textEl.style.textShadow="0 0 40px rgba(201,169,110,.6), 0 0 80px rgba(201,169,110,.25), 0 0 120px rgba(201,169,110,.1)";
-        textEl.style.fontSize="clamp(1.5rem,3.5vw,2.4rem)";
-        textEl.style.letterSpacing=".18em";
-        textEl.style.transform="translateY(8px)";
-        void textEl.offsetHeight;
-        textEl.style.transition="opacity 3s cubic-bezier(.4,0,.2,1), transform 3s cubic-bezier(.4,0,.2,1)";
-        textEl.style.opacity="1";
-        textEl.style.transform="translateY(0)";
-      },1600);
-    }
-
-    if(!titleShown&&elapsed>=58000){
-      titleShown=true;
-      textEl.style.transition="opacity 1.5s ease";
-      textEl.style.opacity="0";
-      setTimeout(function(){
-        titleEl.style.transition="opacity 3s ease";
-        titleEl.style.opacity="1";
-      },1500);
-    }
-
-    if(!fadingOut&&elapsed>=fadeTime){
-      endIntro();
-    }
-
-    if(!fadingOut){
-      rAF(tick);
-    }
-  }
-
-  enterBtn.addEventListener("click",function(){
-    enterBtn.classList.add("hidden");
-    skipBtn.classList.remove("hidden");
-    document.getElementById("introEclipse").style.opacity="1";
-    if(audio){
-      if(isIOS){
-        // iOS ignores programmatic volume — just play directly
-        audio.play().catch(function(){});
-      } else {
-        audio.volume=0;
-        audio.play().catch(function(){});
-        var vol=0;
-        var fadeIn=setInterval(function(){
-          vol+=0.05;
-          if(vol>=0.7){vol=0.7;clearInterval(fadeIn);}
-          audio.volume=vol;
-        },150);
-      }
-    }
-    running=true;
-    rAF(tick);
-  });
-
-  skipBtn.addEventListener("click",function(){
-    endIntro();
-  });
-
-  // Replay intro from nav
-  window.replayIntro=function(){
-    textShown=-1;
-    lyricShown=-1;
-    titleShown=false;
-    fadingOut=false;
-    startTime=null;
-    running=false;
-    textEl.style.opacity="0";
-    textEl.style.transform="translateY(6px)";
-    textEl.textContent="";
-    textEl.style.color="";
-    textEl.style.textShadow="";
-    textEl.style.fontSize="";
-    textEl.style.letterSpacing="";
-    textEl.style.transition="";
-    titleEl.style.opacity="0";
-    lyricsEl.style.opacity="0";
-    lyricEnEl.innerHTML="";
-    lyricDeEl.innerHTML="";
-    shadow.setAttribute("cx","200");
-    document.getElementById("introEclipse").style.opacity="0";
-    if(audio){audio.pause();audio.currentTime=0;}
-    overlay.classList.remove("fade-out","hidden");
-    overlay.style.opacity="1";
-    enterBtn.classList.remove("hidden");
-    skipBtn.classList.add("hidden");
-    window.scrollTo({top:0,behavior:"smooth"});
-  };
-})();
-</script>
 
 <!-- RAINDROP CLICK MAGIC -->
 

@@ -113,16 +113,7 @@
     popupIndex = (popupIndex + 1) % ids.length;
   }
 
-  function introActive() {
-    var ov = document.getElementById('introOverlay');
-    return ov && !ov.classList.contains('hidden');
-  }
-
   function startPopups() {
-    if (introActive()) {
-      setTimeout(startPopups, 3000);
-      return;
-    }
     setTimeout(function(){
       showNext();
       setInterval(showNext, INTERVAL);
