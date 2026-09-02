@@ -52,7 +52,6 @@
   .deko-text,
   .moon-nav-title,
   .about-name,
-  .projekte-statement,
   .presse-title,
   .contact-section h2,
   .book-popup-title {
@@ -705,42 +704,6 @@
     font-weight: 500;
     color: var(--gold);
     letter-spacing: 0.1em;
-  }
-
-  /* ══════════════════════════════════════
-     PROJEKTE STATEMENT
-     ══════════════════════════════════════ */
-  .projekte-statement {
-    position: relative;
-    padding: 4.5rem 2.5rem;
-    margin: 0 auto;
-    max-width: 780px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-  }
-  .projekte-statement.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .projekte-text {
-    font-family: var(--font-serif);
-    font-size: clamp(1.35rem, 3.2vw, 1.9rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 2.2;
-    color: var(--cream);
-    letter-spacing: 0.03em;
-  }
-  .projekte-text .gold { color: var(--gold); font-weight: 400; }
-  .projekte-daisy-icon {
-    display: inline-block;
-    width: 1.2em;
-    height: 1.2em;
-    vertical-align: -0.15em;
-    margin: 0 0.15em;
-    opacity: 0.8;
   }
 
   /* ══════════════════════════════════════
@@ -1443,7 +1406,6 @@
     .about-section { padding: 3rem 1.5rem 2rem; }
     .about-content { padding: 2.5rem 1.8rem; }
     .about-quote { font-size: 1rem; padding: 0; }
-    .projekte-statement { padding: 2rem 1.5rem; }
     .moon-nav { padding: 2rem 0.5rem 3rem; }
     .moon-nav-wave { display: none; }
     .moon-nav-orbit { flex-wrap: wrap; gap: 1.2rem 1rem; justify-content: center; }
@@ -1772,13 +1734,6 @@
 <svg viewBox="0 0 200 120"><circle class="star-dot" cx="100" cy="8" r="3" style="--sp-d:2s;--sp-del:0s"/><circle class="star-dot" cx="55" cy="50" r="2" style="--sp-d:3.4s;--sp-del:.5s"/><circle class="star-dot" cx="145" cy="50" r="2" style="--sp-d:2.6s;--sp-del:.8s"/><circle class="star-dot" cx="70" cy="100" r="1.8" style="--sp-d:3.8s;--sp-del:.2s"/><circle class="star-dot" cx="130" cy="100" r="1.8" style="--sp-d:2.9s;--sp-del:1.1s"/>
 <path class="star-path" d="M100 8 L55 50 L70 100 L130 100 L145 50 Z"/></svg></div></div>
 
-
-<!-- ═══ PROJEKTE STATEMENT ═══ -->
-<div class="projekte-statement" data-reveal>
-  <p class="projekte-text">
-    Meine Projekte wachsen wie Gänseblümchen<svg class="projekte-daisy-icon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="9" fill="#c9a96e"/><g fill="rgba(232,226,212,0.8)"><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(0,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(30,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(60,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(90,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(120,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(150,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(180,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(210,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(240,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(270,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(300,50,50)"/><ellipse cx="50" cy="24" rx="6" ry="14" transform="rotate(330,50,50)"/></g></svg>im Betongrau einer Welt im Umbruch: <span class="gold">zart, wild und widerständig.</span>
-  </p>
-</div>
 
 <!-- ═══ PORTRAIT ═══ -->
 <section class="portrait-section">
