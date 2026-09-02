@@ -1082,7 +1082,7 @@
   function onScroll(){
     var scrollY = window.pageYOffset || document.documentElement.scrollTop;
     var maxScroll = docH() - window.innerHeight;
-    var pct = maxScroll > 0 ? scrollY / maxScroll : 0;
+    var pct = maxScroll > 0 ? Math.min(Math.max(scrollY, 0) / maxScroll, 1) : 0;
 
     /* Dawn light intensifies as you scroll */
     if(dawn){

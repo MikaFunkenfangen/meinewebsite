@@ -2031,6 +2031,7 @@ if (isMobile) {
       };
     }
     function getSkyColor(pct) {
+      if (pct <= 0) return skyStops[0];
       for (var i = 0; i < skyPositions.length - 1; i++) {
         if (pct >= skyPositions[i] && pct <= skyPositions[i + 1]) {
           var t = (pct - skyPositions[i]) / (skyPositions[i + 1] - skyPositions[i]);
@@ -2062,7 +2063,9 @@ if (isMobile) {
     var ticking = false;
     function onScrollFrame() {
       try {
-        var scrollY = window.scrollY;
+        /* Math.max fängt negatives scrollY beim iOS-Überscrollen ab —
+           sonst fällt getSkyColor auf den Morgenrot-Stopp zurück. */
+        var scrollY = Math.max(window.scrollY, 0);
         var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
         var pct = Math.min(scrollY / scrollH, 1);
 

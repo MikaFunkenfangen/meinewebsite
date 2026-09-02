@@ -1530,6 +1530,7 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
     }
 
     function getSkyColor(pct) {
+      if (pct <= 0) return skyStops[0];
       for (var i = 0; i < skyPositions.length - 1; i++) {
         if (pct >= skyPositions[i] && pct <= skyPositions[i + 1]) {
           var local = (pct - skyPositions[i]) / (skyPositions[i + 1] - skyPositions[i]);
@@ -1541,7 +1542,8 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
 
     function updateSky() {
       var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      var pct = Math.min(window.scrollY / scrollH, 1);
+      /* Math.max fängt negatives scrollY beim iOS-Überscrollen ab */
+      var pct = Math.min(Math.max(window.scrollY, 0) / scrollH, 1);
       var c = getSkyColor(pct);
       var c2 = getSkyColor(Math.min(pct + 0.08, 1));
 
@@ -1563,7 +1565,7 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
     var origUpdateSky = updateSky;
     updateSky = function() {
       var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      var pct = Math.min(window.scrollY / scrollH, 1);
+      var pct = Math.min(Math.max(window.scrollY, 0) / scrollH, 1);
       var rounded = Math.round(pct * 200) / 200;
       if (rounded === lastSkyPct) return;
       lastSkyPct = rounded;
