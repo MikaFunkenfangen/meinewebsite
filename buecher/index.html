@@ -83,6 +83,7 @@
     will-change: transform, opacity;
   }
   .sun svg { width: 100%; height: 100%; overflow: visible; }
+  .sun img { display: block; width: 48%; height: 48%; margin: 26%; filter: drop-shadow(0 0 20px rgba(255,240,200,.35)) drop-shadow(0 0 70px rgba(212,184,120,.25)); }
 
   /* ══ BACK NAV ══ */
   .back-nav {
@@ -974,34 +975,7 @@
 
 <!-- Sun (warm morning glow) -->
 <div class="sun" id="sun">
-  <svg viewBox="-100 -100 600 600" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-    <defs>
-      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="rgba(255,250,230,0.25)"/>
-        <stop offset="40%" stop-color="rgba(255,240,200,0.1)"/>
-        <stop offset="100%" stop-color="rgba(255,230,180,0)"/>
-      </radialGradient>
-      <radialGradient id="sunCore" cx="45%" cy="42%" r="50%">
-        <stop offset="0%" stop-color="#fffef8"/>
-        <stop offset="25%" stop-color="#fff6e0"/>
-        <stop offset="60%" stop-color="#f0e0b8"/>
-        <stop offset="100%" stop-color="#d4b878"/>
-      </radialGradient>
-      <radialGradient id="sunHighlight" cx="40%" cy="38%" r="40%">
-        <stop offset="0%" stop-color="rgba(255,255,240,0.5)"/>
-        <stop offset="100%" stop-color="rgba(255,255,240,0)"/>
-      </radialGradient>
-    </defs>
-    <circle cx="200" cy="200" r="350" fill="url(#sunGlow)"/>
-    <circle cx="200" cy="200" r="250" fill="url(#sunGlow)"/>
-    <!-- Warm halo rings -->
-    <circle cx="200" cy="200" r="220" fill="none" stroke="rgba(255,200,100,0.06)" stroke-width="16"/>
-    <circle cx="200" cy="200" r="210" fill="none" stroke="rgba(255,220,140,0.05)" stroke-width="12"/>
-    <circle cx="200" cy="200" r="200" fill="none" stroke="rgba(255,240,180,0.04)" stroke-width="8"/>
-    <!-- Sun disc -->
-    <circle cx="200" cy="200" r="140" fill="url(#sunCore)"/>
-    <circle cx="200" cy="200" r="140" fill="url(#sunHighlight)"/>
-  </svg>
+  <img src="../images/mond-echt.webp" alt="" aria-hidden="true">
 </div>
 
 <nav class="back-nav">
