@@ -183,6 +183,7 @@
      ══════════════════════════════════════ */
   .moon{position:fixed;top:5vh;right:5vw;width:clamp(270px,48vw,750px);height:clamp(270px,48vw,750px);z-index:1;pointer-events:none;opacity:0.65;background:none;border:none;box-shadow:none;transition:opacity 1s ease;will-change:transform,opacity;transform:translateZ(0)}
   .moon svg{width:100%;height:100%;overflow:visible}
+  .moon img{display:block;width:60%;height:60%;margin:20%;filter:drop-shadow(0 0 25px rgba(247,242,228,.35)) drop-shadow(0 0 90px rgba(201,169,110,.28))}
 
   /* ══════════════════════════════════════
      ISAR RIVER — from index.html
@@ -1549,32 +1550,7 @@
 
 <!-- Moon (luminous) — from index.html -->
 <div class="moon" id="moon">
-  <svg viewBox="-100 -100 600 600" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-    <defs>
-      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(247,242,228,.15)"/><stop offset="70%" stop-color="rgba(247,242,228,.04)"/><stop offset="100%" stop-color="rgba(247,242,228,0)"/></radialGradient>
-      <radialGradient id="moonGlow2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(201,169,110,.06)"/><stop offset="50%" stop-color="rgba(201,169,110,.02)"/><stop offset="100%" stop-color="rgba(201,169,110,0)"/></radialGradient>
-      <radialGradient id="moonBase" cx="42%" cy="38%" r="50%"><stop offset="0%" stop-color="#fffcf0"/><stop offset="30%" stop-color="#f7f2e4"/><stop offset="70%" stop-color="#e8dfc8"/><stop offset="100%" stop-color="#c9b88a"/></radialGradient>
-      <radialGradient id="moonHighlight" cx="38%" cy="35%" r="35%"><stop offset="0%" stop-color="rgba(255,255,248,.5)"/><stop offset="100%" stop-color="rgba(255,255,248,0)"/></radialGradient>
-    </defs>
-    <circle cx="200" cy="200" r="380" fill="url(#moonGlow2)"/>
-    <circle cx="200" cy="200" r="280" fill="url(#moonGlow)"/>
-    <circle cx="200" cy="200" r="180" fill="url(#moonBase)"/>
-    <circle cx="200" cy="200" r="180" fill="url(#moonHighlight)"/>
-    <circle cx="155" cy="145" r="32" fill="rgba(190,180,150,.22)"/>
-    <circle cx="235" cy="215" r="18" fill="rgba(190,180,150,.18)"/>
-    <circle cx="175" cy="248" r="13" fill="rgba(190,180,150,.15)"/>
-    <circle cx="120" cy="200" r="9" fill="rgba(190,180,150,.1)"/>
-    <circle cx="250" cy="155" r="11" fill="rgba(190,180,150,.12)"/>
-    <ellipse cx="160" cy="150" rx="55" ry="50" fill="rgba(255,252,240,.08)"/>
-    <!-- Rainbow halo (Lichtkranz) -->
-    <circle cx="200" cy="200" r="230" fill="none" stroke="rgba(255,80,80,0.06)" stroke-width="18"/>
-    <circle cx="200" cy="200" r="225" fill="none" stroke="rgba(255,160,50,0.06)" stroke-width="14"/>
-    <circle cx="200" cy="200" r="220" fill="none" stroke="rgba(255,220,60,0.07)" stroke-width="10"/>
-    <circle cx="200" cy="200" r="216" fill="none" stroke="rgba(100,220,80,0.06)" stroke-width="8"/>
-    <circle cx="200" cy="200" r="212" fill="none" stroke="rgba(80,160,255,0.06)" stroke-width="8"/>
-    <circle cx="200" cy="200" r="208" fill="none" stroke="rgba(120,80,220,0.06)" stroke-width="8"/>
-    <circle cx="200" cy="200" r="204" fill="none" stroke="rgba(200,80,200,0.05)" stroke-width="6"/>
-  </svg>
+  <img src="images/mond-echt.webp" alt="" aria-hidden="true">
 </div>
 
 <!-- Isar River — simple CSS fallback for low-end devices -->
