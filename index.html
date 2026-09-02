@@ -1119,28 +1119,6 @@
     border: 1px solid rgba(201,169,110,0.35);
     pointer-events: none;
   }
-  .summerchild-link {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: clamp(0.75rem, 1.4vw, 0.95rem);
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cream);
-    text-decoration: none;
-    padding: 0.6rem 1.6rem;
-    border: 1px solid rgba(201,169,110,0.25);
-    border-radius: 30px;
-    background: rgba(201,169,110,0.06);
-    opacity: 0; transform: translateY(15px);
-    transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s, box-shadow 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-  }
-  .summerchild-link.visible { opacity: 1; transform: translateY(0); }
-  .summerchild-link:hover {
-    border-color: rgba(201,169,110,0.5);
-    color: var(--gold);
-    box-shadow: 0 0 25px rgba(201,169,110,0.12);
-  }
   @media (max-width: 768px) {
     .summerchild-section { padding: 2rem 1.5rem 1rem; }
     .summerchild-figur { width: min(78vw, 400px); margin-bottom: 2.8rem; }
@@ -1750,7 +1728,7 @@
 <section class="portrait-section">
   <div style="display:flex;flex-direction:column;align-items:center;">
     <div class="portrait-frame" data-reveal>
-      <img src="images/portrait.jpg" alt="Mika Maria Schöberl" class="portrait-img" loading="lazy" decoding="async">
+      <img src="images/summerchild-portrait.webp" alt="Mika Maria Schöberl" class="portrait-img" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -1764,9 +1742,7 @@
   <p class="summerchild-title" data-reveal>Summerchild</p>
   <figure class="summerchild-figur" data-reveal>
     <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
-  </figure>
-  <a class="summerchild-link" data-reveal href="http://summerchild.net" target="_blank" rel="noopener">summerchild.net</a>
-</section>
+  </figure></section>
 
 <!-- ═══ MOON PHASE NAVIGATION — Celestial Observatory ═══ -->
 <nav class="moon-nav" data-reveal>
