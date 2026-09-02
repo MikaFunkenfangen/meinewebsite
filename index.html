@@ -1097,6 +1097,89 @@
   .presse-badge:nth-child(15) { transition-delay: 0.75s; }
 
   /* ══════════════════════════════════════
+     SUMMERCHILD
+     ══════════════════════════════════════ */
+  .summerchild-section {
+    position: relative;
+    padding: 3rem 2rem 1.5rem;
+    text-align: center;
+  }
+  .summerchild-title {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .summerchild-title.visible { opacity: 1; transform: translateY(0); }
+  .summerchild-bilder {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto 4rem;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1.6s ease, transform 1.6s ease;
+  }
+  .summerchild-bilder.visible { opacity: 1; transform: translateY(0); }
+  .summerchild-wiese {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 40px rgba(201,169,110,0.08);
+  }
+  /* Vignette, damit das Foto in den Nachthimmel übergeht */
+  .summerchild-bilder::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 0 80px 30px rgba(12,11,18,0.55);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .summerchild-portrait {
+    position: absolute;
+    z-index: 2;
+    left: 5%;
+    bottom: -2.5rem;
+    width: clamp(120px, 22vw, 220px);
+    height: clamp(120px, 22vw, 220px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(201,169,110,0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 35px rgba(201,169,110,0.18);
+  }
+  .summerchild-link {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.6rem 1.6rem;
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 30px;
+    background: rgba(201,169,110,0.06);
+    opacity: 0; transform: translateY(15px);
+    transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s, box-shadow 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  }
+  .summerchild-link.visible { opacity: 1; transform: translateY(0); }
+  .summerchild-link:hover {
+    border-color: rgba(201,169,110,0.5);
+    color: var(--gold);
+    box-shadow: 0 0 25px rgba(201,169,110,0.12);
+  }
+  @media (max-width: 768px) {
+    .summerchild-section { padding: 2rem 1.5rem 1rem; }
+    .summerchild-bilder { margin-bottom: 3rem; }
+    .summerchild-portrait { bottom: -1.8rem; }
+  }
+
+  /* ══════════════════════════════════════
      KONTAKT SECTION
      ══════════════════════════════════════ */
   .kontakt-section {
@@ -1709,6 +1792,16 @@
 <div class="sep-constellation"><div class="constellation-line" data-reveal>
 <svg viewBox="0 0 220 120"><circle class="star-dot" cx="25" cy="30" r="2" style="--sp-d:3s;--sp-del:.1s"/><circle class="star-dot" cx="70" cy="80" r="2.5" style="--sp-d:2.3s;--sp-del:.5s"/><circle class="star-dot" cx="115" cy="25" r="2" style="--sp-d:3.7s;--sp-del:.8s"/><circle class="star-dot" cx="155" cy="90" r="2.2" style="--sp-d:2.1s;--sp-del:0s"/><circle class="star-dot" cx="195" cy="40" r="2.8" style="--sp-d:2.6s;--sp-del:1.2s"/>
 <path class="star-path" d="M25 30 L70 80 L155 90 L195 40 L115 25 L25 30"/><path class="star-path" d="M70 80 L115 25 M155 90 L25 30"/></svg></div></div>
+
+<!-- ═══ SUMMERCHILD ═══ -->
+<section class="summerchild-section" id="summerchild">
+  <p class="summerchild-title" data-reveal>Summerchild</p>
+  <div class="summerchild-bilder" data-reveal>
+    <img class="summerchild-wiese" src="images/summerchild-wiese.webp" alt="Mika liegt in einer Blumenwiese zwischen blauen Blüten" loading="lazy" decoding="async">
+    <img class="summerchild-portrait" src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
+  </div>
+  <a class="summerchild-link" data-reveal href="http://summerchild.net" target="_blank" rel="noopener">summerchild.net</a>
+</section>
 
 <!-- ═══ MOON PHASE NAVIGATION — Celestial Observatory ═══ -->
 <nav class="moon-nav" data-reveal>
