@@ -101,7 +101,10 @@
     will-change: transform, opacity;
   }
   .moon svg { width: 100%; height: 100%; overflow: visible; }
-  .moon img { display: block; width: 72%; height: 72%; margin: 14%; filter: drop-shadow(0 0 22px rgba(180,200,230,.4)) drop-shadow(0 0 80px rgba(150,175,210,.3)); }
+  /* Schein als runder Gradient statt drop-shadow — iOS Safari rendert
+     drop-shadow auf transformierten Elementen als milchiges Rechteck. */
+  .moon img { display: block; width: 72%; height: 72%; margin: 14%; position: relative; z-index: 1; }
+  .moon::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle closest-side, rgba(180,200,230,.35) 0%, rgba(180,200,230,.25) 70%, rgba(150,175,210,.14) 82%, rgba(150,175,210,0) 98%); }
 
   @media (max-width: 768px) {
     .moon { width: clamp(140px, 40vw, 280px); height: clamp(140px, 40vw, 280px); }
