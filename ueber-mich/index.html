@@ -861,7 +861,15 @@
   // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
   if (isMobile) {
     document.querySelectorAll('a.moon-orb[target="_blank"]').forEach(function(a) {
-      a.addEventListener('touchend', function(e) {
+      /* Nur echte Tipps auslösen — Scrollen über dem Link darf nicht navigieren */
+      var startX = 0, startY = 0, startT = 0;
+      a.addEventListener('touchstart', function (e) {
+        var t = e.touches[0];
+        startX = t.clientX; startY = t.clientY; startT = Date.now();
+      }, { passive: true });
+      a.addEventListener('touchend', function (e) {
+        var t = e.changedTouches[0];
+        if (Math.abs(t.clientX - startX) > 10 || Math.abs(t.clientY - startY) > 10 || Date.now() - startT > 600) return;
         e.preventDefault();
         window.open(a.href, '_blank', 'noopener');
       }, { passive: false });
