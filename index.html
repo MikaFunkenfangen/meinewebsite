@@ -1399,7 +1399,9 @@ if (isMobile) {
         // Moon — visible from start, fades at bottom
         if (moon) {
           var mOpacity = 0.65 * (1 - pct * 0.3);
-          if (pct > 0.85) mOpacity *= Math.max(0, (1 - pct) / 0.15);
+          /* Vollständig verblasst, bevor die Alpen (ab pct 0.85) erscheinen */
+          if (pct >= 0.8) mOpacity = 0;
+          else if (pct > 0.6) mOpacity *= (0.8 - pct) / 0.2;
           moon.style.opacity = Math.max(0, mOpacity).toFixed(2);
           var topOffset = 80 * pct;
           var sWave = Math.sin(pct * Math.PI * 2) * 35;
