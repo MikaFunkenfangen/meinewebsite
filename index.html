@@ -107,26 +107,8 @@
   .moon img{display:block;width:60%;height:60%;margin:20%;position:relative;z-index:1}
   .moon::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle closest-side, rgba(247,242,228,.30) 0%, rgba(247,242,228,.22) 58%, rgba(201,169,110,.12) 72%, rgba(201,169,110,0) 96%)}
 
-  /* ══════════════════════════════════════
-     ISAR RIVER — from index.html
-     ══════════════════════════════════════ */
-  .isar{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.5s ease;will-change:transform}
-  .isar.visible{opacity:1}
-  .isar svg{width:100%;height:100%;overflow:visible}
-  .isar-flow{fill:none;stroke-linecap:round;stroke-linejoin:round;transform:translateZ(0)}
-  .isar-flow:nth-child(1){opacity:.18}
-  .isar-flow:nth-child(2){opacity:.4}
-  .isar-flow:nth-child(3){opacity:.35}
-  .isar-flow:nth-child(4){opacity:.3}
-  .isar-flow:nth-child(5){opacity:.22}
-  .isar-flow:nth-child(6){opacity:.42}
-  .isar-shimmer{fill:none;stroke-linecap:round;opacity:.35;transform:translateZ(0)}
-  .isar-glow{filter:drop-shadow(0 0 15px rgba(90,190,210,.3)) drop-shadow(0 0 50px rgba(70,170,200,.15)) drop-shadow(0 0 100px rgba(60,150,190,.08));transform:translateZ(0)}
-
   @media(max-width:768px){
     .moon{width:clamp(215px,40vw,375px)!important;height:clamp(215px,40vw,375px)!important}
-    .isar svg{transform:scaleX(1.3)}
-    .isar-glow{filter:drop-shadow(0 0 10px rgba(90,190,210,.2)) drop-shadow(0 0 30px rgba(70,170,200,.1))!important}
   }
 
   /* ══════════════════════════════════════
@@ -820,7 +802,7 @@
   @media (max-width: 768px) {
     .portrait-frame { width: clamp(200px, 55vw, 280px); height: clamp(200px, 55vw, 280px); }
 
-    /* moon and isar responsive handled in their own media queries above */
+    /* moon responsive handled in its own media queries above */
   }
 
   /* ══════════════════════════════════════
@@ -938,8 +920,6 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     #stars-canvas, #dust-canvas { display: none; }
-    .isar { opacity: .3 !important; }
-    .isar-flow, .isar-shimmer { animation: none !important; opacity: .3 !important; }
   }
 
   /* ══════════════════════════════════════
@@ -963,65 +943,6 @@
 <!-- Moon (luminous) — from index.html -->
 <div class="moon" id="moon">
   <img src="images/mond-echt.webp" alt="" aria-hidden="true">
-</div>
-
-<!-- Isar River — simple CSS fallback for low-end devices -->
-<div class="isar-simple" id="isarSimple"><div class="isar-simple-mid"></div></div>
-<!-- Isar River — full SVG version -->
-<div class="isar" id="isar">
-  <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="isar-glow" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="isarDeep" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(30,80,110,0)"/>
-        <stop offset="12%" stop-color="rgba(30,80,110,.3)"/>
-        <stop offset="50%" stop-color="rgba(40,100,130,.45)"/>
-        <stop offset="88%" stop-color="rgba(30,80,110,.3)"/>
-        <stop offset="100%" stop-color="rgba(30,80,110,0)"/>
-      </linearGradient>
-      <linearGradient id="isarMain" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(60,150,185,0)"/>
-        <stop offset="10%" stop-color="rgba(60,150,185,.35)"/>
-        <stop offset="35%" stop-color="rgba(80,185,210,.5)"/>
-        <stop offset="65%" stop-color="rgba(70,170,200,.5)"/>
-        <stop offset="90%" stop-color="rgba(60,150,185,.35)"/>
-        <stop offset="100%" stop-color="rgba(60,150,185,0)"/>
-      </linearGradient>
-      <linearGradient id="isarTurq" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(100,220,230,0)"/>
-        <stop offset="15%" stop-color="rgba(100,220,230,.25)"/>
-        <stop offset="50%" stop-color="rgba(130,235,240,.4)"/>
-        <stop offset="85%" stop-color="rgba(100,220,230,.25)"/>
-        <stop offset="100%" stop-color="rgba(100,220,230,0)"/>
-      </linearGradient>
-      <linearGradient id="isarLight" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(170,240,250,0)"/>
-        <stop offset="20%" stop-color="rgba(170,240,250,.15)"/>
-        <stop offset="50%" stop-color="rgba(200,250,255,.3)"/>
-        <stop offset="80%" stop-color="rgba(170,240,250,.15)"/>
-        <stop offset="100%" stop-color="rgba(170,240,250,0)"/>
-      </linearGradient>
-      <linearGradient id="isarMoon" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(220,240,245,0)"/>
-        <stop offset="30%" stop-color="rgba(220,240,245,.2)"/>
-        <stop offset="50%" stop-color="rgba(240,250,255,.35)"/>
-        <stop offset="70%" stop-color="rgba(220,240,245,.2)"/>
-        <stop offset="100%" stop-color="rgba(220,240,245,0)"/>
-      </linearGradient>
-    </defs>
-    <path class="isar-flow" d="M520 0 C510 50,420 90,400 180 S560 300,480 400 S350 480,400 580 S580 680,500 780 S380 860,420 940 S530 980,500 1000" stroke="url(#isarDeep)" stroke-width="120" style="--if-d:20s;--if-del:0s;--if-lo:.08;--if-hi:.25"/>
-    <path class="isar-flow" d="M510 0 C505 55,430 100,415 190 S555 295,475 395 S360 475,405 575 S575 670,495 770 S385 855,425 935 S525 975,505 1000" stroke="url(#isarMain)" stroke-width="70" style="--if-d:15s;--if-del:1s;--if-lo:.12;--if-hi:.45"/>
-    <path class="isar-flow" d="M500 0 C498 60,440 110,425 200 S545 290,470 390 S370 465,410 565 S565 660,490 760 S390 845,430 930 S520 970,500 1000" stroke="url(#isarTurq)" stroke-width="40" style="--if-d:12s;--if-del:2s;--if-lo:.1;--if-hi:.4"/>
-    <path class="isar-flow" d="M495 0 C495 65,445 115,432 205 S540 285,468 385 S375 460,415 560 S560 655,488 755 S395 840,435 925 S518 968,498 1000" stroke="url(#isarLight)" stroke-width="18" style="--if-d:10s;--if-del:3s;--if-lo:.08;--if-hi:.35"/>
-    <path class="isar-flow" d="M540 0 C535 45,470 85,460 160 S580 260,520 340 S440 400,460 480 S590 560,530 640 S450 720,470 800 S560 880,540 960 S510 990,520 1000" stroke="url(#isarMain)" stroke-width="25" style="--if-d:17s;--if-del:0.5s;--if-lo:.06;--if-hi:.3"/>
-    <path class="isar-flow" d="M460 0 C462 70,410 130,400 220 S510 320,450 420 S380 500,400 600 S520 690,465 790 S400 870,430 950 S480 985,470 1000" stroke="url(#isarTurq)" stroke-width="8" style="--if-d:9s;--if-del:1.5s;--if-lo:.15;--if-hi:.5"/>
-    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="12" stroke-dasharray="8 25" d="M490 60 C460 120,440 160,430 230" style="--is-d:7s;--is-del:0s"/>
-    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="8" stroke-dasharray="5 18" d="M450 300 C480 360,500 400,475 460" style="--is-d:9s;--is-del:2s"/>
-    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="14" stroke-dasharray="10 30" d="M420 520 C460 570,480 610,470 680" style="--is-d:6s;--is-del:4s"/>
-    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="6" stroke-dasharray="4 20" d="M500 700 C480 750,460 790,470 850" style="--is-d:8s;--is-del:1s"/>
-    <path class="isar-shimmer" stroke="url(#isarMoon)" stroke-width="10" stroke-dasharray="6 22" d="M440 850 C460 890,480 920,460 970" style="--is-d:7.5s;--is-del:5.5s"/>
-    <path class="isar-shimmer" stroke="rgba(200,245,255,.3)" stroke-width="3" stroke-dasharray="3 15" d="M510 150 C490 200,480 240,495 300" style="--is-d:11s;--is-del:3s"/>
-    <path class="isar-shimmer" stroke="rgba(200,245,255,.3)" stroke-width="3" stroke-dasharray="3 15" d="M465 480 C490 530,500 560,480 620" style="--is-d:10s;--is-del:6s"/>
-  </svg>
 </div>
 
 <!-- Star Canvas -->
@@ -1264,10 +1185,8 @@ if (isMobile) {
   });
 }
 
-// Isar: keep full SVG on all devices, but disable heavy filters/animations on low-end
+// Low-End: schwere Filter und Animationen abschalten
 if (isLowEnd && !isIOS) {
-  var isarSvg = document.getElementById('isar');
-  if (isarSvg) isarSvg.classList.add('isar-lite');
   document.body.classList.add('low-end');
 }
 
@@ -1408,7 +1327,6 @@ if (isMobile) {
   /* ── Sky Gradient System (ported from zirkel) ── */
   (function(){
     var skyBg = document.getElementById('skyBg');
-    var isar = document.getElementById('isar');
     var moon = document.getElementById('moon');
     var starsCanvas = document.getElementById('stars-canvas');
     var alpen = document.getElementById('alpenSkyline');
@@ -1499,16 +1417,6 @@ if (isMobile) {
           moon.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
         }
 
-        // Isar
-        if (isar) {
-          var appear = pct < 0.02 ? 0 : pct > 0.95 ? 0 :
-            pct < 0.08 ? ((pct - 0.02) / 0.06) :
-            pct > 0.85 ? ((0.95 - pct) / 0.1) : 1;
-          isar.classList.toggle('visible', appear > 0.01);
-          isar.style.opacity = appear.toFixed(2);
-          var driftY = (pct - 0.5) * -8;
-          isar.style.transform = 'translateY(' + driftY + 'vh)';
-        }
 
         // Alps
         if (alpen) {
