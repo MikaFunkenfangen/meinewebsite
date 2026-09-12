@@ -27,7 +27,7 @@
     '.bkpop-ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.7;margin-bottom:0.4rem}',
     '.bkpop-card--gold .bkpop-ey{color:#c9a96e}',
     '.bkpop-card--green .bkpop-ey{color:rgba(160,200,120,0.8)}',
-    '.bkpop-h{font-size:clamp(1.4rem,3vw,1.8rem);letter-spacing:0.08em;margin-bottom:0.8rem;line-height:1.2}',
+    '.bkpop-h{font-family:var(--font-display,\'CCSBjork\');font-size:clamp(1.4rem,3vw,1.8rem);letter-spacing:0.08em;margin-bottom:0.8rem;line-height:1.2}',
     '.bkpop-card--gold .bkpop-h{color:#c9a96e}',
     '.bkpop-card--green .bkpop-h{color:#a8d08d}',
     '.bkpop-p{font-size:0.85rem;line-height:1.6;margin-bottom:1.2rem}',

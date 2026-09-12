@@ -42,12 +42,20 @@
 
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
 
-  /* ══ Display-Font für große Überschriften ══ */
+  /* ══ Display-Font für große Überschriften — einheitlich CCSBjork ══ */
   .book-hero h1,
   .book-hero h2,
   .audiobook h2,
   .book-section h2,
-  .video-grid h3 {
+  .video-grid h3,
+  .poem-title,
+  .desc-section h2,
+  .gallery-section h2,
+  .inhalt-section h2,
+  .video-section h2,
+  .kolumnen-section h2,
+  .cta-section h3,
+  .kolumne-card-title {
     font-family: var(--font-display) !important;
     letter-spacing: 0.04em;
   }
@@ -1556,6 +1564,6 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
 })();
 </script>
 
-<script src="../js/book-popups.js" defer></script>
+<script src="../js/book-popups.js?v=2" defer></script>
 </body>
 </html>
