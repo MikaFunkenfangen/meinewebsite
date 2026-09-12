@@ -325,16 +325,59 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 300;
-    font-size: clamp(1.3rem, 2.3vw, 1.75rem);
-    line-height: 1.8;
-    color: rgba(232,226,212,0.75);
+    font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+    line-height: 1.9;
+    color: rgba(232,226,212,0.78);
     max-width: 44ch;
     margin: clamp(2rem, 4vw, 3rem) auto 0;
     text-wrap: balance;
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 1.2s ease 0.45s, transform 1.2s ease 0.45s;
   }
-  .portal-line.visible { opacity: 1; transform: translateY(0); }
+  /* Wörter tauchen nacheinander aus der Unschärfe auf */
+  .portal-line .wort {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.7em);
+    filter: blur(6px);
+    animation: wortAuftauchen 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) var(--wd, 0s) forwards;
+  }
+  @keyframes wortAuftauchen {
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  /* Schlüsselwörter atmen in Gold */
+  .portal-line .wort--gold {
+    color: var(--gold);
+    animation:
+      wortAuftauchen 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) var(--wd, 0s) forwards,
+      goldAtmen 6s ease-in-out calc(var(--wd, 0s) + 2.4s) infinite alternate;
+  }
+  @keyframes goldAtmen {
+    from { text-shadow: 0 0 10px rgba(201,169,110,0.1); }
+    to { text-shadow: 0 0 24px rgba(201,169,110,0.55); }
+  }
+  /* Feine Goldlinie mit Stern, die sich unter dem Satz zusammenzieht */
+  .portal-line-schmuck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    margin: 1.7rem auto 0;
+    color: rgba(201,169,110,0.75);
+    font-size: 0.8rem;
+    opacity: 0;
+    animation: schmuckEin 1.4s ease 2.9s forwards;
+  }
+  .portal-line-schmuck span {
+    display: block;
+    width: clamp(50px, 8vw, 90px);
+    height: 1px;
+    transform: scaleX(0);
+    animation: linieZiehen 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 2.9s forwards;
+  }
+  .portal-line-schmuck span:first-child { background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5)); transform-origin: right; }
+  .portal-line-schmuck span:last-child { background: linear-gradient(270deg, transparent, rgba(201,169,110,0.5)); transform-origin: left; }
+  @keyframes linieZiehen { to { transform: scaleX(1); } }
+  @keyframes schmuckEin { to { opacity: 1; } }
+  .low-end .portal-line .wort--gold { animation: wortAuftauchen 1.1s ease var(--wd, 0s) forwards; }
   /* ── Mondmenü im Summerchild-Stil (echtes Mondfoto, Phasen als Schattenpfad) ── */
   .moon-menu {
     display: flex;
@@ -947,7 +990,8 @@
       <span class="moon-name">Summerchild</span>
     </a>
   </nav>
-  <p class="portal-line" data-reveal>Naturverbunden in Wort und Tat erzähle ich Geschichten, die im Herzen wurzeln.</p>
+  <p class="portal-line"><span class="wort" style="--wd:1.20s">Naturverbunden</span> <span class="wort" style="--wd:1.29s">in</span> <span class="wort" style="--wd:1.38s">Wort</span> <span class="wort" style="--wd:1.47s">und</span> <span class="wort" style="--wd:1.56s">Tat</span> <span class="wort" style="--wd:1.65s">erzähle</span> <span class="wort" style="--wd:1.74s">ich</span> <span class="wort wort--gold" style="--wd:1.83s">Geschichten,</span> <span class="wort" style="--wd:1.92s">die</span> <span class="wort" style="--wd:2.01s">im</span> <span class="wort wort--gold" style="--wd:2.10s">Herzen</span> <span class="wort wort--gold" style="--wd:2.19s">wurzeln.</span></p>
+  <div class="portal-line-schmuck" aria-hidden="true"><span></span>✦<span></span></div>
 </section>
 
 <!-- ═══ KAPITEL — Editoriale Vorschauen ═══ -->
