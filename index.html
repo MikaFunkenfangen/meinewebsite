@@ -57,7 +57,7 @@
   }
 
   body {
-    background: #080a08;
+    background: #0c0e12;
     color: var(--cream);
     font-family: var(--font-sans);
     font-weight: 300;
@@ -72,8 +72,30 @@
      ══════════════════════════════════════ */
   .sky-bg {
     position: fixed; inset: 0; z-index: 0;
-    transition: background 0.8s ease;
-    /* will-change removed — scroll-driven bg change doesn't need compositor layer */
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 90%, rgba(120,60,55,0.25) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 85%, rgba(100,55,70,0.2) 0%, transparent 35%),
+      linear-gradient(to top,
+        #2a1c18 0%,
+        #221820 12%,
+        #1a1520 28%,
+        #14131e 45%,
+        #10121a 65%,
+        #0c0e16 85%,
+        #0a0c12 100%
+      );
+  }
+  /* Dämmerlicht — glüht beim Scrollen auf (wie Über mich) */
+  .dawn-light {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    will-change: opacity;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(220,150,90,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 40% 80%, rgba(200,120,80,0.2) 0%, transparent 40%),
+      linear-gradient(to top, rgba(80,45,30,0.4) 0%, rgba(40,25,30,0.2) 30%, transparent 60%);
   }
 
   /* ══ DUST PARTICLES CANVAS ══ */
@@ -880,6 +902,7 @@
 
 <!-- Sky background -->
 <div class="sky-bg" id="skyBg"></div>
+<div class="dawn-light" id="dawnLight"></div>
 
 <!-- Guiding Star -->
 
@@ -1304,66 +1327,17 @@ if (isMobile) {
     var alpen = document.getElementById('alpenSkyline');
     if (!skyBg) return;
 
-    var skyStops = [
-      { r: 6, g: 5, b: 10 },      // 0% — Schwarz
-      { r: 6, g: 5, b: 10 },      // 15% — Schwarz
-      { r: 10, g: 10, b: 18 },    // 25% — Tiefe Nacht
-      { r: 14, g: 16, b: 28 },    // 40% — Andeutung Blau
-      { r: 22, g: 30, b: 50 },    // 55% — Nachtblau
-      { r: 35, g: 42, b: 68 },    // 70% — Tiefes Blau
-      { r: 55, g: 50, b: 62 },    // 82% — Dämmerungsgrau
-      { r: 95, g: 60, b: 65 },    // 92% — Sanftes Rosé
-      { r: 120, g: 70, b: 72 }    // 100% — Warmes Magenta-Rosé
-    ];
-    var skyPositions = [0, 0.15, 0.25, 0.40, 0.55, 0.70, 0.82, 0.92, 1.0];
-
-    function lerpColor(c1, c2, t) {
-      return {
-        r: Math.round(c1.r + (c2.r - c1.r) * t),
-        g: Math.round(c1.g + (c2.g - c1.g) * t),
-        b: Math.round(c1.b + (c2.b - c1.b) * t)
-      };
-    }
-    function getSkyColor(pct) {
-      if (pct <= 0) return skyStops[0];
-      for (var i = 0; i < skyPositions.length - 1; i++) {
-        if (pct >= skyPositions[i] && pct <= skyPositions[i + 1]) {
-          var t = (pct - skyPositions[i]) / (skyPositions[i + 1] - skyPositions[i]);
-          return lerpColor(skyStops[i], skyStops[i + 1], t);
-        }
-      }
-      return skyStops[skyStops.length - 1];
-    }
-    var lastSkyPct = -1;
-    function updateSky(pct) {
-      var rounded = Math.round(pct * 200) / 200;
-      if (rounded === lastSkyPct) return;
-      lastSkyPct = rounded;
-      var c = getSkyColor(pct);
-      var cDark = lerpColor(c, { r: Math.max(0, c.r - 4), g: Math.max(0, c.g - 3), b: Math.max(0, c.b - 2) }, 0.5);
-      var bg = 'linear-gradient(180deg, rgb(' + c.r + ',' + c.g + ',' + c.b + ') 0%, rgb(' + cDark.r + ',' + cDark.g + ',' + cDark.b + ') 100%)';
-      var blueGlow = pct > 0.25 && pct < 0.7 ? Math.sin((pct - 0.25) / 0.45 * Math.PI) * 0.08 : 0;
-      var dawnGlow = pct > 0.70 ? Math.min((pct - 0.70) / 0.20, 1) * 0.08 : 0;
-      var morgenrot = pct > 0.82 ? Math.min((pct - 0.82) / 0.18, 1) : 0;
-      if (blueGlow > 0.001) bg += ', radial-gradient(ellipse at 50% 60%, rgba(40,60,100,' + blueGlow.toFixed(3) + ') 0%, transparent 50%)';
-      if (dawnGlow > 0.001) bg += ', radial-gradient(ellipse at 55% 80%, rgba(120,60,65,' + dawnGlow.toFixed(3) + ') 0%, transparent 50%)';
-      if (morgenrot > 0.01) {
-        bg += ', radial-gradient(ellipse at 50% 95%, rgba(150,55,70,' + (morgenrot * 0.1).toFixed(3) + ') 0%, transparent 45%)';
-        bg += ', radial-gradient(ellipse at 30% 90%, rgba(170,70,80,' + (morgenrot * 0.07).toFixed(3) + ') 0%, transparent 40%)';
-      }
-      skyBg.style.background = bg;
-    }
+    var dawnLight = document.getElementById('dawnLight');
 
     var ticking = false;
     function onScrollFrame() {
       try {
-        /* Math.max fängt negatives scrollY beim iOS-Überscrollen ab —
-           sonst fällt getSkyColor auf den Morgenrot-Stopp zurück. */
+        /* Math.max fängt negatives scrollY beim iOS-Überscrollen ab */
         var scrollY = Math.max(window.scrollY, 0);
         var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
         var pct = Math.min(scrollY / scrollH, 1);
 
-        updateSky(pct);
+        if (dawnLight) dawnLight.style.opacity = Math.min(pct * 1.4, 1).toFixed(2);
 
         // Stars
         if (starsCanvas) {
@@ -1405,8 +1379,6 @@ if (isMobile) {
       }
     }, { passive: true });
 
-    // Initial sky render
-    updateSky(0);
   })();
 
   /* ── Dust Particles ── */
