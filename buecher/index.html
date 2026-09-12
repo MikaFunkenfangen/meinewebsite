@@ -54,8 +54,7 @@
   .inhalt-section h2,
   .video-section h2,
   .kolumnen-section h2,
-  .cta-section h3,
-  .kolumne-card-title {
+  .cta-section h3 {
     font-family: var(--font-display) !important;
     letter-spacing: 0.04em;
   }
@@ -807,44 +806,65 @@
     color: var(--cream-dim);
     margin-bottom: 2.5rem;
   }
-  .kolumnen-grid {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    max-width: 700px;
+  /* Kolumnen als Registerzeilen — Hairlines statt Karten */
+  .kolumnen-register {
+    max-width: 760px;
     margin: 0 auto;
+    text-align: left;
+    border-top: 1px solid rgba(201,169,110,0.14);
   }
-  .kolumne-card {
-    display: block;
-    padding: 1.5rem 2.5rem;
+  .kolumne {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.4rem 0.2rem;
     text-decoration: none;
-    border: 1px solid rgba(201,169,110,0.2);
-    border-radius: 6px;
-    background: rgba(201,169,110,0.04);
-    transition: all 0.4s ease;
-    text-align: center;
+    border-bottom: 1px solid rgba(201,169,110,0.14);
   }
-  .kolumne-card:hover {
-    background: rgba(201,169,110,0.12);
-    border-color: var(--gold);
-    transform: translateY(-3px);
-  }
-  .kolumne-card-title {
+  .kolumne-mag {
     font-family: var(--font-heading);
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    letter-spacing: 0.12em;
-    color: var(--sand);
-    margin-bottom: 0.3rem;
-  }
-  .kolumne-card-sub {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--cream-dim);
-    opacity: 0.6;
+    color: var(--cream);
+    text-align: right;
+    transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   }
+  .kolumne:hover .kolumne-mag { color: var(--gold); }
+  .kolumne-name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--gold);
+  }
+  .kolumne-desc {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--cream-dim);
+    text-align: left;
+  }
+  @media (max-width: 620px) {
+    .kolumne { grid-template-columns: 1fr; gap: 0.25rem; text-align: center; }
+    .kolumne-mag, .kolumne-desc { text-align: center; }
+  }
+  /* Text-Verweis mit Hairline statt Pillen-Button */
+  .cta-line {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(201,169,110,0.35);
+    transition: letter-spacing 0.5s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .cta-line:hover { letter-spacing: 0.42em; border-color: var(--gold); }
 
   /* ══ NATURARZT DETAIL ══ */
   .naturarzt-detail {
@@ -1258,14 +1278,16 @@
   <section id="kolumnen" class="kolumnen-section" data-reveal>
     <h2>Kolumnen</h2>
     <p class="kolumnen-sub">Regelmäßige Beiträge in Fachmagazinen</p>
-    <div class="kolumnen-grid">
-      <a href="https://www.naturarzt-access.de/" class="kolumne-card" target="_blank" rel="noopener">
-        <div class="kolumne-card-title">Naturarzt</div>
-        <div class="kolumne-card-sub">Fachmagazin</div>
+    <div class="kolumnen-register">
+      <a href="https://www.naturarzt-access.de/" class="kolumne" target="_blank" rel="noopener">
+        <span class="kolumne-mag">Naturarzt</span>
+        <span class="kolumne-name">„Seelenschau"</span>
+        <span class="kolumne-desc">monatlich, seit vier Jahren</span>
       </a>
-      <a href="https://www.yoga-aktuell.de/author/mschoeberl/" class="kolumne-card" target="_blank" rel="noopener">
-        <div class="kolumne-card-title">Yoga Aktuell</div>
-        <div class="kolumne-card-sub">Magazin</div>
+      <a href="https://www.yoga-aktuell.de/author/mschoeberl/" class="kolumne" target="_blank" rel="noopener">
+        <span class="kolumne-mag">Yoga Aktuell</span>
+        <span class="kolumne-name">Kolumne</span>
+        <span class="kolumne-desc">regelmäßig</span>
       </a>
     </div>
 
@@ -1280,7 +1302,7 @@
           <div class="na-cover-item"><img src="../images/na-img-0658.webp" alt="Naturarzt Kolumne" loading="lazy" decoding="async"></div>
         </div>
       </div>
-      <a href="https://thomaslambert-schoeberl.com" class="cta-btn" target="_blank" rel="noopener" style="margin-top: 2rem;">Leseproben alter Ausgaben</a>
+      <a href="https://thomaslambert-schoeberl.com" class="cta-line" target="_blank" rel="noopener" style="margin-top: 2.2rem;">Leseproben alter Ausgaben</a>
     </div>
 
   </section>
