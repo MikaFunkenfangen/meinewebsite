@@ -100,7 +100,7 @@
   /* ══════════════════════════════════════
      MOON (luminous) — from index.html
      ══════════════════════════════════════ */
-  .moon{position:fixed;top:5vh;right:5vw;width:clamp(270px,48vw,750px);height:clamp(270px,48vw,750px);z-index:1;pointer-events:none;opacity:0.65;background:none;border:none;box-shadow:none;transition:opacity 1s ease;will-change:transform,opacity;transform:translateZ(0)}
+  .moon{position:fixed;top:16vh;right:-7vw;width:clamp(270px,48vw,750px);height:clamp(270px,48vw,750px);z-index:1;pointer-events:none;opacity:0.65;background:none;border:none;box-shadow:none;transition:opacity 1s ease;will-change:transform,opacity;transform:translateZ(0)}
   .moon svg{width:100%;height:100%;overflow:visible}
   /* Schein als runder Gradient statt drop-shadow — iOS Safari rendert
      drop-shadow auf transformierten Elementen als milchiges Rechteck. */
@@ -132,154 +132,7 @@
   /* ══════════════════════════════════════
      HERO SECTION
      ══════════════════════════════════════ */
-  .hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 600px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-overlay {
-    display: none;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    max-width: 800px;
-    animation: fadeInUp 2s ease-out 0.5s both;
-  }
-
   /* ══ POEM STAGE — cinematic raindrop ══ */
-  .poem-stage {
-    position: relative;
-    text-align: center;
-    overflow: visible;
-  }
-
-  .poem-line {
-    font-family: var(--font-serif);
-    font-weight: 300; font-style: italic;
-    line-height: 1.5; color: var(--cream);
-    display: block;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 40px rgba(14,12,20,0.9), 0 0 80px rgba(14,12,20,0.6);
-    opacity: 0;
-    transform: translateY(12px);
-    animation-fill-mode: both;
-    animation-duration: 1.2s;
-    animation-timing-function: ease;
-    animation-name: fadeInUp;
-  }
-  .poem-line-1 {
-    font-size: clamp(1.4rem, 3.2vw, 2rem);
-    letter-spacing: 0.08em;
-    animation-delay: 1.2s;
-    background: linear-gradient(90deg, rgba(168,160,144,0.5) 0%, var(--cream) 30%, var(--gold) 60%, var(--cream) 80%, rgba(168,160,144,0.5) 100%);
-    background-size: 200% 100%;
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInUp 1.2s ease 1.2s both, poemShimmer 6s ease-in-out 3s infinite;
-    filter: drop-shadow(0 0 25px rgba(201,169,110,0.15));
-  }
-  @keyframes poemShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  .poem-line-2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); color: var(--cream); letter-spacing: 0.05em; animation-delay: 1.6s; }
-  .poem-line-3 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); color: var(--cream); letter-spacing: 0.05em; animation-delay: 2s; }
-  .poem-line-4 {
-    font-size: clamp(1.8rem, 4.2vw, 2.8rem); font-weight: 400;
-    letter-spacing: 0.06em; margin-top: 0.3rem;
-    animation-delay: 2.6s;
-    background: linear-gradient(135deg, var(--gold) 0%, #e8c87a 40%, var(--cream) 60%, var(--gold) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(201,169,110,0.2));
-  }
-  .poem-dots { color: var(--gold); font-style: normal; -webkit-text-fill-color: var(--gold); }
-
-  .poem-crack {
-    display: block; width: 2px; height: 50px;
-    margin: 0.5rem auto 0;
-    background: linear-gradient(to bottom, transparent, rgba(150,190,220,0.15), transparent);
-    opacity: 0; animation: fadeInUp 1.5s ease 3s both;
-  }
-
-  .poem-signature {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.8rem; margin-top: 1.5rem;
-    opacity: 0; animation: fadeInUp 2s ease-out 3.2s both;
-  }
-
-  .poem-portrait {
-    width: 38px; height: 38px; border-radius: 50%;
-    object-fit: cover; object-position: 30% 25%;
-    border: 1px solid rgba(201,169,110,0.3);
-    box-shadow: 0 0 12px rgba(201,169,110,0.15);
-  }
-
-  .poem-author {
-    font-family: var(--font-heading);
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    font-weight: 400; color: var(--gold);
-    letter-spacing: 0.18em; text-transform: uppercase;
-  }
-
-  .storm-cloud { display: none; }
-
-  /* Lightning bolts */
-  .lightning {
-    position: absolute;
-    top: 18%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    filter: blur(0.3px);
-  }
-
-  .lightning-bolt {
-    stroke: rgba(230,225,210,0.95);
-    stroke-width: 2.5;
-    fill: none;
-    stroke-linecap: round;
-    filter: drop-shadow(0 0 8px rgba(255,255,240,0.9)) drop-shadow(0 0 25px rgba(220,210,190,0.7)) drop-shadow(0 0 50px rgba(201,169,110,0.4));
-  }
-
-  .lightning-1 { left: 28%; animation: flash 6s 1s infinite; }
-  .lightning-2 { left: 60%; animation: flash 8s 3.5s infinite; }
-  .lightning-3 { left: 42%; animation: flash 7s 5s infinite; }
-
-  @keyframes flash {
-    0%, 100% { opacity: 0; }
-    1% { opacity: 0.9; }
-    2% { opacity: 0.1; }
-    3% { opacity: 0.8; }
-    4.5% { opacity: 0; }
-  }
-
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    animation: fadeInUp 2s ease-out 2s both;
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(180deg, var(--gold), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-
   /* ══════════════════════════════════════
      STAR CANVAS
      ══════════════════════════════════════ */
@@ -439,36 +292,64 @@
     z-index: 3;
     max-width: 1080px;
     margin: 0 auto;
-    padding: clamp(2.5rem, 5vw, 4rem) 2rem 1.5rem;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(3rem, 7vh, 5rem) 2rem 2rem;
     text-align: center;
   }
+  /* Buntglas-Titel wie auf summerchild.net */
   .portal-brand {
     font-family: var(--font-display);
-    font-size: clamp(2.3rem, 6.5vw, 4.6rem);
+    font-size: clamp(2.4rem, 7.5vw, 5.4rem);
     font-weight: 300;
     letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cream);
-    line-height: 1.1;
-    margin-bottom: 1.1rem;
+    line-height: 1.15;
+    margin: 0 auto 1.4rem;
     text-wrap: balance;
-    text-shadow: 0 0 60px rgba(201,169,110,0.25);
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 1.4s ease, transform 1.4s ease;
+    position: relative;
+    display: inline-block;
+    background-image: linear-gradient(110deg,
+      #e6b258 0%, #d4a574 18%, #d84e5a 36%, #f5f1e8 50%,
+      #489480 64%, #3860a8 82%, #8a58a4 100%);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 0 24px rgba(212,165,116,0.35)) drop-shadow(0 0 60px rgba(56,96,168,0.18));
+    opacity: 0;
+    animation:
+      titleReveal 2.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards,
+      titleLight 22s ease-in-out 3.1s infinite alternate;
   }
-  .portal-brand.visible { opacity: 1; transform: translateY(0); }
-  .portal-name {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    margin-bottom: 0.7rem;
-    opacity: 0; transform: translateY(18px);
-    transition: opacity 1.2s ease 0.15s, transform 1.2s ease 0.15s;
+  .portal-brand::before {
+    content: "";
+    position: absolute;
+    inset: -30% -8%;
+    background: radial-gradient(rgba(212,165,116,0.18) 0%, rgba(216,78,90,0.08) 35%, transparent 70%);
+    filter: blur(22px);
+    z-index: -1;
+    opacity: 0;
+    animation: haloBreathe 7s ease-in-out 2s infinite alternate;
   }
-  .portal-name.visible { opacity: 1; transform: translateY(0); }
+  @keyframes titleReveal {
+    0% { opacity: 0; transform: translateY(30px); letter-spacing: 0.3em; }
+    100% { opacity: 1; transform: translateY(0); letter-spacing: 0.14em; }
+  }
+  @keyframes titleLight {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 50% 50%; }
+  }
+  @keyframes haloBreathe {
+    0% { opacity: 0.55; transform: scale(0.95); }
+    100% { opacity: 0.95; transform: scale(1.08); }
+  }
+  .low-end .portal-brand { filter: none; animation: titleReveal 1s ease forwards; }
+  .low-end .portal-brand::before { display: none; }
   .portal-roles {
     font-family: var(--font-sans);
     font-weight: 300;
@@ -579,19 +460,6 @@
   .chapter-text { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; padding-left: clamp(1.2rem, 3vw, 2.5rem); text-align: left; }
   .chapter:nth-child(even) .chapter-media { grid-column: 6 / span 7; }
   .chapter:nth-child(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
-  .chapter-no {
-    position: absolute;
-    top: -0.55em;
-    left: -0.05em;
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(5rem, 11vw, 8.5rem);
-    line-height: 1;
-    color: rgba(201,169,110,0.1);
-    pointer-events: none;
-    z-index: -1;
-  }
-  .chapter:nth-child(even) .chapter-no { left: auto; right: -0.05em; }
   .chapter-kicker {
     display: block;
     font-family: var(--font-sans);
@@ -653,24 +521,6 @@
   .chapter:hover .book-1 { transform: translateY(-6px) rotate(-1deg); }
   .chapter:hover .book-2 { transform: translateY(-3px) rotate(1deg); }
 
-  /* ── Panorama-Zwischenspiel ── */
-  .panorama {
-    position: relative;
-    width: 100%;
-    margin: clamp(3rem, 7vw, 5.5rem) 0 clamp(1rem, 3vw, 2rem);
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 1.8s ease, transform 1.8s ease;
-  }
-  .panorama.visible { opacity: 1; transform: translateY(0); }
-  .panorama img {
-    display: block;
-    width: 100%;
-    height: clamp(220px, 42vh, 460px);
-    object-fit: cover;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
-  }
-
   @media (max-width: 700px) {
     .portal { padding: 2rem 1.25rem 1rem; }
     .kapitel { padding: 2rem 1.5rem 0; gap: 3.5rem; }
@@ -678,8 +528,6 @@
     .chapter-media { margin-bottom: 1.6rem; }
     .chapter-text, .chapter:nth-child(even) .chapter-text { padding: 0; text-align: left; }
     .chapter:nth-child(even) .chapter-desc { margin-left: 0; }
-    .chapter:nth-child(even) .chapter-no { right: auto; left: -0.05em; }
-    .chapter-no { top: -0.7em; }
   }
 
   /* ══════════════════════════════════════
@@ -970,9 +818,7 @@
      RESPONSIVE
      ══════════════════════════════════════ */
   @media (max-width: 768px) {
-    .hero { min-height: 100vh; min-height: 100svh; }
     .portrait-frame { width: clamp(200px, 55vw, 280px); height: clamp(200px, 55vw, 280px); }
-    .poem-stage { padding: 0 1rem; }
 
     /* moon and isar responsive handled in their own media queries above */
   }
@@ -1100,17 +946,11 @@
      CROSS-BROWSER COMPATIBILITY
      ══════════════════════════════════════ */
   @supports not (min-height: 100svh) {
-    .hero { min-height: 100vh; }
+    .portal { min-height: 100vh; }
   }
 
   /* Firefox-specific fixes */
-  @-moz-document url-prefix() {
-    .poem-line-1 {
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
+  
 </style>
 </head>
 <body>
@@ -1189,51 +1029,11 @@
 <canvas id="dust-canvas"></canvas>
 
 <!-- ═══ HERO ═══ -->
-<section class="hero" id="hero">
-  <div class="hero-overlay"></div>
-
-  <!-- Lightning bolts -->
-  <svg class="lightning lightning-1" width="120" height="600" viewBox="0 0 120 600">
-    <polyline class="lightning-bolt" points="60,0 50,80 72,100 35,200 65,230 20,350 55,380 30,480 48,520 35,600"/>
-  </svg>
-  <svg class="lightning lightning-2" width="100" height="700" viewBox="0 0 100 700">
-    <polyline class="lightning-bolt" points="50,0 60,100 30,150 65,260 15,340 50,420 25,520 45,600 30,700"/>
-  </svg>
-  <svg class="lightning lightning-3" width="90" height="550" viewBox="0 0 90 550">
-    <polyline class="lightning-bolt" points="45,0 55,70 25,120 60,200 15,290 50,360 30,440 42,550"/>
-  </svg>
-
-  <div class="hero-content">
-    <div class="poem-stage" id="poemStage">
-
-      <span class="poem-line poem-line-1"><span class="poem-dots">…</span>wenn draußen Tränen fallen,</span>
-      <span class="poem-line poem-line-2">Mein Himmel seine Trauer zeigt,</span>
-      <span class="poem-line poem-line-3">Erwacht in mir ein Garten,</span>
-      <span class="poem-line poem-line-4">Der sanft sich schon zur Sonne neigt<span class="poem-dots">…</span></span>
-
-      <span class="poem-crack"></span>
-
-      <div class="poem-signature">
-        <img src="images/Portrait1.png" alt="" class="poem-portrait" decoding="async">
-        <span class="poem-author">Mika Maria Schöberl</span>
-      </div>
-    </div>
-  </div>
-  <div class="hero-scroll-hint" style="display:none">
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
 <div class="page-content">
 
-<!-- ═══ DEKO TEXT 1 + LOGO-HERZ ═══ -->
-<div class="sep-constellation"><div class="constellation-line" data-reveal>
-<svg viewBox="0 0 240 120"><circle class="star-dot" cx="15" cy="60" r="2.2" style="--sp-d:2.4s;--sp-del:0s"/><circle class="star-dot" cx="65" cy="25" r="2.5" style="--sp-d:3.1s;--sp-del:.3s"/><circle class="star-dot" cx="120" cy="70" r="2" style="--sp-d:2.7s;--sp-del:.7s"/><circle class="star-dot" cx="175" cy="25" r="2.8" style="--sp-d:3.5s;--sp-del:.2s"/><circle class="star-dot" cx="225" cy="60" r="2.2" style="--sp-d:2.2s;--sp-del:.9s"/>
-<path class="star-path" d="M15 60 L65 25 L120 70 L175 25 L225 60"/></svg></div></div>
 <!-- ═══ PORTAL — Überblick & Auswahl ═══ -->
 <section class="portal" aria-label="Überblick über Funkenfangen">
-  <h1 class="portal-brand" data-reveal>Funkenfangen</h1>
-  <p class="portal-name" data-reveal>Mika Maria Schöberl</p>
+  <h1 class="portal-brand">Mika Maria Schöberl</h1>
   <p class="portal-roles" data-reveal>Buchautor*in · Kolumnist*in · Künstler*in · Wissenschaftler*in</p>
   <p class="portal-line" data-reveal>Naturverbunden in Wort und Tat erzähle ich Geschichten, die im Herzen wurzeln.</p>
   <nav class="moon-menu" aria-label="Bereiche">
@@ -1272,7 +1072,6 @@
       <img class="book book-2" src="images/gruene-seelen-cover.png" alt="Buchcover: Grüne Seelen" loading="lazy" decoding="async">
     </div>
     <div class="chapter-text">
-      <span class="chapter-no" aria-hidden="true">I</span>
       <span class="chapter-kicker">Geschriebenes</span>
       <h2 class="chapter-title">Bücher &amp; Kolumnen</h2>
       <p class="chapter-desc">50 Wörter für Liebe · Grüne Seelen — Bücher, Hörbücher und Kolumnen.</p>
@@ -1281,10 +1080,9 @@
   </a>
   <a class="chapter" href="ueber-mich/" data-reveal>
     <div class="chapter-media">
-      <img src="images/portrait-wiese.webp" alt="Mika liegt in einer Blumenwiese zwischen blauen Blüten" loading="lazy" decoding="async">
+      <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
     </div>
     <div class="chapter-text">
-      <span class="chapter-no" aria-hidden="true">II</span>
       <span class="chapter-kicker">Der Mensch dahinter</span>
       <h2 class="chapter-title">Über mich</h2>
       <p class="chapter-desc">Wer hinter Funkenfangen steht — Weg, Werte und Bilder.</p>
@@ -1296,7 +1094,6 @@
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
     </div>
     <div class="chapter-text">
-      <span class="chapter-no" aria-hidden="true">III</span>
       <span class="chapter-kicker">Klang</span>
       <h2 class="chapter-title">Summerchild</h2>
       <p class="chapter-desc">Mein Musikprojekt — zu Hause auf summerchild.net.</p>
@@ -1304,11 +1101,6 @@
     </div>
   </a>
 </section>
-
-<!-- ═══ PANORAMA — Zwischenspiel ═══ -->
-<div class="panorama" data-reveal>
-  <img src="images/maerchen-panorama.webp" alt="Zwischen Efeu liegend, einen Apfel in der Hand — daneben Spuren im Schnee" loading="lazy" decoding="async">
-</div>
 
 <div class="sep-constellation"><div class="constellation-line" data-reveal>
 <svg viewBox="0 0 200 120"><circle class="star-dot" cx="100" cy="8" r="3" style="--sp-d:2s;--sp-del:0s"/><circle class="star-dot" cx="55" cy="50" r="2" style="--sp-d:3.4s;--sp-del:.5s"/><circle class="star-dot" cx="145" cy="50" r="2" style="--sp-d:2.6s;--sp-del:.8s"/><circle class="star-dot" cx="70" cy="100" r="1.8" style="--sp-d:3.8s;--sp-del:.2s"/><circle class="star-dot" cx="130" cy="100" r="1.8" style="--sp-d:2.9s;--sp-del:1.1s"/>
@@ -1620,11 +1412,10 @@ if (isMobile) {
     var moon = document.getElementById('moon');
     var starsCanvas = document.getElementById('stars-canvas');
     var alpen = document.getElementById('alpenSkyline');
-    var hero = document.getElementById('hero');
     var portraitFrame = document.querySelector('.portrait-frame');
     var eclipseActive = false;
     var eclipseExited = false;
-    if (!hero || !skyBg) return;
+    if (!skyBg) return;
 
     var skyStops = [
       { r: 6, g: 5, b: 10 },      // 0% — Schwarz
