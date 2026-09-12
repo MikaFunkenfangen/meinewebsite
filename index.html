@@ -210,6 +210,31 @@
   }
   .short-play svg { width: 20px; height: 20px; margin-left: 2px; }
   .short:hover .short-play { background: rgba(201,169,110,0.85); color: #0a0810; }
+  .shorts-gallery { position: relative; }
+  .shorts-arrow {
+    position: absolute;
+    top: calc(50% - 12px);
+    transform: translateY(-50%);
+    display: grid; place-items: center;
+    width: 46px; height: 46px;
+    border: 0; border-radius: 50%;
+    cursor: pointer;
+    background: rgba(10,8,14,0.72);
+    color: rgba(232,226,212,0.85);
+    box-shadow: inset 0 0 0 1px rgba(201,169,110,0.3);
+    transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), background 0.4s cubic-bezier(0.32, 0.72, 0, 1), color 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 2;
+  }
+  .shorts-arrow svg { width: 22px; height: 22px; }
+  .shorts-arrow--prev { left: clamp(0.4rem, 2vw, 1.6rem); }
+  .shorts-arrow--next { right: clamp(0.4rem, 2vw, 1.6rem); }
+  .shorts-arrow:hover { background: rgba(201,169,110,0.85); color: #0a0810; }
+  .shorts-arrow:disabled { opacity: 0; pointer-events: none; }
+  .shorts--static .shorts-arrow { display: none; }
+  /* Sanftes Anstupsen, solange noch nicht gewischt wurde */
+  .shorts--untouched .shorts-arrow--next:not(:disabled) svg { animation: shortsNudge 3.6s cubic-bezier(0.32, 0.72, 0, 1) infinite; }
+  @keyframes shortsNudge { 0%, 100% { transform: translateX(0); } 15% { transform: translateX(4px); } 30% { transform: translateX(0); } }
+  .low-end .shorts--untouched .shorts-arrow--next svg { animation: none; }
   .shorts-box {
     position: fixed; inset: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: center;
@@ -1048,6 +1073,7 @@
 <!-- ═══ PORTRAIT ═══ -->
 <section class="shorts" aria-label="Kurzvideos">
   <p class="shorts-lead" data-reveal>Tippen zum Abspielen</p>
+  <div class="shorts-gallery shorts--untouched">
   <div class="shorts-rail" tabindex="0" aria-label="Kurzvideos">
     <button class="short" type="button" data-video="JFgugqPO0Vs">
       <img src="images/shorts/JFgugqPO0Vs.jpg" alt="" loading="lazy" decoding="async">
@@ -1069,6 +1095,9 @@
       <span class="short-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg></span>
       <span class="sr-only">Kurzvideo 4 von 4 abspielen</span>
     </button>
+  </div>
+  <button class="shorts-arrow shorts-arrow--prev" type="button" aria-label="Vorherige Kurzvideos" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="shorts-arrow shorts-arrow--next" type="button" aria-label="Weitere Kurzvideos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 </section>
 
@@ -1510,6 +1539,29 @@ if (isMobile) {
 
 <script src="js/book-popups.js?v=2" defer></script>
 <script>
+/* ── Shorts-Pfeile: wischen/scrollen mit Hinweis ── */
+(function(){
+  var gallery = document.querySelector('.shorts-gallery');
+  var rail = document.querySelector('.shorts-rail');
+  if (!gallery || !rail) return;
+  var prev = gallery.querySelector('.shorts-arrow--prev');
+  var next = gallery.querySelector('.shorts-arrow--next');
+  function step() { var el = rail.querySelector('.short'); return el ? (el.offsetWidth + 20) * 1.5 : 380; }
+  function update() {
+    var max = rail.scrollWidth - rail.clientWidth;
+    if (max <= 4) { gallery.classList.add('shorts--static'); return; }
+    gallery.classList.remove('shorts--static');
+    prev.disabled = rail.scrollLeft <= 4;
+    next.disabled = rail.scrollLeft >= max - 4;
+  }
+  function touched() { gallery.classList.remove('shorts--untouched'); }
+  prev.addEventListener('click', function(){ touched(); rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+  next.addEventListener('click', function(){ touched(); rail.scrollBy({ left: step(), behavior: 'smooth' }); });
+  rail.addEventListener('scroll', function(){ touched(); update(); }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
 /* ── Shorts-Lightbox ── */
 (function(){
   var rail = document.querySelector('.shorts-rail');
