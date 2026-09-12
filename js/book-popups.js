@@ -78,22 +78,12 @@
 
   createPopup(
     'bkpop1', 'gold',
-    base + 'images/50woerter-cover.png',
+    base + 'images/50woerter-cover.webp',
     'Neues Buch von Mika Maria Schöberl',
     '50 Wörter<br>für Liebe',
     'Fünfzig Wörter. Fünfzig Türen zu dem, was wir meinen, wenn wir <em>Liebe</em> sagen.',
     'Entdecken',
     'https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/'
-  );
-
-  createPopup(
-    'bkpop2', 'green',
-    base + 'images/gruene-seelen-cover.png',
-    'Von Mika Maria Schöberl',
-    'Grüne<br>Seelen',
-    'Über die Weisheit der Natur — ein Buch für alle, die spüren, dass die Erde mehr weiß als wir.',
-    'Entdecken',
-    'https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/'
   );
 
   /* ── Show / Close / Timer ── */
@@ -105,9 +95,9 @@
     var p = document.getElementById(id);
     if (p) { p.classList.remove('active'); p.setAttribute('aria-hidden', 'true'); }
   }
-  window.closeBookPopups = function() { closePopup('bkpop1'); closePopup('bkpop2'); };
+  window.closeBookPopups = function() { closePopup('bkpop1'); };
 
-  var ids = ['bkpop1', 'bkpop2'];
+  var ids = ['bkpop1'];
   function showNext() {
     showPopup(ids[popupIndex]);
     popupIndex = (popupIndex + 1) % ids.length;
