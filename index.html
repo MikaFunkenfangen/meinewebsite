@@ -49,11 +49,8 @@
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
 
   /* ══ Display-Font für große Überschriften ══ */
-  .deko-text,
-  .moon-nav-title,
-  .about-name,
   .presse-title,
-  .contact-section h2,
+  .kontakt-section h2,
   .book-popup-title {
     font-family: var(--font-display) !important;
     letter-spacing: 0.04em;
@@ -84,83 +81,6 @@
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     pointer-events: none; z-index: 3;
-  }
-
-  /* ══ GUIDING STAR ══ */
-  .guiding-star {
-    position: fixed; left: 0; top: 0; z-index: 10; pointer-events: none;
-    width: 24px; height: 24px; opacity: 0;
-    transition: opacity 0.4s ease;
-    will-change: transform, opacity;
-  }
-  .guiding-star-core {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 18px; height: 18px; border-radius: 50%;
-    background: radial-gradient(circle, #fff 0%, rgba(255,250,230,0.9) 25%, rgba(201,169,110,0.7) 50%, rgba(201,169,110,0) 75%);
-    box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 35px rgba(201,169,110,0.7), 0 0 70px rgba(201,169,110,0.3);
-    animation: starCorePulse 2s ease-in-out infinite;
-  }
-  @keyframes starCorePulse {
-    0%, 100% { transform: translate(-50%,-50%) scale(1); box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 35px rgba(201,169,110,0.7); }
-    50% { transform: translate(-50%,-50%) scale(1.15); box-shadow: 0 0 25px rgba(255,255,255,1), 0 0 50px rgba(201,169,110,0.9); }
-  }
-  .guiding-star.dissolving .guiding-star-core {
-    animation: starDissolve 1.5s ease-out forwards;
-  }
-  @keyframes starDissolve {
-    0% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
-    40% { transform: translate(-50%,-50%) scale(1.8); opacity: 0.7; }
-    100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
-  }
-  .guiding-star-anchor { height: 1px; }
-
-  /* ══ LOGO HEART ANIMATIONS ══ */
-  .logo-burst {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 5px; height: 5px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,250,230,0.7) 15%, rgba(201,169,110,0.5) 35%, rgba(201,169,110,0) 65%);
-    opacity: 0; pointer-events: none; z-index: 0;
-  }
-  .logo-burst.active { animation: logoBurst 1.2s ease-out forwards; }
-  @keyframes logoBurst {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    20% { transform: translate(-50%, -50%) scale(40); opacity: 1; }
-    50% { transform: translate(-50%, -50%) scale(80); opacity: 0.6; }
-    100% { transform: translate(-50%, -50%) scale(120); opacity: 0; }
-  }
-  .logo-rays {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px; height: 300px;
-    background: conic-gradient(from 0deg, transparent 0deg, rgba(201,169,110,0.15) 5deg, transparent 10deg, transparent 30deg, rgba(201,169,110,0.1) 35deg, transparent 40deg, transparent 60deg, rgba(201,169,110,0.12) 65deg, transparent 70deg, transparent 90deg, rgba(201,169,110,0.08) 95deg, transparent 100deg, transparent 120deg, rgba(201,169,110,0.15) 125deg, transparent 130deg, transparent 150deg, rgba(201,169,110,0.1) 155deg, transparent 160deg, transparent 180deg, rgba(201,169,110,0.12) 185deg, transparent 190deg, transparent 210deg, rgba(201,169,110,0.08) 215deg, transparent 220deg, transparent 240deg, rgba(201,169,110,0.15) 245deg, transparent 250deg, transparent 270deg, rgba(201,169,110,0.1) 275deg, transparent 280deg, transparent 300deg, rgba(201,169,110,0.12) 305deg, transparent 310deg, transparent 330deg, rgba(201,169,110,0.08) 335deg, transparent 340deg, transparent 360deg);
-    border-radius: 50%; opacity: 0; pointer-events: none; z-index: 0;
-  }
-  .logo-rays.active { animation: logoRays 1.5s ease-out forwards; }
-  @keyframes logoRays {
-    0% { opacity: 0; transform: translate(-50%,-50%) scale(0.3) rotate(0deg); }
-    30% { opacity: 0.8; }
-    100% { opacity: 0; transform: translate(-50%,-50%) scale(2) rotate(45deg); }
-  }
-  .logo-img.awakening { animation: heartAwaken 0.8s ease-out forwards; }
-  @keyframes heartAwaken {
-    0% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 0 transparent); }
-    15% { transform: scale(1.15); filter: brightness(2.5) drop-shadow(0 0 60px rgba(255,255,255,0.9)) drop-shadow(0 0 100px rgba(201,169,110,0.8)); }
-    30% { transform: scale(0.95); filter: brightness(1.5) drop-shadow(0 0 40px rgba(201,169,110,0.6)); }
-    50% { transform: scale(1.08); filter: brightness(1.8) drop-shadow(0 0 50px rgba(201,169,110,0.7)); }
-    70% { transform: scale(0.97); filter: brightness(1.2) drop-shadow(0 0 30px rgba(201,169,110,0.5)); }
-    100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 20px rgba(201,169,110,0.4)); }
-  }
-  .logo-img.beating-fast { animation: heartBeatFast 0.6s ease-in-out infinite; }
-  @keyframes heartBeatFast {
-    0%, 100% { transform: scale(1); filter: brightness(1.1) drop-shadow(0 0 25px rgba(201,169,110,0.5)); }
-    50% { transform: scale(1.06); filter: brightness(1.3) drop-shadow(0 0 40px rgba(201,169,110,0.7)); }
-  }
-  .logo-img.pulsing { animation: heartPulse 2.5s ease-in-out infinite; }
-  @keyframes heartPulse {
-    0%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 15px rgba(201,169,110,0.3)); }
-    50% { transform: scale(1.03); filter: brightness(1.15) drop-shadow(0 0 30px rgba(201,169,110,0.5)); }
   }
 
   /* ══ ALPEN SKYLINE ══ */
@@ -375,119 +295,13 @@
   #stars-canvas.visible { opacity: 0.85; }
 
   /* ══════════════════════════════════════
-     LOGO & DEKO COMBINED
-     ══════════════════════════════════════ */
-  .deko-with-logo {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    padding: 4rem 2rem;
-  }
-
-  .logo-container {
-    position: relative;
-    width: clamp(300px, 40vw, 480px);
-    height: clamp(300px, 40vw, 480px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    will-change: transform;
-    margin: 2rem 0;
-  }
-
-  .logo-glow { display: none; }
-
-  .logo-img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    opacity: 1;
-    transition: transform 0.1s ease-out;
-    will-change: transform;
-    mix-blend-mode: lighten;
-  }
-
-  .deko-logo-inline {
-    width: clamp(300px, 40vw, 480px);
-    height: clamp(300px, 40vw, 480px);
-  }
-
-  /* ══════════════════════════════════════
-     DEKO TEXT — poetischer Stil
-     ══════════════════════════════════════ */
-  .deko-section {
-    position: relative;
-    padding: 6rem 2rem;
-    text-align: center;
-    overflow: hidden;
-  }
-
-  .deko-section.compact { padding: 3rem 2rem; }
-
-  .deko-text {
-    font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3.5vw, 2.8rem);
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    line-height: 1.8;
-    color: var(--gold);
-    text-transform: uppercase;
-    max-width: 900px;
-    margin: 0 auto;
-    text-shadow: 0 0 60px var(--gold-glow), 0 0 120px rgba(201,169,110,0.1);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-  }
-
-  .deko-text.visible { opacity: 1; transform: translateY(0); }
-
-  .deko-divider {
-    width: 60px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 1.5rem auto;
-    opacity: 0;
-    transition: opacity 1.5s ease 0.3s;
-  }
-  .deko-divider.visible { opacity: 1; }
-
-  /* Leuchtender Text */
-  .deko-text.glow-text {
-    color: var(--gold);
-    text-shadow:
-      0 0 10px rgba(201,169,110,0.6),
-      0 0 30px rgba(201,169,110,0.4),
-      0 0 60px rgba(201,169,110,0.2),
-      0 0 100px rgba(201,169,110,0.1);
-    animation: textGlow 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes textGlow {
-    0% {
-      text-shadow:
-        0 0 8px rgba(201,169,110,0.4),
-        0 0 25px rgba(201,169,110,0.25),
-        0 0 50px rgba(201,169,110,0.1);
-    }
-    100% {
-      text-shadow:
-        0 0 15px rgba(201,169,110,0.8),
-        0 0 40px rgba(201,169,110,0.5),
-        0 0 80px rgba(201,169,110,0.3),
-        0 0 120px rgba(201,169,110,0.15);
-    }
-  }
-
-  /* ══════════════════════════════════════
      PORTRAIT REVEAL
      ══════════════════════════════════════ */
   .portrait-section {
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 2rem 2rem 1rem;
+    padding: 1.5rem 2rem 0.5rem;
     overflow: hidden;
   }
 
@@ -618,379 +432,149 @@
   }
 
   /* ══════════════════════════════════════
-     ABOUT
+     PORTAL — Überblick & Auswahl
      ══════════════════════════════════════ */
-  .about-section {
+  .portal {
     position: relative;
-    padding: 4rem 2rem 3rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .about-content {
-    max-width: 800px;
+    z-index: 3;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 5vw, 4rem) 2rem 1.5rem;
     text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    background: linear-gradient(135deg, rgba(201,169,110,0.08) 0%, rgba(20,18,25,0.5) 30%, rgba(15,13,20,0.55) 60%, rgba(201,169,110,0.1) 100%);
-    border-radius: 24px;
-    padding: 4rem 3.5rem;
-    border: 1px solid rgba(201,169,110,0.15);
-    box-shadow: 0 0 80px rgba(201,169,110,0.08), inset 0 0 60px rgba(0,0,0,0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transform: translateZ(0) translateY(30px);
   }
-  .about-content.visible { opacity: 1; transform: translateZ(0) translateY(0); }
-
-  .about-name {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  .portal-brand {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 6.5vw, 4.6rem);
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1.1rem;
+    text-wrap: balance;
+    text-shadow: 0 0 60px rgba(201,169,110,0.25);
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 1.4s ease, transform 1.4s ease;
+  }
+  .portal-brand.visible { opacity: 1; transform: translateY(0); }
+  .portal-name {
+    font-family: var(--font-serif);
+    font-style: italic;
     font-weight: 400;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
     color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.7rem;
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 1.2s ease 0.15s, transform 1.2s ease 0.15s;
   }
-
-  .about-roles {
+  .portal-name.visible { opacity: 1; transform: translateY(0); }
+  .portal-roles {
     font-family: var(--font-sans);
-    font-size: clamp(0.75rem, 1.3vw, 1rem);
     font-weight: 300;
-    color: var(--cream-dim);
-    letter-spacing: 0.25em;
+    font-size: clamp(0.68rem, 1vw, 0.8rem);
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    margin-bottom: 0;
+    color: var(--cream-dim);
+    margin-bottom: 1.6rem;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 1.2s ease 0.25s, transform 1.2s ease 0.25s;
   }
-
-  .about-divider {
-    color: var(--gold-dim);
-    font-size: 0.9rem;
-    margin: 2rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .portal-roles.visible { opacity: 1; transform: translateY(0); }
+  .portal-line {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    line-height: 1.8;
+    color: rgba(232,226,212,0.72);
+    max-width: 40ch;
+    margin: 0 auto clamp(2.2rem, 4vw, 3rem);
+    text-wrap: balance;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 1.2s ease 0.35s, transform 1.2s ease 0.35s;
+  }
+  .portal-line.visible { opacity: 1; transform: translateY(0); }
+  .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    text-align: left;
   }
-  .about-divider::before,
-  .about-divider::after {
-    content: '';
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-  }
-
-  .about-quote {
-    font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--cream);
-    line-height: 2;
-    letter-spacing: 0.02em;
-    margin: 0;
-    padding: 0 1rem;
-  }
-  .about-quote .highlight { color: var(--gold); }
-
-  .about-welcome {
-    font-family: var(--font-serif);
-    font-size: clamp(1rem, 1.8vw, 1.3rem);
-    font-weight: 300;
-    color: var(--cream);
-    margin-top: 1.5rem;
-    letter-spacing: 0.04em;
-  }
-  .about-welcome .brand {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-  }
-
-  /* ══════════════════════════════════════
-     MOON PHASE NAVIGATION — Celestial Observatory
-     ══════════════════════════════════════ */
-  .moon-nav {
+  .portal-card {
     position: relative;
-    padding: 4rem 2rem 5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-  }
-  .moon-nav.visible { opacity: 1; transform: translateY(0); }
-
-  .moon-nav-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-style: italic;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    margin-bottom: 3.5rem;
-    opacity: 0.85;
-    text-shadow: 0 0 40px rgba(201,169,110,0.4);
-  }
-
-  .moon-nav-orbit {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    max-width: 1100px;
-    padding: 2rem 0;
-  }
-
-  /* Sinuous golden path behind items */
-  .moon-nav-orbit::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(ellipse 120% 50% at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  /* SVG wave path behind moon items */
-  .moon-nav-wave {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: visible;
-  }
-  .moon-nav-wave path {
-    fill: none;
-    stroke: url(#moonWaveGrad);
-    stroke-width: 1;
-    opacity: 0.35;
-    stroke-dasharray: 4 6;
-    animation: waveFlicker 6s ease-in-out infinite alternate;
-    will-change: opacity;
-  }
-  /* Nur Deckkraft bewegen. stroke-dashoffset zwingt den Browser, den Pfad in
-     jedem Einzelbild neu zu zeichnen — auf schwachen Rechnern sichtbares Stocken. */
-  @keyframes waveFlicker {
-    0% { opacity: 0.2; }
-    100% { opacity: 0.45; }
-  }
-
-  .moon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 1rem 1.2rem 0.8rem;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--cream);
-    opacity: 0;
-    position: relative;
-    border-radius: 50%;
-    width: clamp(90px, 12vw, 130px);
-    height: clamp(90px, 12vw, 130px);
-    justify-content: center;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 1.35rem 1.4rem 1.5rem;
+    border: 1px solid rgba(201,169,110,0.16);
+    border-radius: 14px;
+    background: rgba(201,169,110,0.045);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    transform: translateZ(0);
-    background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, rgba(8,8,7,0.2) 70%);
-    border: 1px solid rgba(201,169,110,0.06);
-    transition: color 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease, background 0.5s ease, border-color 0.5s ease, box-shadow 0.6s ease;
-    animation: moonItemEntrance 1s ease-out forwards;
-    flex-shrink: 0;
-    will-change: transform;
+    text-decoration: none;
+    opacity: 0; transform: translateY(18px);
+    transition:
+      opacity 0.9s ease var(--d, 0s),
+      transform 0.9s ease var(--d, 0s),
+      border-color 0.35s ease,
+      background 0.35s ease,
+      box-shadow 0.35s ease;
   }
-
-  /* Auftritt gestaffelt. Der Wellenversatz steht inline als --wave-y an jedem
-     Element; hier zaehlt nur die Verzoegerung. Das erste Kind der Bahn ist das
-     Wellen-SVG, die Monde sind also Kind 2 bis 8. */
-  .moon-item:nth-child(2) { animation-delay: 0.05s; }
-  .moon-item:nth-child(3) { animation-delay: 0.12s; }
-  .moon-item:nth-child(4) { animation-delay: 0.19s; }
-  .moon-item:nth-child(5) { animation-delay: 0.26s; }
-  .moon-item:nth-child(6) { animation-delay: 0.33s; }
-  .moon-item:nth-child(7) { animation-delay: 0.40s; }
-
-  @keyframes moonItemEntrance {
-    0% { opacity: 0; transform: translateY(var(--wave-y, 0px)) scale(0.4); filter: blur(8px); }
-    60% { opacity: 0.8; filter: blur(0); }
-    100% { opacity: 1; transform: translateY(var(--wave-y, 0px)) scale(1); filter: blur(0); }
+  .portal-card.visible { opacity: 1; transform: translateY(0); }
+  .portal-card:hover {
+    border-color: rgba(201,169,110,0.45);
+    background: rgba(201,169,110,0.09);
+    box-shadow: 0 10px 35px rgba(4,3,8,0.4), 0 0 28px rgba(201,169,110,0.1);
   }
-
-  .moon-item:hover {
+  .portal-card:focus-visible {
+    outline: 2px solid rgba(201,169,110,0.75);
+    outline-offset: 3px;
+    border-color: rgba(201,169,110,0.45);
+  }
+  .portal-card-icon {
+    width: 30px; height: 30px;
     color: var(--gold);
-    opacity: 1 !important;
-    transform: translateY(calc(var(--wave-y, 0px) - 14px)) scale(1.25);
-    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, rgba(201,169,110,0.06) 50%, rgba(8,8,7,0.15) 100%);
-    border-color: rgba(201,169,110,0.5);
-    box-shadow:
-      0 0 60px rgba(201,169,110,0.3),
-      0 0 120px rgba(201,169,110,0.12),
-      0 0 200px rgba(201,169,110,0.05),
-      inset 0 0 40px rgba(201,169,110,0.08);
+    opacity: 0.9;
+    transition: opacity 0.35s ease, filter 0.35s ease;
   }
-
-  /* Hover glow ring — orbiting */
-  .moon-item::before {
-    content: '';
-    position: absolute;
-    top: -6px; left: -6px; right: -6px; bottom: -6px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,169,110,0);
-    transition: border-color 0.5s ease, box-shadow 0.5s ease;
-    pointer-events: none;
-  }
-  .moon-item:hover::before {
-    border-color: rgba(201,169,110,0.4);
-    box-shadow: 0 0 40px rgba(201,169,110,0.2), 0 0 80px rgba(201,169,110,0.08);
-    animation: moonOrbitRing 2.5s linear infinite;
-  }
-  @keyframes moonOrbitRing {
-    0% { transform: rotate(0deg) scale(1); border-color: rgba(201,169,110,0.4); }
-    50% { transform: rotate(180deg) scale(1.05); border-color: rgba(201,169,110,0.6); }
-    100% { transform: rotate(360deg) scale(1); border-color: rgba(201,169,110,0.4); }
-  }
-
-  /* Stardust particles on hover — 5 rising sparks */
-  .moon-item::after {
-    content: '';
-    position: absolute;
-    bottom: 8px; left: 50%;
-    width: 3px; height: 3px;
-    border-radius: 50%;
-    background: var(--gold);
-    transform: translateX(-50%);
-    opacity: 0;
-    pointer-events: none;
-    box-shadow:
-      -12px -6px 0 var(--gold),
-      8px -10px 0 var(--gold),
-      -5px -18px 0 rgba(201,169,110,0.7),
-      14px -3px 0 rgba(201,169,110,0.5);
-  }
-  .moon-item:hover::after {
-    animation: moonStardust 1.8s ease-out infinite;
-  }
-  @keyframes moonStardust {
-    0% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    30% { opacity: 0.8; }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-55px) scale(0.1); }
-  }
-
-  .moon-icon {
-    width: clamp(36px, 5vw, 52px);
-    height: clamp(36px, 5vw, 52px);
-    transition: filter 0.5s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1);
-    animation: moonItemFloat 5s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(201,169,110,0.3)) drop-shadow(0 0 20px rgba(201,169,110,0.1));
-    /* Der Schein bleibt im Ruhezustand unveraendert. Zusammen mit will-change
-       darf der Browser das fertig gezeichnete Bild samt Schatten behalten und
-       nur noch verschieben, statt den Schatten in jedem Einzelbild neu zu
-       rechnen — das war die Ursache des Zitterns. */
-    will-change: transform;
-  }
-  /* Erstes Kind der Bahn ist das Wellen-SVG, die Monde sind Kind 2 bis 8. */
-  .moon-item:nth-child(2) .moon-icon { animation-delay: 0s; }
-  .moon-item:nth-child(3) .moon-icon { animation-delay: 0.7s; }
-  .moon-item:nth-child(4) .moon-icon { animation-delay: 1.4s; }
-  .moon-item:nth-child(5) .moon-icon { animation-delay: 2.1s; }
-  .moon-item:nth-child(6) .moon-icon { animation-delay: 2.8s; }
-  .moon-item:nth-child(7) .moon-icon { animation-delay: 3.5s; }
-
-  /* translate3d statt translateY: haelt die Bewegung auf der Grafikkarte. */
-  @keyframes moonItemFloat {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(0, -5px, 0); }
-  }
-
-  .moon-item:hover .moon-icon {
-    filter: drop-shadow(0 0 15px rgba(255,235,180,1)) drop-shadow(0 0 35px rgba(201,169,110,0.8)) drop-shadow(0 0 70px rgba(201,169,110,0.4)) drop-shadow(0 0 100px rgba(201,169,110,0.15));
-    transform: translateY(-8px) scale(1.3);
-    color: var(--gold);
-  }
-
-  .moon-label {
-    font-family: var(--font-heading);
-    font-size: clamp(0.65rem, 1.1vw, 0.78rem);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    opacity: 0.75;
-    color: var(--cream);
-    text-shadow: 0 0 8px rgba(201,169,110,0.25);
-    transition: opacity 0.5s ease, text-shadow 0.5s ease, transform 0.5s ease, color 0.5s ease;
-    position: absolute;
-    bottom: -1.8rem;
-  }
-  .moon-label-short { display: none; }
-  @media (max-width: 768px) {
-    .moon-label-full { display: none; }
-    .moon-label-short { display: inline; }
-  }
-  .moon-item:hover .moon-label {
+  .portal-card:hover .portal-card-icon {
     opacity: 1;
-    color: var(--gold);
-    text-shadow: 0 0 20px rgba(201,169,110,0.7), 0 0 40px rgba(201,169,110,0.3);
-    transform: translateY(-3px);
+    filter: drop-shadow(0 0 8px rgba(201,169,110,0.5));
   }
-
-  /* ══════════════════════════════════════
-     ANIMATED DAISY (Gänseblümchen)
-     ══════════════════════════════════════ */
-  .daisy-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+  .portal-card-title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    color: var(--cream);
+    transition: color 0.35s ease;
   }
-  .daisy-svg {
-    width: clamp(80px, 15vw, 120px);
-    height: clamp(80px, 15vw, 120px);
+  .portal-card:hover .portal-card-title { color: var(--gold); }
+  .portal-card-desc {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--cream-dim);
   }
-  .daisy-svg .daisy-center {
-    fill: var(--gold);
-    animation: daisyGlow 3s ease-in-out infinite alternate;
+  .portal-card-ext {
+    position: absolute;
+    top: 0.9rem; right: 1rem;
+    font-size: 0.8rem;
+    color: rgba(232,226,212,0.4);
+    transition: color 0.35s ease;
   }
-  @keyframes daisyGlow {
-    0% { filter: drop-shadow(0 0 4px rgba(201,169,110,0.3)); opacity: 0.8; }
-    100% { filter: drop-shadow(0 0 12px rgba(201,169,110,0.7)); opacity: 1; }
+  .portal-card:hover .portal-card-ext { color: var(--gold); }
+  @media (max-width: 900px) {
+    .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
   }
-  .daisy-svg .daisy-petal {
-    fill: rgba(232,226,212,0.85);
-    transform-origin: 50px 50px;
-    opacity: 0; transform: scale(0);
-  }
-  .about-content.visible .daisy-petal {
-    animation: daisyBloom 0.8s ease-out forwards;
-  }
-  .about-content.visible .daisy-petal:nth-child(1) { animation-delay: 0.1s; }
-  .about-content.visible .daisy-petal:nth-child(2) { animation-delay: 0.15s; }
-  .about-content.visible .daisy-petal:nth-child(3) { animation-delay: 0.2s; }
-  .about-content.visible .daisy-petal:nth-child(4) { animation-delay: 0.25s; }
-  .about-content.visible .daisy-petal:nth-child(5) { animation-delay: 0.3s; }
-  .about-content.visible .daisy-petal:nth-child(6) { animation-delay: 0.35s; }
-  .about-content.visible .daisy-petal:nth-child(7) { animation-delay: 0.4s; }
-  .about-content.visible .daisy-petal:nth-child(8) { animation-delay: 0.45s; }
-  .about-content.visible .daisy-petal:nth-child(9) { animation-delay: 0.5s; }
-  .about-content.visible .daisy-petal:nth-child(10) { animation-delay: 0.55s; }
-  .about-content.visible .daisy-petal:nth-child(11) { animation-delay: 0.6s; }
-  .about-content.visible .daisy-petal:nth-child(12) { animation-delay: 0.65s; }
-  @keyframes daisyBloom {
-    0% { opacity: 0; transform: scale(0) rotate(-20deg); }
-    60% { opacity: 1; transform: scale(1.1) rotate(3deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0deg); }
-  }
-  .about-content.visible .daisy-svg {
-    animation: daisySway 6s ease-in-out 1.5s infinite;
-  }
-  @keyframes daisySway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+  @media (max-width: 560px) {
+    .portal { padding: 2rem 1.25rem 1rem; }
+    .portal-grid { grid-template-columns: 1fr; }
+    .portal-card { padding: 1.15rem 1.2rem 1.25rem; }
   }
 
   /* ══════════════════════════════════════
@@ -1068,7 +652,7 @@
   .kontakt-section {
     position: relative;
     z-index: 2;
-    padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 5vw, 3.5rem);
+    padding: clamp(3rem, 6vw, 5.5rem) clamp(1rem, 5vw, 3.5rem);
     text-align: center;
     overflow: hidden;
   }
@@ -1263,35 +847,6 @@
   .low-end .star-path{filter:none;opacity:.25;animation:none;stroke-dasharray:none;stroke-dashoffset:0}
 
   /* ══════════════════════════════════════
-     SPARMODUS — großes Mondmenü
-     Auf schwachen Rechnern laufen im Mondmenü sonst sieben Dauer-Animationen
-     gleichzeitig, jede über einem Weichzeichner und zwei Schlagschatten. Das
-     Ergebnis ist kein Schweben mehr, sondern ein Zittern. Hier bleibt das Bild
-     stehen — der Schein und die Wellenlinie bleiben, nur die Bewegung ruht.
-     Alles, was beim Überfahren passiert, bleibt unberührt.
-     ══════════════════════════════════════ */
-  .low-end .moon-icon {
-    animation: none !important;
-    filter: drop-shadow(0 0 6px rgba(201,169,110,0.3));
-    will-change: auto;
-  }
-  .low-end .moon-item {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    will-change: auto;
-  }
-  .low-end .moon-nav-wave path {
-    animation: none !important;
-    opacity: 0.3;
-    will-change: auto;
-  }
-  /* Die Umlaufbahn beim Überfahren dreht einen Ring mit zwei weichen Schatten —
-     auf schwachen Geräten das Teuerste am ganzen Menü. Der Ring bleibt sichtbar,
-     er dreht sich nur nicht mehr. */
-  .low-end .moon-item:hover::before { animation: none !important; }
-  .low-end .moon-item:hover::after { animation: none !important; opacity: 0; }
-
-  /* ══════════════════════════════════════
      ANIMATIONS
      ══════════════════════════════════════ */
   @keyframes fadeInUp {
@@ -1314,57 +869,13 @@
     .portrait-frame { width: clamp(200px, 55vw, 280px); height: clamp(200px, 55vw, 280px); }
     .poem-stage { padding: 0 1rem; }
 
-    .logo-container, .deko-logo-inline {
-      width: clamp(240px, 70vw, 340px);
-      height: clamp(240px, 70vw, 340px);
-    }
-
-    .deko-section { padding: 4rem 1.5rem; }
-    .deko-section.compact { padding: 2rem 1.5rem; }
-    .deko-text { font-size: clamp(1.3rem, 5.5vw, 2rem); letter-spacing: 0.15em; }
-
-    .about-section { padding: 3rem 1.5rem 2rem; }
-    .about-content { padding: 2.5rem 1.8rem; }
-    .about-quote { font-size: 1rem; padding: 0; }
-    .moon-nav { padding: 2rem 0.5rem 3rem; }
-    .moon-nav-wave { display: none; }
-    .moon-nav-orbit { flex-wrap: wrap; gap: 1.2rem 1rem; justify-content: center; }
-    .moon-nav-orbit { flex-wrap: wrap; gap: 2.2rem 0.6rem; justify-content: center; padding: 0 0.5rem; }
-    .moon-item {
-      width: 56px; height: 56px;
-      margin: 0;
-      transform: none !important;
-      --wave-y: 0px !important;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      box-shadow: 0 0 10px rgba(201,169,110,0.15), 0 0 24px rgba(90,190,210,0.08);
-    }
-    .moon-icon { animation: none !important; filter: drop-shadow(0 0 5px rgba(201,169,110,0.3)); width: 28px; height: 28px; }
-    .moon-label { font-size: 0.52rem; bottom: -1.5rem; opacity: 0.85; letter-spacing: 0.08em; }
-
     /* moon and isar responsive handled in their own media queries above */
-  }
-
-  @media (max-width: 480px) {
-    .deko-text { font-size: clamp(1.1rem, 5vw, 1.6rem); letter-spacing: 0.12em; line-height: 1.6; }
-    .logo-container, .deko-logo-inline { width: 260px; height: 260px; }
-    .moon-item { width: 52px; height: 52px; }
-    .moon-label { font-size: 0.48rem; }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .logo-container, .deko-logo-inline { width: 400px; height: 400px; }
-    .deko-text { font-size: 1.6rem; }
   }
 
   /* ══════════════════════════════════════
      DESKTOP OPTIMIZATION
      ══════════════════════════════════════ */
   @media (min-width: 1025px) {
-    .about-text {
-      font-size: clamp(1.3rem, 2vw, 1.8rem);
-      line-height: 2.2;
-    }
     .portrait-frame {
       width: clamp(280px, 25vw, 380px);
       height: clamp(280px, 25vw, 380px);
@@ -1475,10 +986,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    /* Kurze Dauer allein nimmt den Weichzeichner nicht weg — hier ausdruecklich. */
-    .moon-item { backdrop-filter: none; -webkit-backdrop-filter: none; will-change: auto; }
-    .moon-icon { animation: none !important; will-change: auto; }
-    #stars-canvas, #dust-canvas, .guiding-star { display: none; }
+    #stars-canvas, #dust-canvas { display: none; }
     .isar { opacity: .3 !important; }
     .isar-flow, .isar-shimmer { animation: none !important; opacity: .3 !important; }
   }
@@ -1492,9 +1000,6 @@
 
   /* Firefox-specific fixes */
   @-moz-document url-prefix() {
-    .moon-item {
-      -moz-appearance: none;
-    }
     .poem-line-1 {
       background-clip: text;
       -webkit-background-clip: text;
@@ -1509,9 +1014,6 @@
 <div class="sky-bg" id="skyBg"></div>
 
 <!-- Guiding Star -->
-<div class="guiding-star" id="guidingStar">
-  <div class="guiding-star-core"></div>
-</div>
 
 <!-- Moon (luminous) — from index.html -->
 <div class="moon" id="moon">
@@ -1610,7 +1112,6 @@
         <img src="images/Portrait1.png" alt="" class="poem-portrait" decoding="async">
         <span class="poem-author">Mika Maria Schöberl</span>
       </div>
-      <div class="guiding-star-anchor" data-reveal></div>
     </div>
   </div>
   <div class="hero-scroll-hint" style="display:none">
@@ -1624,30 +1125,46 @@
 <div class="sep-constellation"><div class="constellation-line" data-reveal>
 <svg viewBox="0 0 240 120"><circle class="star-dot" cx="15" cy="60" r="2.2" style="--sp-d:2.4s;--sp-del:0s"/><circle class="star-dot" cx="65" cy="25" r="2.5" style="--sp-d:3.1s;--sp-del:.3s"/><circle class="star-dot" cx="120" cy="70" r="2" style="--sp-d:2.7s;--sp-del:.7s"/><circle class="star-dot" cx="175" cy="25" r="2.8" style="--sp-d:3.5s;--sp-del:.2s"/><circle class="star-dot" cx="225" cy="60" r="2.2" style="--sp-d:2.2s;--sp-del:.9s"/>
 <path class="star-path" d="M15 60 L65 25 L120 70 L175 25 L225 60"/></svg></div></div>
-<section class="deko-section deko-with-logo" id="logoSection">
-  <p class="deko-text deko-text-top" data-reveal>
-    Naturverbunden in Wort und Tat,
-  </p>
-  <div class="logo-container" id="logoContainer">
-    <div class="logo-glow"></div>
-    <div class="logo-burst" id="logoBurst"></div>
-    <div class="logo-rays" id="logoRays"></div>
-    <img src="images/Logo-1.png.webp" alt="Funkenfangen" class="logo-img deko-logo-inline" id="logoImg" loading="lazy" decoding="async">
-  </div>
-  <p class="deko-text deko-text-bottom" data-reveal>
-    erzähle ich Geschichten<br>
-    die im Herzen wurzeln.
-  </p>
-</section>
-
-<!-- ═══ ABOUT ═══ -->
-<section class="about-section">
-  <div class="about-content" data-reveal>
-    <h2 class="about-name">Mika Maria Schöberl</h2>
-    <p class="about-roles">Buchautor*in · Kolumnist*in · Künstler*in · Wissenschaftler*in</p>
-    <div class="about-divider">✦</div>
-    <p class="about-welcome">Willkommen bei <span class="brand">Funkenfangen</span></p>
-  </div>
+<!-- ═══ PORTAL — Überblick & Auswahl ═══ -->
+<section class="portal" aria-label="Überblick über Funkenfangen">
+  <h1 class="portal-brand" data-reveal>Funkenfangen</h1>
+  <p class="portal-name" data-reveal>Mika Maria Schöberl</p>
+  <p class="portal-roles" data-reveal>Buchautor*in · Kolumnist*in · Künstler*in · Wissenschaftler*in</p>
+  <p class="portal-line" data-reveal>Naturverbunden in Wort und Tat erzähle ich Geschichten, die im Herzen wurzeln.</p>
+  <nav class="portal-grid" aria-label="Bereiche">
+    <a href="buecher/" class="portal-card" data-reveal style="--d:0s">
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.08"/></svg>
+      <span class="portal-card-title">Bücher &amp; Kolumnen</span>
+      <span class="portal-card-desc">50 Wörter für Liebe · Grüne Seelen · Kolumnen &amp; Hörbücher</span>
+    </a>
+    <a href="ueber-mich/" class="portal-card" data-reveal style="--d:0.08s">
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
+      <span class="portal-card-title">Über mich</span>
+      <span class="portal-card-desc">Wer hinter Funkenfangen steht — Weg, Werte und Bilder</span>
+    </a>
+    <a href="#presse" class="portal-card" data-reveal style="--d:0.16s">
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.5"/></svg>
+      <span class="portal-card-title">Presse</span>
+      <span class="portal-card-desc">Bekannt aus BR, ARD-Mediathek, VISIONEN und mehr</span>
+    </a>
+    <a href="#kontakt" class="portal-card" data-reveal style="--d:0.24s">
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.5"/></svg>
+      <span class="portal-card-title">Kontakt</span>
+      <span class="portal-card-desc">Schreib einfach — ich antworte persönlich</span>
+    </a>
+    <a href="https://mikaschoeberl.com" class="portal-card" data-reveal style="--d:0.32s" target="_blank" rel="noopener">
+      <span class="portal-card-ext" aria-hidden="true">&#8599;</span>
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.25"/><circle cx="11" cy="12" r="1.2" fill="currentColor" opacity="0.55"/><circle cx="22" cy="14" r="0.8" fill="currentColor" opacity="0.4"/><circle cx="18" cy="22" r="1" fill="currentColor" opacity="0.5"/><circle cx="10" cy="20" r="0.7" fill="currentColor" opacity="0.35"/></svg>
+      <span class="portal-card-title">Forschung</span>
+      <span class="portal-card-desc">Wissenschaftliche Arbeit auf mikaschoeberl.com</span>
+    </a>
+    <a href="http://summerchild.net" class="portal-card" data-reveal style="--d:0.4s" target="_blank" rel="noopener">
+      <span class="portal-card-ext" aria-hidden="true">&#8599;</span>
+      <svg class="portal-card-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.12"/><path d="M9 5 L9 27" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 5 Q19 4 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 27 Q21 25 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><line x1="12.5" y1="5" x2="13" y2="26.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="16" y1="4.5" x2="17" y2="24.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="19.5" y1="5.3" x2="20.5" y2="21" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="22.5" y1="8.5" x2="23" y2="17" stroke="currentColor" stroke-width="0.6" opacity="0.85"/></svg>
+      <span class="portal-card-title">Summerchild</span>
+      <span class="portal-card-desc">Mein Musikprojekt — auf summerchild.net</span>
+    </a>
+  </nav>
 </section>
 
 <div class="sep-constellation"><div class="constellation-line" data-reveal>
@@ -1668,40 +1185,6 @@
 <svg viewBox="0 0 220 120"><circle class="star-dot" cx="25" cy="30" r="2" style="--sp-d:3s;--sp-del:.1s"/><circle class="star-dot" cx="70" cy="80" r="2.5" style="--sp-d:2.3s;--sp-del:.5s"/><circle class="star-dot" cx="115" cy="25" r="2" style="--sp-d:3.7s;--sp-del:.8s"/><circle class="star-dot" cx="155" cy="90" r="2.2" style="--sp-d:2.1s;--sp-del:0s"/><circle class="star-dot" cx="195" cy="40" r="2.8" style="--sp-d:2.6s;--sp-del:1.2s"/>
 <path class="star-path" d="M25 30 L70 80 L155 90 L195 40 L115 25 L25 30"/><path class="star-path" d="M70 80 L115 25 M155 90 L25 30"/></svg></div></div>
 
-<!-- ═══ MOON PHASE NAVIGATION — Celestial Observatory ═══ -->
-<nav class="moon-nav" data-reveal>
-  <div class="moon-nav-title">Entdecke Funkenfangen</div>
-  <div class="moon-nav-orbit">
-    <svg class="moon-nav-wave" viewBox="0 0 1100 200" preserveAspectRatio="none">
-      <defs><linearGradient id="moonWaveGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="transparent"/><stop offset="20%" stop-color="rgba(201,169,110,0.5)"/><stop offset="50%" stop-color="rgba(201,169,110,0.8)"/><stop offset="80%" stop-color="rgba(201,169,110,0.5)"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>
-      <path d="M0,100 C80,40 160,160 240,80 C320,0 400,160 480,60 C560,-20 640,160 720,80 C800,20 880,150 960,90 C1020,50 1060,100 1100,100"/>
-    </svg>
-    <a href="buecher/" class="moon-item" style="--wave-y:20px">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.06"/></svg>
-      <span class="moon-label"><span class="moon-label-full">Bücher & Kolumnen</span><span class="moon-label-short">Bücher</span></span>
-    </a>
-    <a href="ueber-mich/" class="moon-item" style="--wave-y:-25px">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 6 14 0 0 0 0-28z" fill="currentColor" opacity="0.35"/></svg>
-      <span class="moon-label">Über mich</span>
-    </a>
-    <a href="#presse" class="moon-item" style="--wave-y:30px">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.5"/></svg>
-      <span class="moon-label">Presse</span>
-    </a>
-    <a href="#kontakt" class="moon-item" style="--wave-y:25px">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.5"/></svg>
-      <span class="moon-label">Kontakt</span>
-    </a>
-    <a href="https://mikaschoeberl.com" class="moon-item" style="--wave-y:-18px" target="_blank" rel="noopener">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.25"/><circle cx="11" cy="12" r="1.2" fill="currentColor" opacity="0.55"/><circle cx="22" cy="14" r="0.8" fill="currentColor" opacity="0.4"/><circle cx="18" cy="22" r="1" fill="currentColor" opacity="0.5"/><circle cx="10" cy="20" r="0.7" fill="currentColor" opacity="0.35"/></svg>
-      <span class="moon-label">Forschung</span>
-    </a>
-    <a href="http://summerchild.net" class="moon-item" style="--wave-y:20px" target="_blank" rel="noopener">
-      <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="0.8"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.12"/><path d="M9 5 L9 27" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 5 Q19 4 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 27 Q21 25 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><line x1="12.5" y1="5" x2="13" y2="26.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="16" y1="4.5" x2="17" y2="24.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="19.5" y1="5.3" x2="20.5" y2="21" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="22.5" y1="8.5" x2="23" y2="17" stroke="currentColor" stroke-width="0.6" opacity="0.85"/></svg>
-      <span class="moon-label">Summerchild</span>
-    </a>
-  </div>
-</nav>
 
 <!-- ═══ BEKANNT AUS ═══ -->
 <section class="presse-section" id="presse">
@@ -1838,7 +1321,7 @@ var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
 
 // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
 if (isMobile) {
-  document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+  document.querySelectorAll('a.portal-card[target="_blank"]').forEach(function(a) {
     a.addEventListener('touchend', function(e) {
       e.preventDefault();
       window.open(a.href, '_blank', 'noopener');
@@ -1916,19 +1399,6 @@ if (isMobile) {
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
-
-  /* ── Logo Parallax ── */
-  const logoImg = document.getElementById('logoImg');
-  const logoSection = document.getElementById('logoSection');
-
-  function onScroll() {
-    const scrollY = window.scrollY;
-    const winH = window.innerHeight;
-    const logoRect = logoSection.getBoundingClientRect();
-    const distance = (winH / 2 - (logoRect.top + logoRect.height / 2)) / winH;
-    logoImg.style.transform = `rotate(${distance * 25}deg)`;
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
 
   /* ── Twinkling Stars (Canvas) ── */
   const canvas = document.getElementById('stars-canvas');
@@ -2196,86 +1666,6 @@ if (isMobile) {
     document.addEventListener('visibilitychange', function() {
       if (!document.hidden) animateDust();
     });
-  })();
-
-  /* ── Guiding Star ── */
-  (function(){
-    var guidingStar = document.getElementById('guidingStar');
-    var starAnchor = document.querySelector('.guiding-star-anchor');
-    var logoContainer = document.getElementById('logoContainer');
-    var logoImg = document.getElementById('logoImg');
-    var starDissolved = false;
-    if (!guidingStar || !starAnchor || !logoContainer) return;
-
-    var starDissolveTimer = null;
-    var starPulseTimer = null;
-    var guidingStarTicking = false;
-
-    window.addEventListener('scroll', function() {
-      if (guidingStarTicking) return;
-      guidingStarTicking = true;
-      rAF(function() {
-        guidingStarTicking = false;
-        var scrollY = window.scrollY;
-        var anchorPageY = starAnchor.getBoundingClientRect().top + scrollY;
-        var logoPageY = logoContainer.getBoundingClientRect().top + scrollY + logoContainer.offsetHeight / 2;
-        var anchorPageX = starAnchor.getBoundingClientRect().left + starAnchor.offsetWidth / 2;
-        var logoPageX = logoContainer.getBoundingClientRect().left + logoContainer.offsetWidth / 2;
-
-        var growStart = Math.max(0, anchorPageY - window.innerHeight * 0.7);
-        var growEnd = logoPageY - window.innerHeight * 0.4;
-        var progress = Math.max(0, Math.min(1, (scrollY - growStart) / Math.max(1, growEnd - growStart)));
-
-        if (starDissolved && progress < 0.5) {
-          starDissolved = false;
-          guidingStar.classList.remove('dissolving');
-          guidingStar.style.opacity = '0';
-          if (logoImg) {
-            logoImg.classList.remove('pulsing','beating-fast','awakening');
-          }
-          var burst = document.getElementById('logoBurst');
-          var rays = document.getElementById('logoRays');
-          if (burst) burst.classList.remove('active');
-          if (rays) rays.classList.remove('active');
-          if (starDissolveTimer) clearTimeout(starDissolveTimer);
-          if (starPulseTimer) clearTimeout(starPulseTimer);
-        }
-        if (starDissolved) return;
-
-        var starPageY = anchorPageY + (logoPageY - anchorPageY) * progress;
-        var starPageX = anchorPageX + (logoPageX - anchorPageX) * progress;
-        var starViewY = starPageY - scrollY;
-        var starViewX = starPageX;
-
-        guidingStar.style.transform = 'translate(calc(' + starViewX + 'px - 50%), calc(' + starViewY + 'px - 50%))';
-        guidingStar.style.opacity = progress < 0.02 ? '0' : '1';
-
-        if (progress >= 0.97) {
-          starDissolved = true;
-          guidingStar.classList.add('dissolving');
-          starDissolveTimer = setTimeout(function() {
-            var burst = document.getElementById('logoBurst');
-            var rays = document.getElementById('logoRays');
-            if (burst) burst.classList.add('active');
-            if (rays) rays.classList.add('active');
-            if (logoImg) logoImg.classList.add('awakening');
-          }, 200);
-          starPulseTimer = setTimeout(function() {
-            guidingStar.style.opacity = '0';
-            if (logoImg) {
-              logoImg.classList.remove('awakening');
-              logoImg.classList.add('beating-fast');
-            }
-          }, 1000);
-          setTimeout(function() {
-            if (logoImg) {
-              logoImg.classList.remove('beating-fast');
-              logoImg.classList.add('pulsing');
-            }
-          }, 4000);
-        }
-      });
-    }, { passive: true })
   })();
 
   /* ── Magic Cursor Trail ── */
