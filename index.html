@@ -70,7 +70,11 @@
      SKY BACKGROUND — scroll-driven dusk→night→dawn
      ══════════════════════════════════════ */
   .sky-bg {
-    position: fixed; inset: 0; z-index: 0;
+    /* 100lvh statt inset:0 — iOS bindet fixed sonst an den kleinen Viewport
+       und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 100vh; height: 100lvh;
+    z-index: 0;
     background:
       radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
       radial-gradient(ellipse at 30% 90%, rgba(120,60,55,0.25) 0%, transparent 40%),
@@ -87,7 +91,9 @@
   }
   /* Dämmerlicht — glüht beim Scrollen auf (wie Über mich) */
   .dawn-light {
-    position: fixed; inset: 0; z-index: 0;
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 100vh; height: 100lvh;
+    z-index: 0;
     pointer-events: none;
     opacity: 0;
     will-change: opacity;

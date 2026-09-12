@@ -73,7 +73,11 @@
 
   /* ══ SKY BACKGROUND — dynamic scroll-driven day cycle ══ */
   .sky-bg {
-    position: fixed; inset: 0; z-index: 0;
+    /* 100lvh statt inset:0 — iOS bindet fixed sonst an den kleinen Viewport
+       und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 100vh; height: 100lvh;
+    z-index: 0;
     transition: background 0.8s ease;
   }
 
