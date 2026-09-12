@@ -40,7 +40,6 @@
 
   /* ══ Display-Font für große Überschriften ══ */
   .hero-name,
-  .moon-nav-title,
   .contact-heading,
   .section-label {
     font-family: var(--font-display) !important;
@@ -137,70 +136,60 @@
     opacity: 0.7;
   }
 
-  /* ══ MOON NAV ══ */
-  .moon-nav {
+  /* ══ MONDMENÜ — fotografisch, wie auf der Startseite ══ */
+  .moon-menu {
     position: relative; z-index: 2;
-    text-align: center;
-    padding: 2rem 1rem 2.5rem;
-    opacity: 0; transform: translateY(15px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: flex-start;
+    gap: clamp(0.9rem, 2.6vw, 2rem);
+    padding: 0.5rem 1rem 0;
   }
-  .moon-nav.visible { opacity: 1; transform: translateY(0); }
-
-  .moon-nav-inner {
-    display: inline-flex; flex-wrap: wrap;
-    justify-content: center; gap: 0.3rem;
-  }
-
-  .moon-item {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 0.4rem;
-    padding: 1rem 1.2rem; color: var(--cream); opacity: 0.7;
+  .moon-menu--top { padding-top: 5.5rem; }
+  .moon-menu--bottom { padding: 2.5rem 1rem 3.5rem; }
+  .moon-orb {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.65rem; padding: 0.4rem;
     text-decoration: none;
-    border-radius: 12px;
-    transition: color 0.4s ease, transform 0.3s ease, opacity 0.4s ease, background 0.4s ease;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.9s ease var(--d, 0s), transform 0.9s ease var(--d, 0s);
   }
-  .moon-item:hover {
-    color: var(--gold); opacity: 1; transform: translateY(-4px);
-    background: rgba(201,169,110,0.12);
-    box-shadow: 0 4px 20px rgba(201,169,110,0.08);
+  .moon-orb.visible { opacity: 1; transform: translateY(0); }
+  .moon-disc {
+    display: block;
+    width: clamp(50px, 7vw, 86px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 12px rgba(201,169,110,0.28));
+    transition: filter 0.6s ease;
+    animation: moonDrift 11s ease-in-out infinite alternate;
   }
-
-  .moon-icon { width: 36px; height: 36px; transition: filter 0.4s ease, transform 0.3s ease; }
-  .moon-item:hover .moon-icon {
-    filter: drop-shadow(0 0 12px rgba(201,169,110,0.6));
-    transform: scale(1.1);
+  .moon-disc svg { width: 100%; height: 100%; display: block; }
+  .moon-orb:nth-child(2) .moon-disc { animation-duration: 13.5s; animation-delay: -3s; }
+  .moon-orb:nth-child(3) .moon-disc { animation-duration: 9.5s; animation-delay: -6s; }
+  .moon-orb:nth-child(4) .moon-disc { animation-duration: 15s; animation-delay: -1.5s; }
+  .moon-orb:nth-child(5) .moon-disc { animation-duration: 12s; animation-delay: -4.5s; }
+  .moon-orb:nth-child(6) .moon-disc { animation-duration: 14s; animation-delay: -7.5s; }
+  .moon-orb:nth-child(7) .moon-disc { animation-duration: 10.5s; animation-delay: -2.5s; }
+  @keyframes moonDrift { from { transform: translateY(0); } to { transform: translateY(-7px); } }
+  .moon-name {
+    font-family: var(--font-serif);
+    font-size: clamp(0.72rem, 1.4vw, 0.9rem);
+    letter-spacing: 0.14em;
+    text-align: center;
+    color: rgba(232,226,212,0.62);
+    transition: color 0.4s ease;
+    max-width: 14ch;
+    line-height: 1.35;
+    text-wrap: balance;
   }
-
-  .moon-label {
-    font-family: var(--font-heading);
-    font-size: 0.72rem; letter-spacing: 0.15em;
-    text-transform: uppercase; white-space: nowrap;
-  }
-
-  .moon-item::after {
-    content: ''; display: block;
-    width: 100%; height: 1px;
-    background: var(--gold); opacity: 0;
-    transform: translateX(-50%) scaleX(0);
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    margin-top: 0.15rem;
-  }
-  .moon-item:hover::after { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
-
-  @media (max-width: 768px) {
-    .moon-nav { padding: 1.5rem 1rem 1.5rem; }
-    .moon-nav-inner { gap: 0.2rem; }
-    .moon-item { padding: 0.7rem 0.5rem; }
-    .moon-icon { width: 24px; height: 24px; }
-    .moon-label { font-size: 0.65rem; letter-spacing: 0.1em; }
-  }
-  @media (max-width: 400px) {
-    .moon-nav-inner { gap: 0; }
-    .moon-item { padding: 0.6rem 0.35rem; }
-    .moon-icon { width: 20px; height: 20px; }
-    .moon-label { font-size: 0.6rem; }
-  }
+  .moon-orb:hover .moon-name, .moon-orb:focus-visible .moon-name { color: var(--cream); }
+  .moon-orb:hover .moon-disc, .moon-orb:focus-visible .moon-disc { filter: drop-shadow(0 0 20px rgba(201,169,110,0.45)); }
+  .moon-orb[aria-current="page"] .moon-name { color: var(--cream); }
+  .moon-orb[aria-current="page"] .moon-disc { filter: drop-shadow(0 0 20px rgba(201,169,110,0.5)); }
+  .moon-orb:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 4px; border-radius: 6px; }
 
   /* ══ CONTENT ══ */
   .page-content {
@@ -622,7 +611,7 @@
 <div class="dawn-light" id="dawnLight"></div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
-<div class="moon" id="moon" style="top:8vh;right:6vw;">
+<div class="moon" id="moon" style="top:32vh;right:-5vw;">
   <img src="../images/mond-echt.webp" alt="" aria-hidden="true">
 </div>
 
@@ -636,34 +625,35 @@
 
 <div class="page-content">
 
-  <!-- ══ MOON NAV TOP ══ -->
-  <nav class="moon-nav" data-reveal>
-    <div class="moon-nav-inner">
-      <a href="../" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
-        <span class="moon-label">Home</span>
-      </a>
-      <a href="../buecher/" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.08"/></svg>
-        <span class="moon-label">Bücher & Kolumnen</span>
-      </a>
-      <a href="/#presse" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
-        <span class="moon-label">Presse</span>
-      </a>
-      <a href="/#kontakt" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
-        <span class="moon-label">Kontakt</span>
-      </a>
-      <a href="https://mikaschoeberl.com" class="moon-item" target="_blank" rel="noopener">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.25"/><circle cx="11" cy="12" r="1.2" fill="currentColor" opacity="0.55"/><circle cx="22" cy="14" r="0.8" fill="currentColor" opacity="0.4"/><circle cx="18" cy="22" r="1" fill="currentColor" opacity="0.5"/><circle cx="10" cy="20" r="0.7" fill="currentColor" opacity="0.35"/></svg>
-        <span class="moon-label">Forschung</span>
-      </a>
-      <a href="http://summerchild.net" class="moon-item" target="_blank" rel="noopener">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.12"/><path d="M9 5 L9 27" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 5 Q19 4 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 27 Q21 25 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><line x1="12.5" y1="5" x2="13" y2="26.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="16" y1="4.5" x2="17" y2="24.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="19.5" y1="5.3" x2="20.5" y2="21" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="22.5" y1="8.5" x2="23" y2="17" stroke="currentColor" stroke-width="0.6" opacity="0.85"/></svg>
-        <span class="moon-label">Summerchild</span>
-      </a>
-    </div>
+  <nav class="moon-menu moon-menu--top" aria-label="Bereiche">
+    <a class="moon-orb" href="../" data-reveal style="--d:0.00s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></svg></span>
+      <span class="moon-name">Startseite</span>
+    </a>
+    <a class="moon-orb" href="../buecher/" data-reveal style="--d:0.07s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 26 50 0 0 0 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Bücher &amp; Kolumnen</span>
+    </a>
+    <a class="moon-orb" href="../ueber-mich/" aria-current="page" data-reveal style="--d:0.14s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 L 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Über mich</span>
+    </a>
+    <a class="moon-orb" href="../#presse" data-reveal style="--d:0.21s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 26 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Presse</span>
+    </a>
+    <a class="moon-orb" href="#kontakt" data-reveal style="--d:0.28s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 36 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Kontakt</span>
+    </a>
+    <a class="moon-orb" href="https://mikaschoeberl.com" target="_blank" rel="noopener" data-reveal style="--d:0.35s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 44 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Forschung</span>
+    </a>
+    <a class="moon-orb" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal style="--d:0.42s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 48 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Summerchild</span>
+    </a>
   </nav>
 
   <!-- ══ HERO ══ -->
@@ -828,34 +818,35 @@
 
   <div class="divider"></div>
 
-  <!-- ══ MOON NAV BOTTOM ══ -->
-  <nav class="moon-nav" data-reveal>
-    <div class="moon-nav-inner">
-      <a href="../" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="5" fill="currentColor" opacity="0.7"/><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/></svg>
-        <span class="moon-label">Home</span>
-      </a>
-      <a href="../buecher/" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="13" fill="currentColor" opacity="0.08"/></svg>
-        <span class="moon-label">Bücher & Kolumnen</span>
-      </a>
-      <a href="/#presse" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 1 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
-        <span class="moon-label">Presse</span>
-      </a>
-      <a href="/#kontakt" class="moon-item">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><path d="M16 2a14 14 0 0 0 0 28 2 14 0 0 0 0-28z" fill="currentColor" opacity="0.55"/></svg>
-        <span class="moon-label">Kontakt</span>
-      </a>
-      <a href="https://mikaschoeberl.com" class="moon-item" target="_blank" rel="noopener">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.25"/><circle cx="11" cy="12" r="1.2" fill="currentColor" opacity="0.55"/><circle cx="22" cy="14" r="0.8" fill="currentColor" opacity="0.4"/><circle cx="18" cy="22" r="1" fill="currentColor" opacity="0.5"/><circle cx="10" cy="20" r="0.7" fill="currentColor" opacity="0.35"/></svg>
-        <span class="moon-label">Forschung</span>
-      </a>
-      <a href="http://summerchild.net" class="moon-item" target="_blank" rel="noopener">
-        <svg class="moon-icon" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.12"/><path d="M9 5 L9 27" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 5 Q19 4 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M9 27 Q21 25 24.5 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><line x1="12.5" y1="5" x2="13" y2="26.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="16" y1="4.5" x2="17" y2="24.2" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="19.5" y1="5.3" x2="20.5" y2="21" stroke="currentColor" stroke-width="0.6" opacity="0.85"/><line x1="22.5" y1="8.5" x2="23" y2="17" stroke="currentColor" stroke-width="0.6" opacity="0.85"/></svg>
-        <span class="moon-label">Summerchild</span>
-      </a>
-    </div>
+  <nav class="moon-menu moon-menu--bottom" aria-label="Bereiche">
+    <a class="moon-orb" href="../" data-reveal style="--d:0.00s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></svg></span>
+      <span class="moon-name">Startseite</span>
+    </a>
+    <a class="moon-orb" href="../buecher/" data-reveal style="--d:0.07s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 26 50 0 0 0 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Bücher &amp; Kolumnen</span>
+    </a>
+    <a class="moon-orb" href="../ueber-mich/" aria-current="page" data-reveal style="--d:0.14s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 L 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Über mich</span>
+    </a>
+    <a class="moon-orb" href="../#presse" data-reveal style="--d:0.21s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 26 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Presse</span>
+    </a>
+    <a class="moon-orb" href="#kontakt" data-reveal style="--d:0.28s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 36 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Kontakt</span>
+    </a>
+    <a class="moon-orb" href="https://mikaschoeberl.com" target="_blank" rel="noopener" data-reveal style="--d:0.35s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 44 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Forschung</span>
+    </a>
+    <a class="moon-orb" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal style="--d:0.42s">
+      <span class="moon-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/><path d="M 50 0 A 50 50 0 0 1 50 100 A 48 50 0 0 1 50 0 Z" fill="#0b0d14"/></svg></span>
+      <span class="moon-name">Summerchild</span>
+    </a>
   </nav>
 
   <footer class="page-footer">
@@ -888,7 +879,7 @@
 
   // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
   if (isMobile) {
-    document.querySelectorAll('a.moon-item[target="_blank"]').forEach(function(a) {
+    document.querySelectorAll('a.moon-orb[target="_blank"]').forEach(function(a) {
       a.addEventListener('touchend', function(e) {
         e.preventDefault();
         window.open(a.href, '_blank', 'noopener');
