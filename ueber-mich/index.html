@@ -253,11 +253,9 @@
   .about-block.visible { opacity: 1; transform: translateY(0); }
 
   .card {
-    background: linear-gradient(145deg, rgba(22,18,20,0.7) 0%, rgba(18,15,18,0.5) 50%, rgba(22,18,20,0.6) 100%);
-    border-radius: 16px;
-    padding: 2.5rem 2.5rem;
-    border: 1px solid rgba(201,169,110,0.08);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 0;
   }
 
   .section-label {
@@ -296,10 +294,9 @@
     max-width: 600px;
     margin: 0 auto;
     display: block;
-    border-radius: 12px;
+    border-radius: 4px;
     object-fit: cover;
-    border: 1px solid rgba(201,169,110,0.1);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
   }
 
   /* ══ TIMELINE ══ */
@@ -331,95 +328,89 @@
     line-height: 1.9; color: var(--cream-dim);
   }
 
-  /* ══ PUBLICATIONS ══ */
-  .pub-subsection { margin-bottom: 2rem; }
-  .pub-subsection:last-child { margin-bottom: 0; }
+  /* ══ WERKE — editorialer Index (keine Karten) ══ */
+  .werke { max-width: 860px; margin: 0 auto; }
+  .werk {
+    display: grid;
+    grid-template-columns: minmax(140px, 210px) 1fr;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: clamp(2rem, 4vw, 3rem) 0;
+    text-decoration: none;
+    border-top: 1px solid rgba(201,169,110,0.14);
+  }
+  .werke .section-label + .werk { border-top: none; }
+  .werk--rechts { grid-template-columns: 1fr minmax(140px, 210px); }
+  .werk--rechts .werk-cover { order: 2; }
+  .werk--rechts .werk-text { order: 1; text-align: right; }
+  .werk-cover {
+    width: 100%; height: auto; display: block;
+    filter: drop-shadow(0 20px 45px rgba(0,0,0,0.45));
+    transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .werk:hover .werk-cover { transform: translateY(-8px) rotate(-0.5deg); }
+  .werk--rechts:hover .werk-cover { transform: translateY(-8px) rotate(0.5deg); }
+  .werk-jahr {
+    display: block;
+    font-family: var(--font-sans); font-weight: 300;
+    font-size: 0.8rem; letter-spacing: 0.3em;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .werk-titel {
+    font-family: var(--font-serif); font-style: italic; font-weight: 300;
+    font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.15;
+    color: var(--cream); margin-bottom: 0.7rem;
+    transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .werk:hover .werk-titel { color: var(--gold); }
+  .werk-verlag {
+    display: block;
+    font-family: var(--font-sans); font-weight: 300;
+    font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cream-dim);
+  }
 
-  .pub-sub-label {
+  /* Kolumnen als Registerzeilen */
+  .kolumnen { margin-top: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid rgba(201,169,110,0.14); }
+  .kolumnen-label {
     font-family: var(--font-heading);
-    font-size: 0.75rem; letter-spacing: 0.2em;
+    font-size: clamp(0.85rem, 1.4vw, 1rem); letter-spacing: 0.25em;
     text-transform: uppercase; color: var(--cream-dim);
-    opacity: 0.5; text-align: center; margin-bottom: 1rem;
+    text-align: center; padding: 1.8rem 0 0.6rem;
+  }
+  .kolumne {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.3rem 0.2rem;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+    transition: background 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .kolumne:last-child { border-bottom: none; }
+  .kolumne-mag {
+    font-family: var(--font-heading);
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem); letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--cream); text-align: right;
+    transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .kolumne:hover .kolumne-mag { color: var(--gold); }
+  .kolumne-name {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--gold);
+  }
+  .kolumne-desc {
+    font-family: var(--font-sans); font-weight: 300;
+    font-size: 0.85rem; letter-spacing: 0.06em; color: var(--cream-dim);
   }
 
-  .pub-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-  }
-
-  .pub-card {
-    text-align: center; padding: 1.5rem 1rem;
-    border: 1px solid rgba(201,169,110,0.08);
-    border-radius: 12px; background: rgba(201,169,110,0.02);
-    transition: all 0.4s ease;
-    text-decoration: none; display: block;
-  }
-  .pub-card:hover {
-    border-color: rgba(201,169,110,0.4);
-    background: rgba(201,169,110,0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 30px rgba(201,169,110,0.12), 0 6px 25px rgba(0,0,0,0.3);
-  }
-  .pub-card:hover .pub-title { color: #fff; }
-  .pub-card:hover .pub-publisher { opacity: 0.8; }
-
-  .pub-year {
-    font-family: var(--font-sans); font-size: 0.65rem;
-    letter-spacing: 0.2em; color: var(--gold); opacity: 0.4;
-    margin-bottom: 0.5rem;
-  }
-
-  .pub-title {
-    font-family: var(--font-serif); font-size: 1.2rem;
-    font-style: italic; font-weight: 400;
-    color: var(--cream); margin-bottom: 0.3rem;
-  }
-
-  .pub-publisher {
-    font-family: var(--font-sans); font-size: 0.7rem;
-    letter-spacing: 0.1em; color: var(--cream-dim); opacity: 0.5;
-  }
-
-  .col-row {
-    display: flex; justify-content: center;
-    gap: 2.5rem; flex-wrap: wrap;
-  }
-
-  .col-item {
-    text-align: center; flex: 0 1 200px;
-    text-decoration: none; display: block;
-    padding: 1rem; border-radius: 12px;
-    border: 1px solid transparent;
-    transition: all 0.4s ease;
-  }
-  .col-item:hover {
-    border-color: rgba(201,169,110,0.35);
-    background: rgba(201,169,110,0.08);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(201,169,110,0.1);
-  }
-  .col-item:hover .col-mag { opacity: 1; color: #fff; }
-  .col-item:hover .col-name { opacity: 1; }
-
-  .col-mag {
-    font-family: var(--font-heading); font-size: 0.75rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--cream); opacity: 0.8; margin-bottom: 0.3rem;
-  }
-
-  .col-name {
-    font-family: var(--font-serif); font-size: 1rem;
-    font-style: italic; color: var(--gold); opacity: 0.7;
-    margin-bottom: 0.2rem;
-  }
-
-  .col-desc {
-    font-family: var(--font-sans); font-size: 0.7rem;
-    color: var(--cream-dim); opacity: 0.4;
-  }
-
-  @media (max-width: 500px) {
-    .pub-grid { grid-template-columns: 1fr; }
+  @media (max-width: 620px) {
+    .werk, .werk--rechts { grid-template-columns: 1fr; gap: 1.4rem; }
+    .werk-cover, .werk--rechts .werk-cover { order: 0; width: min(58vw, 240px); margin: 0 auto; }
+    .werk-text, .werk--rechts .werk-text { order: 1; text-align: center; }
+    .kolumne { grid-template-columns: 1fr; gap: 0.25rem; text-align: center; }
+    .kolumne-mag { text-align: center; }
   }
 
   /* ══ QUOTE — cinematic Gänseblümchen ══ */
@@ -513,11 +504,6 @@
     text-align: center;
     position: relative;
     padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 2.5rem);
-  }
-  .contact-section .card {
-    background: none;
-    border: none;
-    box-shadow: none;
   }
   .contact-section::before {
     content: "";
@@ -830,41 +816,38 @@
 
   <div class="divider"></div>
 
-  <!-- ══ VERÖFFENTLICHUNGEN ══ -->
+  <!-- ══ VERÖFFENTLICHUNGEN — editorialer Werkindex ══ -->
   <section class="about-block" data-reveal>
-    <div class="card">
+    <div class="werke">
       <div class="section-label">Veröffentlichungen</div>
-
-      <div class="pub-subsection">
-        <div class="pub-sub-label">Bücher</div>
-        <div class="pub-grid">
-          <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981" target="_blank" rel="noopener" class="pub-card">
-            <div class="pub-year">2021</div>
-            <div class="pub-title">Grüne Seelen</div>
-            <div class="pub-publisher">Mankau Verlag</div>
-          </a>
-          <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen/dp/3863747283" target="_blank" rel="noopener" class="pub-card">
-            <div class="pub-year">2025</div>
-            <div class="pub-title">50 Wörter für Liebe</div>
-            <div class="pub-publisher">Mankau Verlag</div>
-          </a>
+      <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981" target="_blank" rel="noopener" class="werk">
+        <img class="werk-cover" src="../images/gruene-seelen-cover.png" alt="Buchcover: Grüne Seelen" loading="lazy" decoding="async">
+        <div class="werk-text">
+          <span class="werk-jahr">2021</span>
+          <div class="werk-titel">Grüne Seelen</div>
+          <span class="werk-verlag">Mankau Verlag</span>
         </div>
-      </div>
-
-      <div class="pub-subsection">
-        <div class="pub-sub-label">Regelmäßige Kolumnen</div>
-        <div class="col-row">
-          <a href="https://www.naturarzt-access.de/" target="_blank" rel="noopener" class="col-item">
-            <div class="col-mag">Naturarzt</div>
-            <div class="col-name">„Seelenschau"</div>
-            <div class="col-desc">monatlich, seit vier Jahren</div>
-          </a>
-          <a href="https://www.yoga-aktuell.de/" target="_blank" rel="noopener" class="col-item">
-            <div class="col-mag">Yoga Aktuell</div>
-            <div class="col-name">Kolumne</div>
-            <div class="col-desc">regelmäßig</div>
-          </a>
+      </a>
+      <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen/dp/3863747283" target="_blank" rel="noopener" class="werk werk--rechts">
+        <img class="werk-cover" src="../images/50woerter-cover.png" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+        <div class="werk-text">
+          <span class="werk-jahr">2025</span>
+          <div class="werk-titel">50 Wörter für Liebe</div>
+          <span class="werk-verlag">Mankau Verlag</span>
         </div>
+      </a>
+      <div class="kolumnen">
+        <div class="kolumnen-label">Regelmäßige Kolumnen</div>
+        <a href="https://www.naturarzt-access.de/" target="_blank" rel="noopener" class="kolumne">
+          <span class="kolumne-mag">Naturarzt</span>
+          <span class="kolumne-name">„Seelenschau"</span>
+          <span class="kolumne-desc">monatlich, seit vier Jahren</span>
+        </a>
+        <a href="https://www.yoga-aktuell.de/" target="_blank" rel="noopener" class="kolumne">
+          <span class="kolumne-mag">Yoga Aktuell</span>
+          <span class="kolumne-name">Kolumne</span>
+          <span class="kolumne-desc">regelmäßig</span>
+        </a>
       </div>
     </div>
   </section>
