@@ -472,9 +472,8 @@
   .chapter-media--books { display: flex; align-items: flex-end; }
   .chapter-media--books .book {
     width: 56%;
-    border-radius: 3px;
-    box-shadow: 0 25px 60px rgba(4,3,8,0.55);
-    transition: transform 0.7s ease;
+    filter: drop-shadow(0 25px 45px rgba(4,3,8,0.55));
+    transition: transform 0.7s ease, filter 0.7s ease;
   }
   .chapter-media--books .book-1 { position: relative; z-index: 2; }
   .chapter-media--books .book-2 { margin-left: -12%; margin-bottom: 9%; }
@@ -955,8 +954,8 @@
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
     <div class="chapter-media chapter-media--books">
-      <img class="book book-1" src="images/50woerter-cover.png" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
-      <img class="book book-2" src="images/gruene-seelen-cover.png" alt="Buchcover: Grüne Seelen" loading="lazy" decoding="async">
+      <img class="book book-1" src="images/50woerter-cover.png?v=2" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+      <img class="book book-2" src="images/gruene-seelen-cover.png?v=2" alt="Buchcover: Grüne Seelen" loading="lazy" decoding="async">
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Geschriebenes</span>
