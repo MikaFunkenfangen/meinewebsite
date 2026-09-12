@@ -453,7 +453,7 @@
   }
   .chapter.visible { opacity: 1; transform: translateY(0); }
   .chapter-media { grid-column: 1 / span 7; grid-row: 1; position: relative; }
-  .chapter-media > img {
+  .chapter-media > img:not(.book) {
     display: block;
     width: 100%;
     border-radius: 4px;
@@ -509,7 +509,7 @@
   }
   .chapter:hover .chapter-cta { letter-spacing: 0.42em; border-color: var(--gold); }
   .chapter:hover .chapter-title { color: var(--gold); }
-  .chapter:hover .chapter-media > img { transform: translateY(-6px); box-shadow: 0 40px 90px rgba(4,3,8,0.6); }
+  .chapter:hover .chapter-media > img:not(.book) { transform: translateY(-6px); box-shadow: 0 40px 90px rgba(4,3,8,0.6); }
   .chapter:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 6px; border-radius: 4px; }
   /* Bücher-Komposition: zwei Cover, leicht überlappend */
   /* Einzelnes, frei stehendes Cover — Schatten folgt der Buchkontur */
