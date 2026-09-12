@@ -45,13 +45,6 @@
     font-style: normal;
     font-display: swap;
   }
-  @font-face {
-    font-family: 'Hermis Soul';
-    src: url('assets/fonts/hermis-soul/Hermissoul-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
 
   html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
 
@@ -307,16 +300,15 @@
   }
   .portal-roles.visible { opacity: 1; transform: translateY(0); }
   .portal-line {
-    font-family: 'Hermis Soul', var(--font-display);
-    font-weight: 400;
-    font-size: clamp(1.4rem, 2.6vw, 2rem);
-    line-height: 1.7;
-    letter-spacing: 0.03em;
-    color: rgba(232,226,212,0.85);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.3rem, 2.3vw, 1.75rem);
+    line-height: 1.8;
+    color: rgba(232,226,212,0.75);
     max-width: 44ch;
     margin: clamp(2rem, 4vw, 3rem) auto 0;
     text-wrap: balance;
-    text-shadow: 0 0 30px rgba(201,169,110,0.15);
     opacity: 0; transform: translateY(16px);
     transition: opacity 1.2s ease 0.45s, transform 1.2s ease 0.45s;
   }
