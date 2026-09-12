@@ -996,7 +996,7 @@
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
     <div class="chapter-media chapter-media--books">
-      <img class="book" src="images/50woerter-cover.png?v=2" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+      <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Geschriebenes</span>
@@ -1107,7 +1107,7 @@
 <!-- ═══ KONTAKT ═══ -->
 <section class="kontakt-section" id="kontakt">
   <div class="kontakt-inner">
-    <img class="kontakt-crane no-animate" src="images/origami-schwan.png" alt="" loading="lazy" decoding="async" data-reveal>
+    <img class="kontakt-crane no-animate" src="images/origami-schwan.webp" alt="" loading="lazy" decoding="async" data-reveal>
     <div class="kontakt-label" data-reveal>Kontakt</div>
     <h2 data-reveal>Starte<br><em>das Gespräch.</em></h2>
     <p class="kontakt-body" data-reveal>Keine langen Formulare. Kein Fragebogen. Schreib einfach — was dich bewegt, was du suchst, oder nur: dass du da bist. Ich antworte persönlich.</p>
@@ -1169,7 +1169,7 @@
 
 <!-- Alpen Skyline (fixed behind footer) -->
 <div class="alpen-skyline" id="alpenSkyline">
-  <img src="images/alpen-skyline.png" alt="" loading="lazy" decoding="async">
+  <img src="images/alpen-skyline.webp" alt="" loading="lazy" decoding="async">
 </div>
 
 <script>
@@ -1344,7 +1344,7 @@ if (isMobile) {
     }
   }
 
-  const starCount = isMobile ? 50 : 180;
+  const starCount = isMobile ? 50 : (isLowEnd ? 70 : 180);
   for (let i = 0; i < starCount; i++) stars.push(new Star());
 
   function animateStars() {
@@ -1429,7 +1429,7 @@ if (isMobile) {
     function resizeDust() { dustCanvas.width = window.innerWidth; dustCanvas.height = window.innerHeight; }
     resizeDust();
     window.addEventListener('resize', resizeDust);
-    var dustCount = isMobile ? 25 : 80;
+    var dustCount = isMobile ? 25 : (isLowEnd ? 30 : 80);
     var dustParticles = [];
     for (var i = 0; i < dustCount; i++) {
       dustParticles.push({

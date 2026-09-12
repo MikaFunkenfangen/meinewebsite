@@ -166,6 +166,7 @@
   .moon-orb[aria-current="page"] .moon-name { color: var(--cream); }
   .moon-orb[aria-current="page"] .moon-disc { filter: drop-shadow(0 0 16px rgba(201,169,110,0.65)) drop-shadow(0 0 36px rgba(201,169,110,0.35)); }
   .moon-orb:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 4px; border-radius: 6px; }
+  .low-end .moon-disc { filter: none; animation: none; }
 
   /* ══ PAGE CONTENT ══ */
   .page-content {
@@ -1058,13 +1059,13 @@
     <div class="book-covers">
       <div class="book-cover-wrap">
         <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" target="_blank" rel="noopener">
-          <img src="../images/50woerter-cover.png?v=2" alt="50 Wörter für Liebe – Buch" loading="lazy" decoding="async">
+          <img src="../images/50woerter-cover.webp" alt="50 Wörter für Liebe – Buch" loading="lazy" decoding="async">
         </a>
         <span class="cover-label">Buch</span>
       </div>
       <div class="book-cover-wrap">
         <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen-ebook/dp/B0DP9T7X2T/" target="_blank" rel="noopener">
-          <img src="../images/50woerter-hoerbuch.png?v=2" alt="50 Wörter für Liebe – Hörbuch" loading="lazy" decoding="async">
+          <img src="../images/50woerter-hoerbuch.webp" alt="50 Wörter für Liebe – Hörbuch" loading="lazy" decoding="async">
         </a>
         <span class="cover-label">Hörbuch</span>
       </div>
@@ -1118,7 +1119,7 @@
   <section class="photo-section" data-reveal>
     <div class="photo-grid">
       <div class="photo-item wide">
-        <img src="../images/verliebtheit.png" alt="Mika Maria Schöberl – 50 Wörter für Liebe" loading="lazy" decoding="async">
+        <img src="../images/verliebtheit.webp" alt="Mika Maria Schöberl – 50 Wörter für Liebe" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -1172,10 +1173,10 @@
     <div class="scroll-hint-wrap">
       <div class="gallery-scroll">
         <div class="gallery-item">
-          <img src="../images/brieftaube.png" alt="Mika Maria Schöberl – Brieftaube" loading="lazy" decoding="async">
+          <img src="../images/brieftaube.webp" alt="Mika Maria Schöberl – Brieftaube" loading="lazy" decoding="async">
         </div>
         <div class="gallery-item">
-          <img src="../images/schmetterling.png" alt="Mika Maria Schöberl – Schmetterling" loading="lazy" decoding="async">
+          <img src="../images/schmetterling.webp" alt="Mika Maria Schöberl – Schmetterling" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -1194,13 +1195,13 @@
     <div class="book-covers">
       <div class="book-cover-wrap">
         <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" target="_blank" rel="noopener">
-          <img src="../images/gruene-seelen-cover.png?v=2" alt="Grüne Seelen – Buch" loading="lazy" decoding="async">
+          <img src="../images/gruene-seelen-cover.webp" alt="Grüne Seelen – Buch" loading="lazy" decoding="async">
         </a>
         <span class="cover-label">Buch</span>
       </div>
       <div class="book-cover-wrap">
         <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981/" target="_blank" rel="noopener">
-          <img src="../images/gruene-seelen-hoerbuch.png?v=2" alt="Grüne Seelen – Hörbuch" loading="lazy" decoding="async">
+          <img src="../images/gruene-seelen-hoerbuch.webp" alt="Grüne Seelen – Hörbuch" loading="lazy" decoding="async">
         </a>
         <span class="cover-label">Hörbuch</span>
       </div>
@@ -1258,10 +1259,10 @@
     <div class="scroll-hint-wrap">
       <div class="gallery-scroll">
         <div class="gallery-item">
-          <img src="../images/impark.png" alt="Mika Maria Schöberl – Im Park" loading="lazy" decoding="async">
+          <img src="../images/impark.webp" alt="Mika Maria Schöberl – Im Park" loading="lazy" decoding="async">
         </div>
         <div class="gallery-item">
-          <img src="../images/nyktophilist.jpg" alt="Mika Maria Schöberl – Nyktophilist" loading="lazy" decoding="async">
+          <img src="../images/nyktophilist.webp" alt="Mika Maria Schöberl – Nyktophilist" loading="lazy" decoding="async">
         </div>
         <div class="gallery-item">
           <img src="../images/portrait1.png" alt="Mika Maria Schöberl – Portrait" loading="lazy" decoding="async">
@@ -1348,6 +1349,14 @@
 
 <!-- ══ SCROLL REVEAL + SUN MOVEMENT ══ -->
 <script>
+// Sparmodus: schwache Geräte bekommen die low-end-Klasse (Animationen ruhen)
+(function(){
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+  if (isLowEnd && !isIOS) document.body.classList.add('low-end');
+})();
+
 // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
 if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768) {
   document.querySelectorAll('a.moon-orb[target="_blank"]').forEach(function(a) {
@@ -1444,7 +1453,7 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
   if (canvas) {
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var particleCount = 80;
+    var particleCount = window.innerWidth <= 768 ? 20 : (document.body.classList.contains('low-end') ? 25 : 60);
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;

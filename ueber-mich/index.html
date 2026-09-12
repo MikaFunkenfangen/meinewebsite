@@ -179,6 +179,8 @@
   .moon-orb[aria-current="page"] .moon-name { color: var(--cream); }
   .moon-orb[aria-current="page"] .moon-disc { filter: drop-shadow(0 0 16px rgba(201,169,110,0.65)) drop-shadow(0 0 36px rgba(201,169,110,0.35)); }
   .moon-orb:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 4px; border-radius: 6px; }
+  .low-end .moon-disc { filter: none; animation: none; }
+  .low-end .quote-daisy { animation: none; }
 
   /* ══ CONTENT ══ */
   .page-content {
@@ -725,7 +727,7 @@
 
   <!-- ══ ATMOSPHERE ══ -->
   <section class="about-block" data-reveal>
-    <img src="../images/lesen2.jpg" alt="Mika Maria Schöberl beim Lesen" class="atmo-image" loading="lazy" decoding="async">
+    <img src="../images/lesen2.webp" alt="Mika Maria Schöberl beim Lesen" class="atmo-image" loading="lazy" decoding="async">
   </section>
 
   <div class="divider"></div>
@@ -762,8 +764,8 @@
     <div class="section-label">Veröffentlichungen</div>
     <a href="../buecher/" class="veroeff-mond">
       <span class="veroeff-cover" aria-hidden="true">
-        <img class="veroeff-buch veroeff-buch-1" src="../images/50woerter-cover.png?v=2" alt="" loading="lazy" decoding="async">
-        <img class="veroeff-buch veroeff-buch-2" src="../images/gruene-seelen-cover.png?v=2" alt="" loading="lazy" decoding="async">
+        <img class="veroeff-buch veroeff-buch-1" src="../images/50woerter-cover.webp" alt="" loading="lazy" decoding="async">
+        <img class="veroeff-buch veroeff-buch-2" src="../images/gruene-seelen-cover.webp" alt="" loading="lazy" decoding="async">
       </span>
       <span class="veroeff-titel">Bücher &amp; Kolumnen</span>
       <span class="veroeff-zeile">Alle Bücher, Hörbücher und Kolumnen im Überblick</span>
@@ -774,7 +776,7 @@
 
   <!-- ══ KONTAKT ══ -->
   <section class="about-block contact-section" id="kontakt" data-reveal>
-    <img src="../images/origami-schwan.png" alt="" class="contact-crane" loading="lazy" decoding="async" data-reveal>
+    <img src="../images/origami-schwan.webp" alt="" class="contact-crane" loading="lazy" decoding="async" data-reveal>
     <div class="contact-label" data-reveal>Kontakt</div>
     <h2 class="contact-heading" data-reveal>Starte<br><em>das Gespräch.</em></h2>
     <p class="contact-text" data-reveal>
@@ -835,7 +837,7 @@
 
   <!-- ══ ALPINE SKYLINE (bottom edge) ══ -->
   <div class="alpen-skyline">
-    <img src="../images/alpen-skyline.png" alt="Alpen-Skyline" loading="lazy" decoding="async">
+    <img src="../images/alpen-skyline.webp" alt="Alpen-Skyline" loading="lazy" decoding="async">
   </div>
 
 </div>
@@ -850,6 +852,7 @@
   var isLowEnd = isAndroid || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 
   if (isLowEnd && !isIOS) {
+    document.body.classList.add('low-end');
   }
   if (isIOS) {
     document.body.classList.add('ios-perf');
