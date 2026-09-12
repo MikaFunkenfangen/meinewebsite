@@ -936,18 +936,8 @@
   }
 
 
-  /* Luminous text highlight for special passages */
-  .glow-line {
-    display: inline;
-    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.08), transparent);
-    background-size: 200% 100%;
-    animation: shimmerText 8s ease-in-out infinite;
-    will-change: background-position;
-  }
-  @keyframes shimmerText {
-    0%, 100% { background-position: -200% 0; }
-    50% { background-position: 200% 0; }
-  }
+  /* Betonung besonderer Passagen — Goldton statt Hintergrundbox */
+  .glow-line { color: var(--gold); }
 
   /* Section divider — subtle light line */
   .light-divider {
