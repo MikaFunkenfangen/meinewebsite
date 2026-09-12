@@ -130,141 +130,96 @@
   #stars-canvas.visible { opacity: 0.85; }
 
   /* ══════════════════════════════════════
-     PORTRAIT REVEAL
+     KURZVIDEOS — Shorts-Galerie (wie summerchild.net)
      ══════════════════════════════════════ */
-  .portrait-section {
-    position: relative;
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .shorts { padding: clamp(2rem, 6vh, 4rem) 0 clamp(1rem, 4vh, 3rem); }
+  .shorts-lead {
+    max-width: 34em;
+    margin: 0 auto clamp(1.4rem, 3.5vh, 2.2rem);
+    padding: 0 1.5rem;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    color: rgba(232,226,212,0.65);
+  }
+  .shorts-rail {
     display: flex;
-    justify-content: center;
-    padding: 1.5rem 2rem 0.5rem;
-    overflow: hidden;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 0.6rem max(1.5rem, calc(50% - 470px)) 1.4rem;
+    scrollbar-width: none;
   }
-
-  .portrait-frame {
+  .shorts-rail::-webkit-scrollbar { display: none; }
+  .short {
+    flex: 0 0 auto;
+    width: clamp(148px, 42vw, 230px);
+    aspect-ratio: 9 / 16;
     position: relative;
-    z-index: 2;
-    width: clamp(220px, 35vw, 380px);
-    height: clamp(220px, 35vw, 380px);
-    border-radius: 50%;
-    overflow: hidden;
-    opacity: 0;
-    transform: scale(0.85) translateY(30px);
-    transition: opacity 1.8s ease, transform 1.8s ease;
-  }
-
-  .portrait-frame.visible {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-
-  .portrait-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
     display: block;
-    border-radius: 50%;
-    transition: filter 0.3s ease;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #0c0a10;
+    box-shadow: 0 0 0 1px rgba(201,169,110,0.18), 0 16px 42px rgba(0,0,0,0.58);
+    transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.55s cubic-bezier(0.32, 0.72, 0, 1);
   }
-
-  .portrait-name {
-    font-family: var(--font-heading);
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    font-weight: 400;
-    color: var(--gold);
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-top: 1.5rem;
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s;
-    z-index: 2;
-    position: relative;
+  .short img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .short:hover, .short:focus-visible {
+    transform: translateY(-5px);
+    box-shadow: 0 0 0 1px rgba(201,169,110,0.42), 0 24px 56px rgba(0,0,0,0.66);
   }
-
-  .portrait-name.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── Mond-Portrait Lichtbegegnung ── */
-  .eclipse-corona {
+  .short:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 3px; }
+  .short-play {
     position: absolute;
-    inset: -6%;
+    left: 50%; bottom: 14px;
+    transform: translateX(-50%);
+    display: grid; place-items: center;
+    width: 42px; height: 42px;
     border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-    background: radial-gradient(circle,
-      transparent 44%,
-      rgba(255,200,100,0.35) 48%,
-      rgba(255,180,80,0.25) 52%,
-      rgba(201,150,70,0.12) 58%,
-      transparent 65%
-    );
-    transition: opacity 0.6s ease;
+    background: rgba(8,7,12,0.62);
+    color: rgba(232,226,212,0.92);
+    box-shadow: inset 0 0 0 1px rgba(201,169,110,0.38);
+    transition: background 0.45s cubic-bezier(0.32, 0.72, 0, 1), color 0.45s cubic-bezier(0.32, 0.72, 0, 1);
   }
-  .portrait-frame.eclipse .eclipse-corona {
-    opacity: 1;
-    animation: coronaBreath 2s ease-in-out infinite alternate;
+  .short-play svg { width: 20px; height: 20px; margin-left: 2px; }
+  .short:hover .short-play { background: rgba(201,169,110,0.85); color: #0a0810; }
+  .shorts-box {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    background: rgba(4,3,7,0.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
-  .portrait-frame.eclipse-exit .eclipse-corona {
-    opacity: 0;
-    transition: opacity 0.8s ease;
+  .shorts-box[hidden] { display: none; }
+  .shorts-box iframe {
+    width: min(92vw, 62vh);
+    aspect-ratio: 9 / 16;
+    height: auto;
+    max-height: 88vh;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(201,169,110,0.3), 0 30px 80px rgba(0,0,0,0.7);
   }
-  @keyframes coronaBreath {
-    0% { opacity: 1; }
-    100% { opacity: 0.7; }
-  }
-
-  /* Kurzer Lichtblitz beim Zusammentreffen */
-  .eclipse-diamond {
+  .shorts-box-close {
     position: absolute;
-    inset: -3%;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 3;
-    background: radial-gradient(circle,
-      rgba(255,240,200,0.2) 0%,
-      rgba(255,200,100,0.1) 40%,
-      transparent 65%
-    );
+    top: clamp(0.8rem, 3vw, 1.6rem); right: clamp(0.8rem, 3vw, 1.6rem);
+    width: 46px; height: 46px;
+    display: grid; place-items: center;
+    border: 0; border-radius: 50%;
+    cursor: pointer;
+    background: rgba(10,8,14,0.72);
+    color: rgba(232,226,212,0.9);
+    box-shadow: inset 0 0 0 1px rgba(201,169,110,0.3);
+    font-size: 1.3rem;
+    transition: background 0.4s cubic-bezier(0.32, 0.72, 0, 1), color 0.4s cubic-bezier(0.32, 0.72, 0, 1);
   }
-  .portrait-frame.eclipse .eclipse-diamond {
-    animation: lightFlash 0.8s ease-out forwards;
-  }
-  @keyframes lightFlash {
-    0% { opacity: 0; transform: scale(0.8); }
-    20% { opacity: 1; transform: scale(1.1); }
-    100% { opacity: 0; transform: scale(1); }
-  }
-
-  /* Portrait leuchtet warm während Begegnung */
-  .portrait-frame.eclipse {
-    box-shadow:
-      0 0 15px rgba(255,200,100,0.25),
-      0 0 30px rgba(201,169,110,0.12) !important;
-  }
-  .portrait-frame.eclipse .portrait-img {
-    filter: brightness(1.05) saturate(1.05);
-    transition: filter 0.6s ease;
-  }
-  .portrait-frame.eclipse-exit .portrait-img {
-    filter: brightness(1) saturate(1);
-    transition: filter 1s ease;
-  }
-
-  .portrait-glow {
-    position: absolute;
-    inset: -40%;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, rgba(30,42,28,0.04) 40%, transparent 70%);
-    pointer-events: none;
-    animation: portraitGlowPulse 5s ease-in-out infinite alternate;
-  }
-
-  @keyframes portraitGlowPulse {
-    0% { opacity: 0.5; transform: scale(1); }
-    100% { opacity: 1; transform: scale(1.1); }
-  }
+  .shorts-box-close:hover { background: rgba(201,169,110,0.85); color: #0a0810; }
 
   /* ══════════════════════════════════════
      PORTAL — Überblick & Auswahl
@@ -792,7 +747,6 @@
      RESPONSIVE
      ══════════════════════════════════════ */
   @media (max-width: 768px) {
-    .portrait-frame { width: clamp(200px, 55vw, 280px); height: clamp(200px, 55vw, 280px); }
 
     /* moon responsive handled in its own media queries above */
   }
@@ -801,10 +755,6 @@
      DESKTOP OPTIMIZATION
      ══════════════════════════════════════ */
   @media (min-width: 1025px) {
-    .portrait-frame {
-      width: clamp(280px, 25vw, 380px);
-      height: clamp(280px, 25vw, 380px);
-    }
   }
 
   /* Cursor */
@@ -1032,11 +982,29 @@
 
 
 <!-- ═══ PORTRAIT ═══ -->
-<section class="portrait-section">
-  <div style="display:flex;flex-direction:column;align-items:center;">
-    <div class="portrait-frame" data-reveal>
-      <img src="images/summerchild-portrait.webp" alt="Mika Maria Schöberl" class="portrait-img" loading="lazy" decoding="async">
-    </div>
+<section class="shorts" aria-label="Kurzvideos">
+  <p class="shorts-lead" data-reveal>Tippen zum Abspielen</p>
+  <div class="shorts-rail" tabindex="0" aria-label="Kurzvideos">
+    <button class="short" type="button" data-video="JFgugqPO0Vs">
+      <img src="images/shorts/JFgugqPO0Vs.jpg" alt="" loading="lazy" decoding="async">
+      <span class="short-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg></span>
+      <span class="sr-only">Kurzvideo 1 von 4 abspielen</span>
+    </button>
+    <button class="short" type="button" data-video="7tr2oq-hb24">
+      <img src="images/shorts/7tr2oq-hb24.jpg" alt="" loading="lazy" decoding="async">
+      <span class="short-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg></span>
+      <span class="sr-only">Kurzvideo 2 von 4 abspielen</span>
+    </button>
+    <button class="short" type="button" data-video="sPil0OVsIyM">
+      <img src="images/shorts/sPil0OVsIyM.jpg" alt="" loading="lazy" decoding="async">
+      <span class="short-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg></span>
+      <span class="sr-only">Kurzvideo 3 von 4 abspielen</span>
+    </button>
+    <button class="short" type="button" data-video="uEHC1P5MyUg">
+      <img src="images/shorts/uEHC1P5MyUg.jpg" alt="" loading="lazy" decoding="async">
+      <span class="short-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg></span>
+      <span class="sr-only">Kurzvideo 4 von 4 abspielen</span>
+    </button>
   </div>
 </section>
 
@@ -1333,9 +1301,6 @@ if (isMobile) {
     var moon = document.getElementById('moon');
     var starsCanvas = document.getElementById('stars-canvas');
     var alpen = document.getElementById('alpenSkyline');
-    var portraitFrame = document.querySelector('.portrait-frame');
-    var eclipseActive = false;
-    var eclipseExited = false;
     if (!skyBg) return;
 
     var skyStops = [
@@ -1426,28 +1391,7 @@ if (isMobile) {
           alpen.classList.toggle('visible', pct > 0.85);
         }
 
-        // Solar Eclipse — portrait & moon alignment
-        if (portraitFrame) {
-          var pRect = portraitFrame.getBoundingClientRect();
-          var pCenterY = pRect.top + pRect.height / 2;
-          var winH = window.innerHeight;
-          // Eclipse triggers when portrait center is in the middle third of viewport
-          var inZone = pCenterY > winH * 0.25 && pCenterY < winH * 0.55;
-          if (inZone && !eclipseActive) {
-            eclipseActive = true;
-            eclipseExited = false;
-            portraitFrame.classList.remove('eclipse-exit');
-            portraitFrame.classList.add('eclipse');
-          } else if (!inZone && eclipseActive && !eclipseExited) {
-            eclipseActive = false;
-            eclipseExited = true;
-            portraitFrame.classList.remove('eclipse');
-            portraitFrame.classList.add('eclipse-exit');
-            setTimeout(function() {
-              if (eclipseExited) portraitFrame.classList.remove('eclipse-exit');
-            }, 2000);
-          }
-        }
+
       } finally {
         ticking = false;
       }
@@ -1542,6 +1486,33 @@ if (isMobile) {
 <!-- RAINDROP CLICK MAGIC -->
 
 <script src="js/book-popups.js" defer></script>
+<script>
+/* ── Shorts-Lightbox ── */
+(function(){
+  var rail = document.querySelector('.shorts-rail');
+  if (!rail) return;
+  var box = null;
+  function close() {
+    if (box) { box.remove(); box = null; document.removeEventListener('keydown', onKey); }
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  rail.addEventListener('click', function(e){
+    var btn = e.target.closest('.short');
+    if (!btn) return;
+    close();
+    box = document.createElement('div');
+    box.className = 'shorts-box';
+    box.innerHTML = '<button class="shorts-box-close" type="button" aria-label="Video schließen">✕</button>' +
+      '<iframe src="https://www.youtube-nocookie.com/embed/' + btn.dataset.video +
+      '?autoplay=1&playsinline=1&rel=0" title="Kurzvideo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    box.addEventListener('click', function(ev){
+      if (ev.target === box || ev.target.closest('.shorts-box-close')) close();
+    });
+    document.body.appendChild(box);
+    document.addEventListener('keydown', onKey);
+  });
+})();
+</script>
 
 </body>
 </html>

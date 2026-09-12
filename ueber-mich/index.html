@@ -328,90 +328,48 @@
     line-height: 1.9; color: var(--cream-dim);
   }
 
-  /* ══ WERKE — editorialer Index (keine Karten) ══ */
-  .werke { max-width: 860px; margin: 0 auto; }
-  .werk {
-    display: grid;
-    grid-template-columns: minmax(140px, 210px) 1fr;
+  /* ══ VERÖFFENTLICHUNGEN — Mond-Link zu Bücher & Kolumnen ══ */
+  .veroeff { text-align: center; }
+  .veroeff-mond {
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    padding: clamp(2rem, 4vw, 3rem) 0;
+    gap: 1.4rem;
     text-decoration: none;
-    border-top: 1px solid rgba(201,169,110,0.14);
+    padding: 0.5rem 1rem;
   }
-  .werke .section-label + .werk { border-top: none; }
-  .werk--rechts { grid-template-columns: 1fr minmax(140px, 210px); }
-  .werk--rechts .werk-cover { order: 2; }
-  .werk--rechts .werk-text { order: 1; text-align: right; }
-  .werk-cover {
-    width: 100%; height: auto; display: block;
-    filter: drop-shadow(0 20px 45px rgba(0,0,0,0.45));
-    transition: transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
-  }
-  .werk:hover .werk-cover { transform: translateY(-8px) rotate(-0.5deg); }
-  .werk--rechts:hover .werk-cover { transform: translateY(-8px) rotate(0.5deg); }
-  .werk-jahr {
+  .veroeff-disc {
     display: block;
-    font-family: var(--font-sans); font-weight: 300;
-    font-size: 0.95rem; letter-spacing: 0.3em;
-    color: var(--gold); margin-bottom: 0.8rem;
+    width: clamp(150px, 22vw, 230px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 18px rgba(201,169,110,0.3));
+    transition: filter 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+    animation: veroeffDrift 12s ease-in-out infinite alternate;
   }
-  .werk-titel {
-    font-family: var(--font-serif); font-style: italic; font-weight: 300;
-    font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.15;
-    color: var(--cream); margin-bottom: 0.7rem;
+  .veroeff-disc svg { width: 100%; height: 100%; display: block; }
+  @keyframes veroeffDrift { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+  .veroeff-mond:hover .veroeff-disc,
+  .veroeff-mond:focus-visible .veroeff-disc { filter: drop-shadow(0 0 30px rgba(201,169,110,0.55)); }
+  .veroeff-titel {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
     transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   }
-  .werk:hover .werk-titel { color: var(--gold); }
-  .werk-verlag {
-    display: block;
-    font-family: var(--font-sans); font-weight: 300;
-    font-size: 0.95rem; letter-spacing: 0.22em; text-transform: uppercase;
+  .veroeff-mond:hover .veroeff-titel,
+  .veroeff-mond:focus-visible .veroeff-titel { color: var(--gold); }
+  .veroeff-zeile {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.15rem, 1.9vw, 1.35rem);
     color: var(--cream-dim);
   }
-
-  /* Kolumnen als Registerzeilen */
-  .kolumnen { margin-top: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid rgba(201,169,110,0.14); }
-  .kolumnen-label {
-    font-family: var(--font-heading);
-    font-size: clamp(1rem, 1.6vw, 1.2rem); letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--cream-dim);
-    text-align: center; padding: 1.8rem 0 0.6rem;
-  }
-  .kolumne {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: baseline;
-    gap: 1.5rem;
-    padding: 1.3rem 0.2rem;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201,169,110,0.1);
-    transition: background 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  }
-  .kolumne:last-child { border-bottom: none; }
-  .kolumne-mag {
-    font-family: var(--font-heading);
-    font-size: clamp(1.05rem, 1.8vw, 1.3rem); letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--cream); text-align: right;
-    transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  }
-  .kolumne:hover .kolumne-mag { color: var(--gold); }
-  .kolumne-name {
-    font-family: var(--font-serif); font-style: italic;
-    font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--gold);
-  }
-  .kolumne-desc {
-    font-family: var(--font-sans); font-weight: 300;
-    font-size: 1rem; letter-spacing: 0.06em; color: var(--cream-dim);
-  }
-
-  @media (max-width: 620px) {
-    .werk, .werk--rechts { grid-template-columns: 1fr; gap: 1.4rem; }
-    .werk-cover, .werk--rechts .werk-cover { order: 0; width: min(58vw, 240px); margin: 0 auto; }
-    .werk-text, .werk--rechts .werk-text { order: 1; text-align: center; }
-    .kolumne { grid-template-columns: 1fr; gap: 0.25rem; text-align: center; }
-    .kolumne-mag { text-align: center; }
-  }
+  .veroeff-mond:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 5px; border-radius: 8px; }
 
   /* ══ QUOTE — cinematic Gänseblümchen ══ */
   .quote-stage {
@@ -816,40 +774,14 @@
 
   <div class="divider"></div>
 
-  <!-- ══ VERÖFFENTLICHUNGEN — editorialer Werkindex ══ -->
-  <section class="about-block" data-reveal>
-    <div class="werke">
-      <div class="section-label">Veröffentlichungen</div>
-      <a href="https://www.amazon.de/Gr%C3%BCne-Seelen-%C3%9Cber-Weisheit-Natur/dp/3863745981" target="_blank" rel="noopener" class="werk">
-        <img class="werk-cover" src="../images/gruene-seelen-cover.png" alt="Buchcover: Grüne Seelen" loading="lazy" decoding="async">
-        <div class="werk-text">
-          <span class="werk-jahr">2021</span>
-          <div class="werk-titel">Grüne Seelen</div>
-          <span class="werk-verlag">Mankau Verlag</span>
-        </div>
-      </a>
-      <a href="https://www.amazon.de/50-W%C3%B6rter-f%C3%BCr-Liebe-Inspirationen/dp/3863747283" target="_blank" rel="noopener" class="werk werk--rechts">
-        <img class="werk-cover" src="../images/50woerter-cover.png" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
-        <div class="werk-text">
-          <span class="werk-jahr">2025</span>
-          <div class="werk-titel">50 Wörter für Liebe</div>
-          <span class="werk-verlag">Mankau Verlag</span>
-        </div>
-      </a>
-      <div class="kolumnen">
-        <div class="kolumnen-label">Regelmäßige Kolumnen</div>
-        <a href="https://www.naturarzt-access.de/" target="_blank" rel="noopener" class="kolumne">
-          <span class="kolumne-mag">Naturarzt</span>
-          <span class="kolumne-name">„Seelenschau"</span>
-          <span class="kolumne-desc">monatlich, seit vier Jahren</span>
-        </a>
-        <a href="https://www.yoga-aktuell.de/" target="_blank" rel="noopener" class="kolumne">
-          <span class="kolumne-mag">Yoga Aktuell</span>
-          <span class="kolumne-name">Kolumne</span>
-          <span class="kolumne-desc">regelmäßig</span>
-        </a>
-      </div>
-    </div>
+  <!-- ══ VERÖFFENTLICHUNGEN — Mond-Link zu Bücher & Kolumnen ══ -->
+  <section class="about-block veroeff" data-reveal>
+    <div class="section-label">Veröffentlichungen</div>
+    <a href="../buecher/" class="veroeff-mond">
+      <span class="veroeff-disc"><svg viewBox="0 0 100 100" aria-hidden="true"><image href="../images/mond-echt.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></svg></span>
+      <span class="veroeff-titel">Bücher &amp; Kolumnen</span>
+      <span class="veroeff-zeile">Alle Bücher, Hörbücher und Kolumnen im Überblick</span>
+    </a>
   </section>
 
   <div class="divider"></div>
