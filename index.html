@@ -507,6 +507,29 @@
   .chapter-text { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; padding-left: clamp(1.2rem, 3vw, 2.5rem); text-align: left; }
   .chapter:nth-child(even) .chapter-media { grid-column: 6 / span 7; }
   .chapter:nth-child(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
+  /* Bildunterschrift — gesperrte Versalien mit Goldstrich, wie im Magazin */
+  .bildzeile {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(168,160,144,0.85);
+  }
+  .bildzeile::before {
+    content: "";
+    display: inline-block;
+    width: 1.4rem; height: 1px;
+    background: rgba(201,169,110,0.55);
+    vertical-align: middle;
+    margin-right: 0.7rem;
+  }
+  .chapter-media--books { flex-direction: column; align-items: center; }
+  .chapter-media--books .bildzeile { text-align: center; }
+  .chapter-media--books .bildzeile::before { display: none; }
+
   /* Marginalie — vertikal gestellter Kolumnentitel am Kapitelrand (wie im Magazin) */
   .chapter-marginalie {
     position: absolute;
@@ -515,8 +538,8 @@
     writing-mode: vertical-rl;
     font-family: var(--font-sans);
     font-weight: 300;
-    font-size: 0.62rem;
-    letter-spacing: 0.55em;
+    font-size: 0.85rem; /* Lesbarkeits-Regel: Labels nie unter 0,85rem */
+    letter-spacing: 0.45em;
     text-transform: uppercase;
     white-space: nowrap;
     color: rgba(232,226,212,0.26);
@@ -1122,6 +1145,7 @@
     <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
     <div class="chapter-media chapter-media--books">
       <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+      <span class="bildzeile">50 Wörter für Liebe · Mankau Verlag</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Geschriebenes</span>
@@ -1134,6 +1158,7 @@
     <span class="chapter-marginalie" aria-hidden="true">Der Mensch dahinter</span>
     <div class="chapter-media">
       <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
+      <span class="bildzeile">Porträt zwischen Blüten</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Der Mensch dahinter</span>
@@ -1146,6 +1171,7 @@
     <span class="chapter-marginalie" aria-hidden="true">Klang</span>
     <div class="chapter-media">
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
+      <span class="bildzeile">Blockflöte und Brokat</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Klang</span>
@@ -1158,6 +1184,7 @@
     <span class="chapter-marginalie" aria-hidden="true">Forschung</span>
     <div class="chapter-media">
       <img src="images/hexenwerk-lesen.webp" alt="Mika sitzt am Boden zwischen aufgeschlagenen Büchern und Notizen" loading="lazy" decoding="async">
+      <span class="bildzeile">Zwischen Quellen und Notizen</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Forschung</span>
