@@ -921,14 +921,13 @@
 
     /* Moon S-curve across full screen: top-right → center-left → bottom-right */
     if(moon){
-      var top = 5 + 80 * pct;
-      /* S-curve using sine: right(0)=5vw, swings to ~75vw at 33%, back to ~5vw at 66%, then to ~60vw at 100% */
-      var sWave = Math.sin(pct * Math.PI * 2) * 35;
-      var drift = pct * 25;
-      var right = 5 - sWave + drift;
+      /* Drei Bögen quer über den Bildschirm statt einem — die Kurve führt
+         immer nach links INS Bild; leichte Vertikalwelle für verschiedene Höhen */
+      var top = 5 + 80 * pct + Math.sin(pct * Math.PI * 3) * 5;
+      var sweep = (1 - Math.cos(pct * Math.PI * 6)) / 2; /* 0→1→0, drei Mal */
 
       var topOffset = top - 5;
-      var rightOffset = right - 5;
+      var rightOffset = sweep * 75;
       moon.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
 
       /* Fade as morning brightens */

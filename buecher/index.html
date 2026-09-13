@@ -1451,15 +1451,15 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
       ticking = true;
       rAF(function(){
         var scrollH = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-        var pct = Math.min(scrollY / scrollH, 1);
+        /* Math.max fängt negatives scrollY beim iOS-Überscrollen ab */
+        var pct = Math.min(Math.max(window.scrollY, 0) / scrollH, 1);
 
-        /* S-curve path — sun drifts gently (using transform for perf) */
-        var top = 3 + 75 * pct;
-        var sWave = Math.sin(pct * Math.PI * 2) * 25;
-        var drift = pct * 20;
-        var right = 8 - sWave + drift;
+        /* Drei Bögen quer über den Bildschirm statt einem — die Kurve führt
+           immer nach links INS Bild; leichte Vertikalwelle für verschiedene Höhen */
+        var top = 3 + 75 * pct + Math.sin(pct * Math.PI * 3) * 5;
+        var sweep = (1 - Math.cos(pct * Math.PI * 6)) / 2; /* 0→1→0, drei Mal */
         var topOffset = top - 5;
-        var rightOffset = right - 8;
+        var rightOffset = sweep * 70;
         sun.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
 
         /* Fade: bright at start, softens toward end */

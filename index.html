@@ -1460,11 +1460,12 @@ if (isMobile) {
           if (pct >= 0.8) mOpacity = 0;
           else if (pct > 0.6) mOpacity *= (0.8 - pct) / 0.2;
           moon.style.opacity = Math.max(0, mOpacity).toFixed(2);
-          var topOffset = 80 * pct;
-          var sWave = Math.sin(pct * Math.PI * 2) * 35;
-          var drift = pct * 25;
-          var rightOffset = -sWave + drift;
-          moon.style.transform = 'translate(' + (-rightOffset) + 'vw,' + topOffset + 'vh) translateZ(0)';
+          /* Drei Bögen quer über den Bildschirm statt einem — die Kurve führt
+             immer nach links INS Bild (eine symmetrische Sinuswelle um den
+             rechten Ankerpunkt schöbe den Mond zur Hälfte aus dem Bild) */
+          var topOffset = 80 * pct + Math.sin(pct * Math.PI * 3) * 6;
+          var sweep = (1 - Math.cos(pct * Math.PI * 6)) / 2; /* 0→1→0, drei Mal */
+          moon.style.transform = 'translate(' + (-sweep * 75).toFixed(2) + 'vw,' + topOffset.toFixed(2) + 'vh) translateZ(0)';
         }
 
 
