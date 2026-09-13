@@ -628,6 +628,19 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
+  /* Rechte Wolke: Originalausrichtung, Schnittkante am RECHTEN Rand unsichtbar */
+  .wolke-rechts {
+    position: absolute;
+    right: 0;
+    width: min(75vw, 820px);
+    opacity: 0.16;
+    pointer-events: none;
+    animation: wolkeRechtsSchweben 30s ease-in-out infinite alternate;
+  }
+  @keyframes wolkeRechtsSchweben {
+    from { transform: translate3d(0, 6px, 0); }
+    to   { transform: translate3d(16px, -9px, 0); }
+  }
   /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
      kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
   .wolke-mitte {
@@ -643,10 +656,10 @@ window.addEventListener("unhandledrejection", function (e) {
     from { transform: scaleX(-1) translate3d(0, -8px, 0); }
     to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
   }
-  .low-end .wolke-mitte { animation: none; }
+  .low-end .wolke-mitte, .low-end .wolke-rechts { animation: none; }
   .low-end .wolke-mitte { transform: scaleX(-1); }
   @media (prefers-reduced-motion: reduce) {
-    .wolke-mitte { animation: none; }
+    .wolke-mitte, .wolke-rechts { animation: none; }
     .wolke-mitte { transform: scaleX(-1); }
   }
 
@@ -677,6 +690,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <div class="sky-anker">
   <div class="sky-bg" id="skyBg"></div>
   <img class="wolke-mitte" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <img class="wolke-rechts" style="top: 30%;" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
