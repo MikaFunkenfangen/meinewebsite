@@ -92,11 +92,24 @@ window.addEventListener("unhandledrejection", function (e) {
        Himmel darunter (iOS-Leisten-Zonen können nie durchscheinen) */
     position: absolute; inset: 0;
     z-index: 0;
+    /* Tagesverlauf im dunklen Register: Nacht -> Indigo -> warmes Ambre ->
+       dunkle Morgenröte. Alle Töne so dunkel, dass Creme-Text überall
+       sicher lesbar bleibt (keine Filter, keine hellen Leuchtflächen). */
     background:
-      radial-gradient(ellipse 90% 42% at 68% 10%, rgba(140,155,205,0.10) 0%, transparent 62%),
-      radial-gradient(ellipse 85% 38% at 28% 52%, rgba(160,130,190,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 95% 34% at 55% 92%, rgba(201,169,110,0.07) 0%, transparent 65%),
-      linear-gradient(180deg, #0a0c12 0%, #10101e 30%, #120f1c 55%, #0e0c16 80%, #0b0a10 100%);
+      radial-gradient(ellipse 90% 26% at 50% 100%, rgba(200,120,70,0.26) 0%, transparent 62%),
+      radial-gradient(ellipse 70% 20% at 28% 93%, rgba(180,90,70,0.16) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 18% at 72% 87%, rgba(150,80,90,0.13) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 22% at 55% 46%, rgba(70,100,150,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 24% at 40% 22%, rgba(120,130,185,0.08) 0%, transparent 60%),
+      linear-gradient(180deg,
+        #0a0c12 0%,
+        #0c0e16 20%,
+        #10121c 38%,
+        #14131e 54%,
+        #1a1520 68%,
+        #221820 82%,
+        #2a1c18 93%,
+        #31201a 100%);
   }
 
   /* ══ MOON (large, pale, with rainbow halo — S-curve) ══ */
