@@ -669,6 +669,26 @@ window.addEventListener("unhandledrejection", function (e) {
   ::selection { background: rgba(201,169,110,0.4); color: #0b0d12; }
   .moon-orb:active .moon-disc svg { transform: scale(0.94); }
 
+
+  /* Schürzen: iOS zieht fixierte Ebenen beim Ein-/Ausfahren der Safari-Leiste
+     mit Verzögerung nach — oben/unten je 45vh im äußersten Verlaufston
+     überbrücken die Lücke, in der sonst der schwarze Balken erscheint */
+  .sky-bg::before {
+    content: ""; position: absolute;
+    bottom: 100%; left: 0; right: 0; height: 45vh;
+    background: #0a0c12;
+  }
+  .sky-bg::after {
+    content: ""; position: absolute;
+    top: 100%; left: 0; right: 0; height: 45vh;
+    background: #2a1c18;
+  }
+  .dawn-light::after {
+    content: ""; position: absolute;
+    top: 100%; left: 0; right: 0; height: 45vh;
+    background: rgba(80,45,30,0.4);
+  }
+
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
   .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
