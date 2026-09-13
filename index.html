@@ -817,6 +817,15 @@
   .alps-footer .footer-brand {
     text-shadow: 0 0 40px rgba(201,169,110,0.4);
   }
+  /* Schluss-Satz — die Punchline nach dem Monduntergang */
+  .footer-schlusssatz {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    color: var(--cream);
+    margin-bottom: 2.8rem;
+  }
 
 /* ══════════════════════════════════════
      SECTION SEPARATORS
@@ -1238,6 +1247,7 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="site-footer alps-footer">
+  <p class="footer-schlusssatz">Der Mond geht unter — die Geschichten bleiben.</p>
   <div>
     <div class="footer-brand">Funkenfangen</div>
     <div class="footer-slogan">A Softer Kind of Knowing</div>
@@ -1476,25 +1486,31 @@ if (isMobile) {
           starsCanvas.classList.toggle('visible', starOp > 0.01);
         }
 
-        // Moon — visible from start, fades at bottom
+        // Moon — wandert, und geht am Ende hinter den Alpen unter
         if (moon) {
           var mOpacity = 0.65 * (1 - pct * 0.3);
-          /* Vollständig verblasst, bevor die Alpen (ab pct 0.85) erscheinen */
-          if (pct >= 0.8) mOpacity = 0;
-          else if (pct > 0.6) mOpacity *= (0.8 - pct) / 0.2;
+          /* Monduntergang: ab pct 0.68 sinkt er beschleunigt hinter die
+             Alpen-Silhouette (z-index 2 > Mond 1) und ist bei 0.92 fort */
+          var sink = 0;
+          if (pct > 0.68) {
+            var s = Math.min((pct - 0.68) / 0.24, 1);
+            sink = s * s * 60;
+            mOpacity = 0.55 * (1 - s * 0.75);
+            if (pct >= 0.92) mOpacity = 0;
+          }
           moon.style.opacity = Math.max(0, mOpacity).toFixed(2);
           /* Drei Bögen quer über den Bildschirm statt einem — die Kurve führt
              immer nach links INS Bild (eine symmetrische Sinuswelle um den
              rechten Ankerpunkt schöbe den Mond zur Hälfte aus dem Bild) */
-          var topOffset = 80 * pct + Math.sin(pct * Math.PI * 3) * 6;
+          var topOffset = 80 * pct + Math.sin(pct * Math.PI * 3) * 6 + sink;
           var sweep = (1 - Math.cos(pct * Math.PI * 6)) / 2; /* 0→1→0, drei Mal */
           moon.style.transform = 'translate(' + (-sweep * 75).toFixed(2) + 'vw,' + topOffset.toFixed(2) + 'vh) translateZ(0)';
         }
 
 
-        // Alps
+        // Alps — früh genug sichtbar, damit der Mond hinter ihnen versinkt
         if (alpen) {
-          alpen.classList.toggle('visible', pct > 0.85);
+          alpen.classList.toggle('visible', pct > 0.7);
         }
 
 
