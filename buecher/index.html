@@ -109,7 +109,6 @@ window.addEventListener("unhandledrejection", function (e) {
        und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
     position: sticky; top: 0;
     height: 100vh; height: 100lvh;
-    min-height: calc(100lvh + env(safe-area-inset-bottom, 0px));
     z-index: 0;
     transform: translateZ(0);
     transition: background 0.8s ease;
@@ -1051,20 +1050,6 @@ window.addEventListener("unhandledrejection", function (e) {
   .cta-btn:active, .expand-btn:active, .section-nav-btn:active { transform: scale(0.97); }
 
 
-  /* Schürzen: iOS zieht fixierte Ebenen beim Ein-/Ausfahren der Safari-Leiste
-     mit Verzögerung nach — oben/unten je 45vh im äußersten Verlaufston
-     überbrücken die Lücke, in der sonst der schwarze Balken erscheint */
-  .sky-bg::before {
-    content: ""; position: absolute;
-    bottom: 100%; left: 0; right: 0; height: 45vh;
-    background: #0a0c12;
-  }
-  .sky-bg::after {
-    content: ""; position: absolute;
-    top: 100%; left: 0; right: 0; height: 45vh;
-    background: #241a18;
-  }
-  
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
   .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
