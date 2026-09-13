@@ -1054,6 +1054,21 @@ window.addEventListener("unhandledrejection", function (e) {
   .cta-btn:active, .expand-btn:active, .section-nav-btn:active { transform: scale(0.97); }
 
 
+
+  /* Mobile Boden-Vignette: Safari malt im Dunkelmodus ein eigenes dunkles
+     Backdrop hinter die untere Leiste — nicht umfärbbar. Die Vignette dunkelt
+     den untersten Viewport-Rand passend ab, sodass die Zone nahtlos im Bild
+     verschwindet statt als Kante daraufzusitzen. */
+  @media (max-width: 1024px) {
+    .sky-bg::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 16vh;
+      background: linear-gradient(to bottom, transparent, rgba(8,8,12,0.55) 70%, rgba(5,6,9,0.92));
+      pointer-events: none;
+    }
+  }
+
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
   .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
