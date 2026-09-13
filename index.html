@@ -1585,6 +1585,11 @@ if (isMobile) {
 
     var dawnLight = document.getElementById('dawnLight');
 
+    /* Parallax: Kapitelbilder scrollen eine Spur langsamer als ihr Text */
+    var parallaxMedien = document.querySelectorAll('.chapter-media');
+    var parallaxAktiv = window.matchMedia('(min-width: 701px)').matches &&
+      !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
     var ticking = false;
     function onScrollFrame() {
       try {
@@ -1629,6 +1634,16 @@ if (isMobile) {
         // Alps — früh genug sichtbar, damit der Mond hinter ihnen versinkt
         if (alpen) {
           alpen.classList.toggle('visible', pct > 0.7);
+        }
+
+        // Parallax der Kapitelbilder (Null-Check: Elemente können fehlen)
+        if (parallaxAktiv && !document.body.classList.contains('low-end')) {
+          for (var i = 0; i < parallaxMedien.length; i++) {
+            var r = parallaxMedien[i].getBoundingClientRect();
+            if (r.bottom < -100 || r.top > window.innerHeight + 100) continue;
+            var rel = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+            parallaxMedien[i].style.transform = 'translateY(' + (rel * 22).toFixed(1) + 'px) translateZ(0)';
+          }
         }
 
 
