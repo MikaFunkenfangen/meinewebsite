@@ -567,9 +567,20 @@
     .portal { padding: 2rem 1.25rem 1rem; }
     .kapitel { padding: 2rem 1.5rem 0; gap: 3.5rem; }
     .chapter { display: block; }
-    .chapter-media { margin-bottom: 1.6rem; }
+    .chapter-media { margin-bottom: 1.4rem; }
     .chapter-text, .chapter:nth-child(even) .chapter-text { padding: 0; text-align: left; }
     .chapter:nth-child(even) .chapter-desc { margin-left: 0; }
+    /* Mobil als kompakter Textblock setzen — die Desktop-Abstände
+       (line-height 1.8, große Margins) lassen die Zeilen sonst lose schweben.
+       max-width aufheben: die 34ch vom Desktop brechen auf dem Handy zu früh um. */
+    .chapter-kicker { margin-bottom: 0.55rem; }
+    .chapter-title { margin-bottom: 0.55rem; }
+    .chapter-desc {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      margin-bottom: 1.1rem;
+      max-width: none;
+    }
   }
 
   /* ══════════════════════════════════════
