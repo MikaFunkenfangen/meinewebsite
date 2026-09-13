@@ -1010,6 +1010,11 @@
       transition-duration: 0.01ms !important;
     }
   }
+  /* ══ Unsichtbare Details ══ */
+  ::selection { background: rgba(201,169,110,0.4); color: #0b0d12; }
+  .moon-orb:active .moon-disc svg { transform: scale(0.94); }
+  .cta-btn:active, .expand-btn:active, .section-nav-btn:active { transform: scale(0.97); }
+
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";
