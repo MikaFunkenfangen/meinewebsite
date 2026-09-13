@@ -532,7 +532,7 @@ window.addEventListener("unhandledrejection", function (e) {
   .chapter.visible .chapter-media > img:not(.book) { clip-path: inset(0 0 0 0); }
   .chapter .book {
     clip-path: inset(0 0 100% 0);
-    transition: transform 0.7s ease, filter 0.7s ease,
+    transition: transform 0.7s ease,
                 clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.1s;
   }
   .chapter.visible .book { clip-path: inset(0 0 0 0); }
@@ -677,12 +677,23 @@ window.addEventListener("unhandledrejection", function (e) {
   /* Bücher-Komposition: zwei Cover, leicht überlappend */
   /* Einzelnes, frei stehendes Cover — Schatten folgt der Buchkontur */
   .chapter-media--books { display: flex; justify-content: center; }
-  .chapter-media--books .book {
-    width: 72%;
-    filter: drop-shadow(0 25px 45px rgba(4,3,8,0.55));
-    transition: transform 0.7s ease, filter 0.7s ease;
+  /* Schatten als Gradient-Ellipse statt drop-shadow: iOS rastert drop-shadow
+     auf Elementen in transformierten Containern (Parallax!) als milchiges
+     Rechteck — Bug-Klasse 2 */
+  .chapter-media--books .book-halter { position: relative; width: 72%; }
+  .chapter-media--books .book-halter::before {
+    content: "";
+    position: absolute; left: 50%; bottom: -2.5%;
+    width: 88%; height: 13%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse closest-side, rgba(4,3,8,0.55) 0%, rgba(4,3,8,0.28) 55%, transparent 78%);
   }
-  .chapter:hover .book { transform: translateY(-6px) rotate(-1deg); filter: drop-shadow(0 32px 55px rgba(4,3,8,0.6)); }
+  .chapter-media--books .book {
+    width: 100%;
+    position: relative; z-index: 1;
+    transition: transform 0.7s ease;
+  }
+  .chapter:hover .book { transform: translateY(-6px) rotate(-1deg); }
 
   @media (max-width: 700px) {
     .portal { padding: 2rem 1.25rem 1rem; }
@@ -1240,7 +1251,9 @@ window.addEventListener("unhandledrejection", function (e) {
   <a class="chapter" href="buecher/" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
     <div class="chapter-media chapter-media--books">
-      <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+      <div class="book-halter">
+        <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
+      </div>
       <span class="bildzeile">50 Wörter für Liebe · Mankau Verlag</span>
     </div>
     <div class="chapter-text">
