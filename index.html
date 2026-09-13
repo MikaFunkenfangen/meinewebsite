@@ -1007,6 +1007,25 @@
   .short:active { transform: scale(0.98); }
   .short { transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
 
+  /* ══ STERNSCHNUPPE — einmal pro Besuch, leicht zu verpassen ══ */
+  .sternschnuppe {
+    position: fixed; top: 13vh; left: -8vw; z-index: 2;
+    width: 130px; height: 2px; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(245,241,232,0.95));
+    border-radius: 2px; opacity: 0;
+    /* box-shadow statt drop-shadow: iOS rendert drop-shadow auf
+       transformierten Elementen als milchiges Rechteck */
+    box-shadow: 0 0 8px rgba(245,241,232,0.7);
+    transform: rotate(14deg);
+  }
+  .sternschnuppe.los { animation: schnuppenFlug 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+  @keyframes schnuppenFlug {
+    0%   { opacity: 0; transform: translate(0, 0) rotate(14deg); }
+    10%  { opacity: 0.9; }
+    70%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translate(72vw, 20vh) rotate(14deg); }
+  }
+
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";
@@ -1656,5 +1675,21 @@ if (isMobile) {
 })();
 </script>
 
+<script>
+/* Sternschnuppe — einmal pro Besuch, ein paar Sekunden nach dem Laden */
+(function () {
+  try { if (sessionStorage.getItem('schnuppe')) return; } catch (e) {}
+  setTimeout(function () {
+    if (document.body.classList.contains('low-end')) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try { sessionStorage.setItem('schnuppe', '1'); } catch (e) {}
+    var el = document.createElement('div');
+    el.className = 'sternschnuppe';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('los'); });
+    el.addEventListener('animationend', function () { el.remove(); });
+  }, 4500);
+})();
+</script>
 </body>
 </html>
