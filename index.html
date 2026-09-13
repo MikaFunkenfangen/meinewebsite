@@ -553,59 +553,6 @@ window.addEventListener("unhandledrejection", function (e) {
     }
   }
 
-  /* Zwischenzitat — die Atempause im Kapitel-Rhythmus */
-  .zwischenzitat {
-    padding: clamp(3rem, 9vh, 7rem) 1.5rem;
-    text-align: center;
-    opacity: 0; transform: translateY(26px);
-    transition: opacity 1.1s ease, transform 1.1s ease;
-  }
-  .zwischenzitat.visible { opacity: 1; transform: translateY(0); }
-  .zwischenzitat p {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(1.7rem, 4vw, 3rem);
-    line-height: 1.35;
-    color: var(--cream);
-    max-width: 22ch;
-    margin: 0 auto 1.4rem;
-    text-wrap: balance;
-  }
-  .zwischenzitat em { font-style: italic; color: var(--gold); }
-  .zwischenzitat cite {
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-weight: 300;
-    font-size: 0.85rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--cream-dim);
-  }
-
-  /* Bildunterschrift — gesperrte Versalien mit Goldstrich, wie im Magazin */
-  .bildzeile {
-    display: block;
-    margin-top: 0.75rem;
-    font-family: var(--font-sans);
-    font-weight: 300;
-    font-size: 0.85rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: rgba(168,160,144,0.85);
-  }
-  .bildzeile::before {
-    content: "";
-    display: inline-block;
-    width: 1.4rem; height: 1px;
-    background: rgba(201,169,110,0.55);
-    vertical-align: middle;
-    margin-right: 0.7rem;
-  }
-  .chapter-media--books { flex-direction: column; align-items: center; }
-  .chapter-media--books .bildzeile { text-align: center; }
-  .chapter-media--books .bildzeile::before { display: none; }
-
   /* Marginalie — vertikal gestellter Kolumnentitel am Kapitelrand (wie im Magazin) */
   .chapter-marginalie {
     position: absolute;
@@ -1254,7 +1201,6 @@ window.addEventListener("unhandledrejection", function (e) {
       <div class="book-halter">
         <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
       </div>
-      <span class="bildzeile">50 Wörter für Liebe · Mankau Verlag</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Geschriebenes</span>
@@ -1267,7 +1213,6 @@ window.addEventListener("unhandledrejection", function (e) {
     <span class="chapter-marginalie" aria-hidden="true">Der Mensch dahinter</span>
     <div class="chapter-media">
       <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
-      <span class="bildzeile">Porträt zwischen Blüten</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Der Mensch dahinter</span>
@@ -1276,17 +1221,10 @@ window.addEventListener("unhandledrejection", function (e) {
       <span class="chapter-cta">Kennenlernen</span>
     </div>
   </a>
-  <div class="zwischenzitat" data-reveal>
-    <blockquote>
-      <p>„Weil Alltag uns die <em>Sterne</em> klaut."</p>
-      <cite>aus »50 Wörter für Liebe«</cite>
-    </blockquote>
-  </div>
   <a class="chapter" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Klang</span>
     <div class="chapter-media">
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
-      <span class="bildzeile">Blockflöte und Brokat</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Klang</span>
@@ -1299,7 +1237,6 @@ window.addEventListener("unhandledrejection", function (e) {
     <span class="chapter-marginalie" aria-hidden="true">Forschung</span>
     <div class="chapter-media">
       <img src="images/hexenwerk-lesen.webp" alt="Mika sitzt am Boden zwischen aufgeschlagenen Büchern und Notizen" loading="lazy" decoding="async">
-      <span class="bildzeile">Zwischen Quellen und Notizen</span>
     </div>
     <div class="chapter-text">
       <span class="chapter-kicker">Forschung</span>
