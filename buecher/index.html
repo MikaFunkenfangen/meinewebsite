@@ -61,7 +61,7 @@ window.addEventListener("unhandledrejection", function (e) {
     font-weight: 700; font-style: normal; font-display: swap;
   }
 
-  html { background: #231913; scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; overscroll-behavior-x: none; }
+  html { background: #14121a; scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; overscroll-behavior-x: none; }
 
   /* ══ Display-Font für große Überschriften — einheitlich CCSBjork ══ */
   .book-hero h1,
@@ -1046,6 +1046,17 @@ window.addEventListener("unhandledrejection", function (e) {
   .cta-btn:active, .expand-btn:active, .section-nav-btn:active { transform: scale(0.97); }
 
 
+
+  @media (max-width: 1024px) {
+    body::before {
+      content: "";
+      position: fixed; left: 0; right: 0; bottom: 0;
+      height: 9vh;
+      z-index: 50;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(9,10,14,0), rgba(9,10,14,0.45));
+    }
+  }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
