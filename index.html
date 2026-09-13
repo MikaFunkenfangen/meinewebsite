@@ -1072,21 +1072,6 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
-  /* Morgenwolken — schweben am Seitenende, aufs Dokument gemalt (nie fixed),
-     ohne Schatten-Filter (iOS-Rechteck-Falle), gedämpft für Lesbarkeit */
-  .wolken {
-    position: absolute;
-    bottom: -1%;
-    right: 0; /* beschnittene Bildkante liegt am Rand, daher unsichtbar */
-    width: min(115vw, 1450px);
-    opacity: 0.3;
-    pointer-events: none;
-    animation: wolkenSchweben 26s ease-in-out infinite alternate;
-  }
-  @keyframes wolkenSchweben {
-    from { transform: translate3d(0, 8px, 0); }
-    to   { transform: translate3d(-24px, -10px, 0); }
-  }
   /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
      kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
   .wolke-mitte {
@@ -1102,10 +1087,10 @@ window.addEventListener("unhandledrejection", function (e) {
     from { transform: scaleX(-1) translate3d(0, -8px, 0); }
     to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
   }
-  .low-end .wolken, .low-end .wolke-mitte { animation: none; }
+  .low-end .wolke-mitte { animation: none; }
   .low-end .wolke-mitte { transform: scaleX(-1); }
   @media (prefers-reduced-motion: reduce) {
-    .wolken, .wolke-mitte { animation: none; }
+    .wolke-mitte { animation: none; }
     .wolke-mitte { transform: scaleX(-1); }
   }
 
@@ -1136,7 +1121,6 @@ window.addEventListener("unhandledrejection", function (e) {
 <!-- Sky background -->
 <div class="sky-anker">
   <div class="sky-bg" id="skyBg"></div>
-  <img class="wolken" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <img class="wolke-mitte" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
