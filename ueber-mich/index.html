@@ -638,7 +638,9 @@ window.addEventListener("unhandledrejection", function (e) {
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";
-    position: fixed; inset: 0;
+    /* absolut (dokumenthoch) statt fixed: die bildschirmgeheftete Version
+       lief auf iOS als sichtbarer Schleier mit Kanten dem Scrollen nach */
+    position: absolute; inset: 0;
     z-index: 500;
     pointer-events: none;
     opacity: 0.05;
