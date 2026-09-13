@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#2a1c18">
+<meta name="theme-color" content="#0d0b14">
 <title>Über mich – Mika Maria Schöberl | Funkenfangen</title>
 <meta name="description" content="Mika Maria Schöberl verbindet Lehre, Kunst, Musikwissenschaft und Naturheilkunde – ein Porträt zwischen Poesie und Natur.">
 <meta property="og:type" content="website">
@@ -57,7 +57,7 @@ window.addEventListener("unhandledrejection", function (e) {
     font-weight: 700; font-style: normal; font-display: swap;
   }
 
-  html { background: #14121a; scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; overscroll-behavior-x: none; }
+  html { background: #0d0b14; scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; overscroll-behavior-x: none; }
 
   /* ══ Display-Font für große Überschriften ══ */
   .hero-name,
@@ -69,9 +69,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   body {
     position: relative;
-    /* Nachtverlauf auch auf dem body: wo die fixierte Himmels-Ebene nicht
-       hinreicht (Safari-Leisten-Bereich, Overscroll), liegt sonst Schwarz */
-    background: linear-gradient(180deg, #0a0c12 0%, #10121a 45%, #1a1520 72%, #2a1c18 100%);
+    background: #0b0a10;
     color: var(--cream);
     font-family: var(--font-sans);
     font-weight: 300;
@@ -95,32 +93,10 @@ window.addEventListener("unhandledrejection", function (e) {
     position: absolute; inset: 0;
     z-index: 0;
     background:
-      radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
-      radial-gradient(ellipse at 30% 90%, rgba(120,60,55,0.25) 0%, transparent 40%),
-      radial-gradient(ellipse at 70% 85%, rgba(100,55,70,0.2) 0%, transparent 35%),
-      linear-gradient(to top,
-        #2a1c18 0%,
-        #221820 12%,
-        #1a1520 28%,
-        #14131e 45%,
-        #10121a 65%,
-        #0c0e16 85%,
-        #0a0c12 100%
-      );
-    transition: filter 0.6s ease;
-  }
-
-  /* ══ DAWN LIGHT OVERLAY (scroll-driven) ══ */
-  .dawn-light {
-    position: absolute; inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    will-change: opacity;
-    background:
-      radial-gradient(ellipse at 50% 100%, rgba(220,150,90,0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 40% 80%, rgba(200,120,80,0.2) 0%, transparent 40%),
-      linear-gradient(to top, rgba(80,45,30,0.4) 0%, rgba(40,25,30,0.2) 30%, transparent 60%);
+      radial-gradient(ellipse 90% 42% at 68% 10%, rgba(140,155,205,0.10) 0%, transparent 62%),
+      radial-gradient(ellipse 85% 38% at 28% 52%, rgba(160,130,190,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 95% 34% at 55% 92%, rgba(201,169,110,0.07) 0%, transparent 65%),
+      linear-gradient(180deg, #0a0c12 0%, #10101e 30%, #120f1c 55%, #0e0c16 80%, #0b0a10 100%);
   }
 
   /* ══ MOON (large, pale, with rainbow halo — S-curve) ══ */
@@ -184,7 +160,6 @@ window.addEventListener("unhandledrejection", function (e) {
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     filter: drop-shadow(0 0 12px rgba(201,169,110,0.28));
-    transition: filter 0.6s ease;
     animation: moonDrift 11s ease-in-out infinite alternate;
   }
   .moon-disc svg { width: 100%; height: 100%; display: block; transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
@@ -622,41 +597,8 @@ window.addEventListener("unhandledrejection", function (e) {
     .timeline { padding-left: 1.5rem; }
   }
 
-  /* ══ ALPINE SKYLINE (fixed bottom, moon sinks behind) ══ */
-  .alpen-skyline {
-    position: fixed; bottom: -200px; left: 0; right: 0;
-    z-index: 2;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1.5s ease;
-  }
-  .alpen-skyline.visible { opacity: 1; }
-  .alpen-skyline img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    position: relative;
-    opacity: 0.35;
-  }
-  /* Opake, dunkle Kopie derselben Silhouette darunter — verdeckt den Mond
-     wirklich; die 35%-Ebene allein ließ ihn durchscheinen */
-  .alpen-skyline .alpen-occluder {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: auto;
-    opacity: 1;
-    filter: brightness(0.16) saturate(0.5);
-  }
-
-  @media (max-width: 768px) {
-    .alpen-skyline { bottom: -60px; }
-  }
-  @media (max-width: 480px) {
-    .alpen-skyline { bottom: -30px; }
-  }
-
   @media print {
-    .moon, .dawn-light { display: none; }
+    .moon { display: none; }
   }
 
   /* Cross-browser compatibility */
@@ -672,17 +614,6 @@ window.addEventListener("unhandledrejection", function (e) {
   .moon-orb:active .moon-disc svg { transform: scale(0.94); }
 
 
-
-  @media (max-width: 1024px) {
-    body::before {
-      content: "";
-      position: fixed; left: 0; right: 0; bottom: 0;
-      height: 9vh;
-      z-index: 50;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(9,10,14,0), rgba(9,10,14,0.45));
-    }
-  }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -707,9 +638,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <body>
 
 <div class="sky-anker">
-  <div class="sky-bg" id="skyBg">
-    <div class="dawn-light" id="dawnLight"></div>
-  </div>
+  <div class="sky-bg" id="skyBg"></div>
 </div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
@@ -910,10 +839,6 @@ window.addEventListener("unhandledrejection", function (e) {
   </footer>
 
   <!-- ══ ALPINE SKYLINE (bottom edge) ══ -->
-  <div class="alpen-skyline">
-    <img class="alpen-occluder" src="../images/alpen-skyline.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-    <img src="../images/alpen-skyline.webp" alt="Alpen-Skyline" loading="lazy" decoding="async">
-  </div>
 
 </div>
 
@@ -953,10 +878,8 @@ window.addEventListener("unhandledrejection", function (e) {
 
   /* ═══ DAWN LIGHT + MOON ARC SCROLL ═══ */
   var moon = document.getElementById('moon');
-  var dawn = document.getElementById('dawnLight');
   var skyBg = document.getElementById('skyBg');
   var daisy = document.querySelector('.quote-daisy');
-  var alpen = document.querySelector('.alpen-skyline');
   var docH = function(){ return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); };
 
   function onScroll(){
@@ -964,16 +887,6 @@ window.addEventListener("unhandledrejection", function (e) {
     var maxScroll = docH() - window.innerHeight;
     var pct = maxScroll > 0 ? Math.min(Math.max(scrollY, 0) / maxScroll, 1) : 0;
 
-    /* Dawn light intensifies as you scroll */
-    if(dawn){
-      dawn.style.opacity = Math.min(pct * 1.4, 1).toFixed(2);
-    }
-
-    /* Sky brightens progressively */
-    if(skyBg){
-      var brightness = 1 + pct * 0.7;
-      skyBg.style.filter = 'brightness(' + brightness.toFixed(2) + ') sepia(' + (pct * 0.12).toFixed(2) + ')';
-    }
 
 
     /* Moon S-curve across full screen: top-right → center-left → bottom-right */
@@ -999,10 +912,6 @@ window.addEventListener("unhandledrejection", function (e) {
       daisy.style.transform = 'rotate(' + rotation + 'deg)';
     }
 
-    /* Alps fade in only when almost at the bottom */
-    if(alpen){
-      alpen.classList.toggle('visible', pct > 0.9);
-    }
   }
 
   window.addEventListener('scroll', onScroll, {passive: true});
