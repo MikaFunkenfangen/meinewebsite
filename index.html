@@ -505,8 +505,38 @@
     transition: transform 0.7s ease, box-shadow 0.7s ease;
   }
   .chapter-text { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; padding-left: clamp(1.2rem, 3vw, 2.5rem); text-align: left; }
-  .chapter:nth-child(even) .chapter-media { grid-column: 6 / span 7; }
-  .chapter:nth-child(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
+  .chapter:nth-of-type(even) .chapter-media { grid-column: 6 / span 7; }
+  .chapter:nth-of-type(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
+  /* Zwischenzitat — die Atempause im Kapitel-Rhythmus */
+  .zwischenzitat {
+    padding: clamp(3rem, 9vh, 7rem) 1.5rem;
+    text-align: center;
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+  }
+  .zwischenzitat.visible { opacity: 1; transform: translateY(0); }
+  .zwischenzitat p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.7rem, 4vw, 3rem);
+    line-height: 1.35;
+    color: var(--cream);
+    max-width: 22ch;
+    margin: 0 auto 1.4rem;
+    text-wrap: balance;
+  }
+  .zwischenzitat em { font-style: italic; color: var(--gold); }
+  .zwischenzitat cite {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
   /* Bildunterschrift — gesperrte Versalien mit Goldstrich, wie im Magazin */
   .bildzeile {
     display: block;
@@ -545,7 +575,7 @@
     color: rgba(232,226,212,0.26);
     pointer-events: none;
   }
-  .chapter:nth-child(even) .chapter-marginalie {
+  .chapter:nth-of-type(even) .chapter-marginalie {
     right: auto; left: -1.4rem;
     transform: translateY(-50%) rotate(180deg);
   }
@@ -581,7 +611,7 @@
     margin-bottom: 1.4rem;
     max-width: 34ch;
   }
-  .chapter:nth-child(even) .chapter-desc { margin-left: auto; }
+  .chapter:nth-of-type(even) .chapter-desc { margin-left: auto; }
   .chapter-cta {
     display: inline-block;
     font-family: var(--font-sans);
@@ -613,8 +643,8 @@
     .kapitel { padding: 2rem 1.5rem 0; gap: 3.5rem; }
     .chapter { display: block; }
     .chapter-media { margin-bottom: 1.4rem; }
-    .chapter-text, .chapter:nth-child(even) .chapter-text { padding: 0; text-align: left; }
-    .chapter:nth-child(even) .chapter-desc { margin-left: 0; }
+    .chapter-text, .chapter:nth-of-type(even) .chapter-text { padding: 0; text-align: left; }
+    .chapter:nth-of-type(even) .chapter-desc { margin-left: 0; }
     /* Mobil als kompakter Textblock setzen — die Desktop-Abstände
        (line-height 1.8, große Margins) lassen die Zeilen sonst lose schweben.
        max-width aufheben: die 34ch vom Desktop brechen auf dem Handy zu früh um. */
@@ -1167,6 +1197,12 @@
       <span class="chapter-cta">Kennenlernen</span>
     </div>
   </a>
+  <div class="zwischenzitat" data-reveal>
+    <blockquote>
+      <p>„Weil Alltag uns die <em>Sterne</em> klaut."</p>
+      <cite>aus »50 Wörter für Liebe«</cite>
+    </blockquote>
+  </div>
   <a class="chapter" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Klang</span>
     <div class="chapter-media">
