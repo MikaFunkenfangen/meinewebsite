@@ -303,12 +303,13 @@
   /* Buntglas-Titel wie auf summerchild.net */
   .portal-brand {
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 7.5vw, 5.4rem);
+    /* Zweizeilig (Vornamen / Nachname) — erlaubt deutlich größeren Grad
+       als der einzeilige volle Name */
+    font-size: clamp(3rem, 11.5vw, 7rem);
     font-weight: 300;
     letter-spacing: 0.14em;
-    line-height: 1.15;
+    line-height: 1.12;
     margin: 0 auto 1.4rem;
-    text-wrap: balance;
     position: relative;
     display: inline-block;
     background-image: linear-gradient(110deg,
@@ -326,6 +327,7 @@
       titleReveal 2.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards,
       titleLight 22s ease-in-out 3.1s infinite alternate;
   }
+  .portal-brand .brand-zeile { display: block; }
   .portal-brand::before {
     content: "";
     position: absolute;
@@ -1013,7 +1015,10 @@
 
 <!-- ═══ PORTAL — Überblick & Auswahl ═══ -->
 <section class="portal" aria-label="Überblick über Funkenfangen">
-  <h1 class="portal-brand">Mika Maria Schöberl</h1>
+  <h1 class="portal-brand">
+    <span class="brand-zeile">Mika Maria</span>
+    <span class="brand-zeile">Schöberl</span>
+  </h1>
   <p class="portal-roles" data-reveal>Buchautor*in · Kolumnist*in · Künstler*in · Wissenschaftler*in</p>
   <nav class="moon-menu" aria-label="Bereiche">
     <a class="moon-orb" href="buecher/" data-reveal style="--d:0s">

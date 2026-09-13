@@ -234,10 +234,29 @@
 
   .hero-name {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 400; letter-spacing: 0.15em;
-    color: var(--cream); margin-bottom: 0.3rem;
+    /* Zweizeilig (Vornamen / Nachname), Buntglas-Verlauf wie die Startseite */
+    font-size: clamp(2.6rem, 9vw, 4.6rem);
+    font-weight: 400; letter-spacing: 0.14em;
+    line-height: 1.12;
+    margin-bottom: 0.5rem;
+    background-image: linear-gradient(110deg,
+      #e6b258 0%, #d4a574 18%, #d84e5a 36%, #f5f1e8 50%,
+      #489480 64%, #3860a8 82%, #8a58a4 100%);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: titleLight 22s ease-in-out 1s infinite alternate;
   }
+  .hero-name .name-zeile { display: block; }
+  @keyframes titleLight {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 50% 50%; }
+  }
+  .low-end .hero-name { animation: none; }
 
   .hero-born {
     font-family: var(--font-sans); font-size: 0.95rem; font-weight: 300;
@@ -675,7 +694,10 @@
     <div class="hero-bild">
       <img src="../images/portrait-kerze.webp" alt="Mika Maria Schöberl mit einer Kerze in einem Maisfeld bei Dämmerung" loading="lazy" decoding="async">
     </div>
-    <h1 class="hero-name">Mika Maria Schöberl</h1>
+    <h1 class="hero-name">
+      <span class="name-zeile">Mika Maria</span>
+      <span class="name-zeile">Schöberl</span>
+    </h1>
     <p class="hero-born">*1989</p>
   </section>
 
