@@ -1063,6 +1063,24 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
+  /* Morgenwolken — schweben am Seitenende, aufs Dokument gemalt (nie fixed),
+     ohne Schatten-Filter (iOS-Rechteck-Falle), gedämpft für Lesbarkeit */
+  .wolken {
+    position: absolute;
+    bottom: -1%;
+    right: 0; /* beschnittene Bildkante liegt am Rand, daher unsichtbar */
+    width: min(115vw, 1450px);
+    opacity: 0.3;
+    pointer-events: none;
+    animation: wolkenSchweben 26s ease-in-out infinite alternate;
+  }
+  @keyframes wolkenSchweben {
+    from { transform: translate3d(0, 8px, 0); }
+    to   { transform: translate3d(-24px, -10px, 0); }
+  }
+  .low-end .wolken { animation: none; }
+  @media (prefers-reduced-motion: reduce) { .wolken { animation: none; } }
+
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
   .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
@@ -1089,6 +1107,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <div class="sky-anker">
   <div class="sky-bg"></div>
+  <img class="wolken" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Floating dust particles -->
