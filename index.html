@@ -1085,6 +1085,21 @@ window.addEventListener("unhandledrejection", function (e) {
     from { transform: translate3d(0, 6px, 0); }
     to   { transform: translate3d(16px, -9px, 0); }
   }
+  /* Startseite: Wolken an Sektionen verankert — rechte Wolke am
+     Bücher-&-Kolumnen-Kapitel, gespiegelte Wolke UNTER der Shorts-Galerie */
+  .chapter .wolke-rechts {
+    top: -8%;
+    right: calc(50% - 50vw);
+    z-index: -1;
+  }
+  .shorts { position: relative; }
+  .shorts .wolke-mitte {
+    top: auto;
+    bottom: -30%;
+    left: calc(50% - 50vw);
+    z-index: -1;
+  }
+
   /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
      kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
   .wolke-mitte {
@@ -1134,8 +1149,6 @@ window.addEventListener("unhandledrejection", function (e) {
 <!-- Sky background -->
 <div class="sky-anker">
   <div class="sky-bg" id="skyBg"></div>
-  <img class="wolke-mitte" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  <img class="wolke-rechts" style="top: 26%;" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Guiding Star -->
@@ -1193,6 +1206,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
+    <img class="wolke-rechts" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media chapter-media--books">
       <div class="book-halter">
         <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
@@ -1250,6 +1264,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ PORTRAIT ═══ -->
 <section class="shorts" aria-label="Kurzvideos">
+  <img class="wolke-mitte" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <p class="shorts-lead" data-reveal>Tippen zum Abspielen</p>
   <div class="shorts-gallery shorts--untouched">
   <div class="shorts-rail" tabindex="0" aria-label="Kurzvideos">
