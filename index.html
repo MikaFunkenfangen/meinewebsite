@@ -104,6 +104,11 @@ window.addEventListener("unhandledrejection", function (e) {
     /* 100lvh statt inset:0 — iOS bindet fixed sonst an den kleinen Viewport
        und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
     position: sticky; top: 0;
+    /* Randzonen-Deckung: Safari zeigt hinter Status- und Adressleiste
+       Bereiche außerhalb der Sticky-Kanten. Box-Shadows malen dort den
+       passenden Himmelston — und erzeugen (anders als Pseudo-Element-
+       Schürzen) nie scrollbaren Leerraum */
+    box-shadow: 0 -35vh 0 0 #0a0c12, 0 35vh 0 0 #2a1c18;
     height: 100vh; height: 100lvh;
     z-index: 0;
     transform: translateZ(0);
