@@ -643,8 +643,27 @@ window.addEventListener("unhandledrejection", function (e) {
     from { transform: translate3d(0, 8px, 0); }
     to   { transform: translate3d(-24px, -10px, 0); }
   }
-  .low-end .wolken { animation: none; }
-  @media (prefers-reduced-motion: reduce) { .wolken { animation: none; } }
+  /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
+     kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
+  .wolke-mitte {
+    position: absolute;
+    top: 55%;
+    left: 0;
+    width: min(85vw, 900px);
+    opacity: 0.18;
+    pointer-events: none;
+    animation: wolkeMitteSchweben 34s ease-in-out infinite alternate;
+  }
+  @keyframes wolkeMitteSchweben {
+    from { transform: scaleX(-1) translate3d(0, -8px, 0); }
+    to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
+  }
+  .low-end .wolken, .low-end .wolke-mitte { animation: none; }
+  .low-end .wolke-mitte { transform: scaleX(-1); }
+  @media (prefers-reduced-motion: reduce) {
+    .wolken, .wolke-mitte { animation: none; }
+    .wolke-mitte { transform: scaleX(-1); }
+  }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -673,6 +692,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <div class="sky-anker">
   <div class="sky-bg" id="skyBg"></div>
   <img class="wolken" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <img class="wolke-mitte" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
