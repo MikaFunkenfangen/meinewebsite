@@ -93,25 +93,17 @@ window.addEventListener("unhandledrejection", function (e) {
   /* ══════════════════════════════════════
      SKY BACKGROUND — scroll-driven dusk→night→dawn
      ══════════════════════════════════════ */
-  /* Anker: dokumenthohe Spur, in der der Himmel sticky klebt.
-     position:sticky wird von iOS in der Scroll-Engine mitgeführt und kann
-     — anders als fixed — beim Ein-/Ausfahren der Leiste nicht nachziehen */
+  /* Anker: dokumenthohe Spur für die Himmelsebenen */
   .sky-anker {
     position: absolute; inset: 0;
     z-index: 0; pointer-events: none;
   }
   .sky-bg {
-    /* 100lvh statt inset:0 — iOS bindet fixed sonst an den kleinen Viewport
-       und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
-    position: sticky; top: 0;
-    /* Randzonen-Deckung: Safari zeigt hinter Status- und Adressleiste
-       Bereiche außerhalb der Sticky-Kanten. Box-Shadows malen dort den
-       passenden Himmelston — und erzeugen (anders als Pseudo-Element-
-       Schürzen) nie scrollbaren Leerraum */
-    box-shadow: 0 -35vh 0 0 #0a0c12, 0 35vh 0 0 #2a1c18;
-    height: 100vh; height: 100lvh;
+    /* Auf das DOKUMENT gemalt statt an den Viewport geheftet:
+       scrollt mit dem Inhalt mit — wo Inhalt rendert, ist immer
+       Himmel darunter (iOS-Leisten-Zonen können nie durchscheinen) */
+    position: absolute; inset: 0;
     z-index: 0;
-    transform: translateZ(0);
     background:
       radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
       radial-gradient(ellipse at 30% 90%, rgba(120,60,55,0.25) 0%, transparent 40%),
@@ -1109,20 +1101,6 @@ window.addEventListener("unhandledrejection", function (e) {
   }
 
 
-
-  /* Mobile Boden-Vignette: Safari malt im Dunkelmodus ein eigenes dunkles
-     Backdrop hinter die untere Leiste — nicht umfärbbar. Die Vignette dunkelt
-     den untersten Viewport-Rand passend ab, sodass die Zone nahtlos im Bild
-     verschwindet statt als Kante daraufzusitzen. */
-  @media (max-width: 1024px) {
-    .sky-bg::after {
-      content: "";
-      position: absolute; left: 0; right: 0; bottom: 0;
-      height: 16vh;
-      background: linear-gradient(to bottom, transparent, rgba(8,8,12,0.55) 70%, rgba(5,6,9,0.92));
-      pointer-events: none;
-    }
-  }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
