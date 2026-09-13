@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0c12">
 <title>Bücher & Kolumnen – Mika Maria Schöberl | Funkenfangen</title>
 <meta name="description" content="50 Wörter für Liebe, Grüne Seelen und die Kolumnen Seelenschau (Naturarzt) und Yoga Aktuell – Bücher und Texte von Mika Maria Schöberl.">
 <meta property="og:type" content="website">
@@ -60,7 +61,7 @@ window.addEventListener("unhandledrejection", function (e) {
     font-weight: 700; font-style: normal; font-display: swap;
   }
 
-  html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
+  html { background: #1a1520; scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; }
 
   /* ══ Display-Font für große Überschriften — einheitlich CCSBjork ══ */
   .book-hero h1,
@@ -80,7 +81,10 @@ window.addEventListener("unhandledrejection", function (e) {
   }
 
   body {
-    background: #0c0e12;
+    /* Nachtverlauf auch auf dem body: wo die fixierte Himmels-Ebene nicht
+       hinreicht (Safari-Leisten-Bereich, Overscroll), liegt sonst Schwarz */
+    background: linear-gradient(180deg, #0a0c12 0%, #10121a 45%, #1a1520 72%, #2a1c18 100%);
+    background-color: #0c0e12;
     color: var(--cream);
     font-family: var(--font-sans);
     font-weight: 300;
