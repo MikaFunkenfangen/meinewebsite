@@ -426,6 +426,16 @@
   .desc-section .expandable {
     text-align: center;
   }
+  /* Wie eine Buchseite gesetzt: linksbündig mit Initiale (Drop Cap) */
+  .desc-section--buchseite p { text-align: left; hyphens: auto; }
+  .desc-section--buchseite p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.3em;
+    line-height: 0.78;
+    float: left;
+    padding: 0.1em 0.14em 0 0;
+    color: var(--gold);
+  }
 
   /* ══ PHOTO GALLERY ══ */
   .photo-section {
@@ -1158,7 +1168,7 @@
 
 
   <!-- ══ BESCHREIBUNG ══ -->
-  <section class="desc-section" data-reveal>
+  <section class="desc-section desc-section--buchseite" data-reveal>
     <h2>Über das Buch</h2>
     <p>Liebe ist mehr als nur ein Gefühl – sie ist eine Lebenshaltung, ein fortwährendes Abenteuer, ein erhabener Pfad. Sie besitzt die wundervolle Kraft, Menschen zu formen, zu heilen und zu vereinen.</p>
     <p>In Mika Maria Schöberls Werk entfaltet sich die Liebe in all ihren Ausdrucksformen – unerwartet, anders, zart. Jeder der 50 sorgfältig ausgewählten Begriffe öffnet ein Tor zu neuen Perspektiven und Erfahrungen: niemals als Zufall, immer als zauberhafte Möglichkeit.</p>
