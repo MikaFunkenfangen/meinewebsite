@@ -644,6 +644,13 @@
   ::selection { background: rgba(201,169,110,0.4); color: #0b0d12; }
   .moon-orb:active .moon-disc svg { transform: scale(0.94); }
 
+  /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
+  @view-transition { navigation: auto; }
+  .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";

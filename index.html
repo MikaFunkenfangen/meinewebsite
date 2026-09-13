@@ -1129,6 +1129,13 @@
     100% { opacity: 0; transform: translate(72vw, 20vh) rotate(14deg); }
   }
 
+  /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
+  @view-transition { navigation: auto; }
+  .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";

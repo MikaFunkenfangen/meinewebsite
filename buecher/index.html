@@ -1025,6 +1025,13 @@
   .moon-orb:active .moon-disc svg { transform: scale(0.94); }
   .cta-btn:active, .expand-btn:active, .section-nav-btn:active { transform: scale(0.97); }
 
+  /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
+  @view-transition { navigation: auto; }
+  .moon-menu--top, nav.moon-menu:not(.moon-menu--bottom) { view-transition-name: mondmenue; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+
   /* ══ FILMKORN — nimmt der Seite die digitale Glätte ══ */
   body::after {
     content: "";
