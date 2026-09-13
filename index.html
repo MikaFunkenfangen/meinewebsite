@@ -507,6 +507,18 @@
   .chapter-text { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; padding-left: clamp(1.2rem, 3vw, 2.5rem); text-align: left; }
   .chapter:nth-of-type(even) .chapter-media { grid-column: 6 / span 7; }
   .chapter:nth-of-type(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
+  /* Gebrochene Mittelachse — der Titel ragt kontrolliert ins Bild (nur Desktop) */
+  @media (min-width: 701px) {
+    .chapter-title {
+      margin-left: calc(-1 * clamp(1.5rem, 5vw, 5rem));
+      text-shadow: 0 2px 30px rgba(4,3,8,0.75);
+    }
+    .chapter:nth-of-type(even) .chapter-title {
+      margin-left: 0;
+      margin-right: calc(-1 * clamp(1.5rem, 5vw, 5rem));
+    }
+  }
+
   /* Zwischenzitat — die Atempause im Kapitel-Rhythmus */
   .zwischenzitat {
     padding: clamp(3rem, 9vh, 7rem) 1.5rem;
