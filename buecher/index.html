@@ -17,6 +17,14 @@
 <meta property="og:image:alt" content="Buchcover: 50 Wörter für Liebe – Inspirationen, die das Herz berühren">
 <meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Übersprungene View Transitions werfen in Chromium einen unbehandelten
+   AbortError ("Transition was skipped") — benigne, gezielt schlucken.
+   Früh im head registriert, bevor die Transition abgebrochen werden kann. */
+window.addEventListener("unhandledrejection", function (e) {
+  if (e.reason && e.reason.name === "AbortError" && /skipped/i.test(e.reason.message || "")) e.preventDefault();
+});
+</script>
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 

@@ -17,6 +17,14 @@
 <meta property="og:image:alt" content="Buchcover: 50 Wörter für Liebe – Inspirationen, die das Herz berühren">
 <meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Übersprungene View Transitions werfen in Chromium einen unbehandelten
+   AbortError ("Transition was skipped") — benigne, gezielt schlucken.
+   Früh im head registriert, bevor die Transition abgebrochen werden kann. */
+window.addEventListener("unhandledrejection", function (e) {
+  if (e.reason && e.reason.name === "AbortError" && /skipped/i.test(e.reason.message || "")) e.preventDefault();
+});
+</script>
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -613,12 +621,22 @@
     pointer-events: none;
     transition: opacity 1.5s ease;
   }
-  .alpen-skyline.visible { opacity: 0.35; }
+  .alpen-skyline.visible { opacity: 1; }
   .alpen-skyline img {
     display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
+    position: relative;
+    opacity: 0.35;
+  }
+  /* Opake, dunkle Kopie derselben Silhouette darunter — verdeckt den Mond
+     wirklich; die 35%-Ebene allein ließ ihn durchscheinen */
+  .alpen-skyline .alpen-occluder {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: auto;
+    opacity: 1;
+    filter: brightness(0.16) saturate(0.5);
   }
 
   @media (max-width: 768px) {
@@ -899,6 +917,7 @@
 
   <!-- ══ ALPINE SKYLINE (bottom edge) ══ -->
   <div class="alpen-skyline">
+    <img class="alpen-occluder" src="../images/alpen-skyline.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img src="../images/alpen-skyline.webp" alt="Alpen-Skyline" loading="lazy" decoding="async">
   </div>
 
