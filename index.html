@@ -920,6 +920,19 @@
   .alps-footer .footer-brand {
     text-shadow: 0 0 40px rgba(201,169,110,0.4);
   }
+  /* Echte Mondphase von heute — Mikro-Detail im Footer */
+  .footer-mondphase {
+    margin-top: 0.9rem;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    opacity: 0.8;
+  }
+  .footer-mondphase:empty { display: none; }
+
   /* Schluss-Satz — die Punchline nach dem Monduntergang */
   .footer-schlusssatz {
     font-family: var(--font-serif);
@@ -1394,6 +1407,7 @@
   <div>
     <div class="footer-brand">Funkenfangen</div>
     <div class="footer-slogan">A Softer Kind of Knowing</div>
+    <div class="footer-mondphase" id="mondphase"></div>
   </div>
   <p class="footer-copy">© 2026 Mika Maria Schöberl · München<br><a href="#legal" onclick="showTab(document.querySelector('.legal-tab'),'impressum')">Impressum</a> &nbsp;·&nbsp; <a href="#legal" onclick="showTab(document.querySelectorAll('.legal-tab')[1],'datenschutz')">Datenschutz</a></p>
 </footer>
@@ -1815,6 +1829,26 @@ if (isMobile) {
 </script>
 
 <script>
+/* Echte Mondphase von heute (Neumond-Referenz 2000-01-06 18:14 UTC,
+   synodischer Monat 29,53 Tage) — kein API nötig */
+(function () {
+  var el = document.getElementById('mondphase');
+  if (!el) return;
+  var syn = 29.53058867;
+  var tage = (Date.now() - Date.UTC(2000, 0, 6, 18, 14)) / 86400000;
+  var alter = ((tage % syn) + syn) % syn;
+  var name;
+  if (alter < 1.0 || alter >= 28.53) name = 'Neumond';
+  else if (alter < 6.4)  name = 'zunehmende Sichel';
+  else if (alter < 8.4)  name = 'zunehmender Halbmond';
+  else if (alter < 13.8) name = 'zunehmender Mond';
+  else if (alter < 15.8) name = 'Vollmond';
+  else if (alter < 21.1) name = 'abnehmender Mond';
+  else if (alter < 23.1) name = 'abnehmender Halbmond';
+  else name = 'abnehmende Sichel';
+  el.textContent = 'Heute über München: ' + name;
+})();
+
 /* Sternschnuppe — einmal pro Besuch, ein paar Sekunden nach dem Laden */
 (function () {
   try { if (sessionStorage.getItem('schnuppe')) return; } catch (e) {}
