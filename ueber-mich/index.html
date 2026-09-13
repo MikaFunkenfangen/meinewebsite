@@ -68,6 +68,7 @@ window.addEventListener("unhandledrejection", function (e) {
   }
 
   body {
+    position: relative;
     /* Nachtverlauf auch auf dem body: wo die fixierte Himmels-Ebene nicht
        hinreicht (Safari-Leisten-Bereich, Overscroll), liegt sonst Schwarz */
     background: linear-gradient(180deg, #0a0c12 0%, #10121a 45%, #1a1520 72%, #2a1c18 100%);
@@ -83,10 +84,17 @@ window.addEventListener("unhandledrejection", function (e) {
   }
 
   /* ══ EARLY MORNING SKY — Morgenröte ══ */
+  /* Anker: dokumenthohe Spur, in der der Himmel sticky klebt.
+     position:sticky wird von iOS in der Scroll-Engine mitgeführt und kann
+     — anders als fixed — beim Ein-/Ausfahren der Leiste nicht nachziehen */
+  .sky-anker {
+    position: absolute; inset: 0;
+    z-index: 0; pointer-events: none;
+  }
   .sky-bg {
     /* 100lvh statt inset:0 — iOS bindet fixed sonst an den kleinen Viewport
        und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
-    position: fixed; top: 0; left: 0; right: 0;
+    position: sticky; top: 0;
     height: 100vh; height: 100lvh;
     min-height: calc(100lvh + env(safe-area-inset-bottom, 0px));
     z-index: 0;
@@ -109,9 +117,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   /* ══ DAWN LIGHT OVERLAY (scroll-driven) ══ */
   .dawn-light {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: 100vh; height: 100lvh;
-    min-height: calc(100lvh + env(safe-area-inset-bottom, 0px));
+    position: absolute; inset: 0;
     z-index: 0;
     pointer-events: none;
     opacity: 0;
@@ -712,8 +718,11 @@ window.addEventListener("unhandledrejection", function (e) {
 </head>
 <body>
 
-<div class="sky-bg" id="skyBg"></div>
-<div class="dawn-light" id="dawnLight"></div>
+<div class="sky-anker">
+  <div class="sky-bg" id="skyBg">
+    <div class="dawn-light" id="dawnLight"></div>
+  </div>
+</div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
 <div class="moon" id="moon" style="top:32vh;right:-5vw;">
