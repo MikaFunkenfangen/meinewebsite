@@ -507,6 +507,26 @@
   .chapter-text { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; padding-left: clamp(1.2rem, 3vw, 2.5rem); text-align: left; }
   .chapter:nth-child(even) .chapter-media { grid-column: 6 / span 7; }
   .chapter:nth-child(even) .chapter-text { grid-column: 1 / span 5; padding-left: 0; padding-right: clamp(1.2rem, 3vw, 2.5rem); text-align: right; }
+  /* Marginalie — vertikal gestellter Kolumnentitel am Kapitelrand (wie im Magazin) */
+  .chapter-marginalie {
+    position: absolute;
+    top: 50%; right: -1.4rem;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgba(232,226,212,0.26);
+    pointer-events: none;
+  }
+  .chapter:nth-child(even) .chapter-marginalie {
+    right: auto; left: -1.4rem;
+    transform: translateY(-50%) rotate(180deg);
+  }
+  @media (max-width: 1100px) { .chapter-marginalie { display: none; } }
   .chapter-kicker {
     display: block;
     font-family: var(--font-sans);
@@ -1099,6 +1119,7 @@
 <!-- ═══ KAPITEL — Editoriale Vorschauen ═══ -->
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
+    <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
     <div class="chapter-media chapter-media--books">
       <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
     </div>
@@ -1110,6 +1131,7 @@
     </div>
   </a>
   <a class="chapter" href="ueber-mich/" data-reveal>
+    <span class="chapter-marginalie" aria-hidden="true">Der Mensch dahinter</span>
     <div class="chapter-media">
       <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
     </div>
@@ -1121,6 +1143,7 @@
     </div>
   </a>
   <a class="chapter" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal>
+    <span class="chapter-marginalie" aria-hidden="true">Klang</span>
     <div class="chapter-media">
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
     </div>
@@ -1132,6 +1155,7 @@
     </div>
   </a>
   <a class="chapter" href="https://mikaschoeberl.com" target="_blank" rel="noopener" data-reveal>
+    <span class="chapter-marginalie" aria-hidden="true">Forschung</span>
     <div class="chapter-media">
       <img src="images/hexenwerk-lesen.webp" alt="Mika sitzt am Boden zwischen aufgeschlagenen Büchern und Notizen" loading="lazy" decoding="async">
     </div>
