@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0c12">
+<meta name="theme-color" content="#2a1c18">
 <title>Über mich – Mika Maria Schöberl | Funkenfangen</title>
 <meta name="description" content="Mika Maria Schöberl verbindet Lehre, Kunst, Musikwissenschaft und Naturheilkunde – ein Porträt zwischen Poesie und Natur.">
 <meta property="og:type" content="website">
@@ -88,6 +88,7 @@ window.addEventListener("unhandledrejection", function (e) {
        und beim Einfahren der Safari-Leiste bleibt unten ein schwarzer Streifen */
     position: fixed; top: 0; left: 0; right: 0;
     height: 100vh; height: 100lvh;
+    min-height: calc(100lvh + env(safe-area-inset-bottom, 0px));
     z-index: 0;
     background:
       radial-gradient(ellipse at 50% 100%, rgba(140,80,50,0.35) 0%, transparent 50%),
@@ -109,6 +110,7 @@ window.addEventListener("unhandledrejection", function (e) {
   .dawn-light {
     position: fixed; top: 0; left: 0; right: 0;
     height: 100vh; height: 100lvh;
+    min-height: calc(100lvh + env(safe-area-inset-bottom, 0px));
     z-index: 0;
     pointer-events: none;
     opacity: 0;
