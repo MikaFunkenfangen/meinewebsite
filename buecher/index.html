@@ -1076,6 +1076,15 @@ window.addEventListener("unhandledrejection", function (e) {
     from { transform: translate3d(0, 6px, 0); }
     to   { transform: translate3d(16px, -9px, 0); }
   }
+  /* Auf der Bücherseite klebt die rechte Wolke am Gedicht-Abschnitt —
+     so sitzt sie auf jeder Bildschirmgröße exakt hinter den Versen */
+  .poem-section { position: relative; }
+  .poem-section .wolke-rechts {
+    top: -14%;
+    right: calc(50% - 50vw);
+    z-index: -1;
+  }
+
   /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
      kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
   .wolke-mitte {
@@ -1125,7 +1134,6 @@ window.addEventListener("unhandledrejection", function (e) {
 <div class="sky-anker">
   <div class="sky-bg"></div>
   <img class="wolke-mitte" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  <img class="wolke-rechts" style="top: 22%;" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Floating dust particles -->
@@ -1217,6 +1225,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ GEDICHT 1 — "Ich kann nicht anders" ══ -->
   <section class="poem-section">
+    <img class="wolke-rechts" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <p class="poem-title" data-reveal>Aus dem Buch</p>
     <div class="poem-block expandable" data-reveal>
       <p class="poem-verse">Ich kann nicht anders.</p>
