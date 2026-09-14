@@ -543,6 +543,11 @@ window.addEventListener("unhandledrejection", function (e) {
     background: rgba(201,169,110,0.3);
     border-radius: 2px;
   }
+  /* Zentriert die Reihe, wenn sie in den Bildschirm passt; sobald sie
+     überläuft, greifen die Auto-Margins nicht mehr und es scrollt normal
+     (justify-content:center würde beim Überlauf links abschneiden) */
+  .gallery-item:first-child { margin-left: auto; }
+  .gallery-item:last-child { margin-right: auto; }
   .gallery-item {
     flex: 0 0 auto;
     scroll-snap-align: center;
