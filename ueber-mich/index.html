@@ -413,16 +413,9 @@ window.addEventListener("unhandledrejection", function (e) {
 
   .quote-daisy {
     display: block; margin: 0 auto 2.5rem;
-    width: 90px; height: 90px;
-    opacity: 0.6;
-    animation: daisySway 6s ease-in-out infinite;
-    transition: transform 0.1s linear;
+    width: 110px; height: auto;
+    opacity: 0.9;
     will-change: transform;
-  }
-
-  @keyframes daisySway {
-    0%, 100% { transform: rotate(-3deg) scale(1); }
-    50% { transform: rotate(3deg) scale(1.05); }
   }
 
   .quote-line {
@@ -628,40 +621,16 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
-  /* Rechte Wolke: Originalausrichtung, Schnittkante am RECHTEN Rand unsichtbar */
-  .wolke-rechts {
+  /* ══ HIMMELSDEKO — illustrierte Wolken, Flieger, Bücher; die sanfte
+     Scroll-Choreografie liegt in js/himmelsdeko.js (data-dx/dy/bob/schwenk).
+     z-index -1: hinter dem Text der Sektion, aber VOR dem Wandermond (z1),
+     sodass er hinter den Wolken hindurchzieht. ══ */
+  .deko {
     position: absolute;
-    right: 0;
-    width: min(75vw, 820px);
-    opacity: 0.16;
     pointer-events: none;
-    animation: wolkeRechtsSchweben 30s ease-in-out infinite alternate;
+    z-index: -1;
   }
-  @keyframes wolkeRechtsSchweben {
-    from { transform: translate3d(0, 6px, 0); }
-    to   { transform: translate3d(16px, -9px, 0); }
-  }
-  /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
-     kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
-  .wolke-mitte {
-    position: absolute;
-    top: 55%;
-    left: 0;
-    width: min(85vw, 900px);
-    opacity: 0.18;
-    pointer-events: none;
-    animation: wolkeMitteSchweben 34s ease-in-out infinite alternate;
-  }
-  @keyframes wolkeMitteSchweben {
-    from { transform: scaleX(-1) translate3d(0, -8px, 0); }
-    to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
-  }
-  .low-end .wolke-mitte, .low-end .wolke-rechts { animation: none; }
-  .low-end .wolke-mitte { transform: scaleX(-1); }
-  @media (prefers-reduced-motion: reduce) {
-    .wolke-mitte, .wolke-rechts { animation: none; }
-    .wolke-mitte { transform: scaleX(-1); }
-  }
+  .about-block { position: relative; }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -689,8 +658,6 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <div class="sky-anker">
   <div class="sky-bg" id="skyBg"></div>
-  <img class="wolke-mitte" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  <img class="wolke-rechts" style="top: 30%;" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
 
 <!-- Moon (pale blue — arcs from top-right to bottom-right) -->
@@ -766,20 +733,7 @@ window.addEventListener("unhandledrejection", function (e) {
   <!-- ══ QUOTE — Gänseblümchen (cinematic) ══ -->
   <section class="quote-stage" data-reveal>
 
-    <!-- Daisy SVG -->
-    <svg class="quote-daisy" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g opacity="0.7">
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(0 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(45 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(90 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(135 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(180 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(225 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(270 50 50)"/>
-        <ellipse cx="50" cy="30" rx="6" ry="16" fill="#e8e2d4" transform="rotate(315 50 50)"/>
-        <circle cx="50" cy="50" r="8" fill="#c9a96e"/>
-      </g>
-    </svg>
+    <img class="quote-daisy" src="../images/deko-bluete.webp" alt="" aria-hidden="true" decoding="async">
 
     <span class="quote-crack"></span>
 
@@ -795,6 +749,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ URSPRUNG ══ -->
   <section class="about-block" data-reveal>
+    <img class="deko" data-dx="8" data-bob="0.6" style="top:-10%; left:-4vw; width:clamp(150px,26vw,340px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="ursprung-open">
       <div class="section-label">Ursprung</div>
       <p class="about-p">
@@ -820,6 +775,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ WERDEGANG ══ -->
   <section class="about-block" data-reveal>
+    <img class="deko" data-dx="-5" data-bob="0.8" style="top:2%; right:-3vw; width:clamp(70px,11vw,150px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="card">
       <div class="section-label">Ausbildung & Studium</div>
       <div class="timeline">
@@ -847,6 +803,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ VERÖFFENTLICHUNGEN — Mond-Link zu Bücher & Kolumnen ══ -->
   <section class="about-block veroeff" data-reveal>
+    <img class="deko" data-dx="-10" data-dy="5" style="top:-14%; right:8vw; width:clamp(95px,14vw,190px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="section-label">Veröffentlichungen</div>
     <a href="../buecher/" class="veroeff-mond">
       <span class="veroeff-cover" aria-hidden="true">
@@ -960,8 +917,9 @@ window.addEventListener("unhandledrejection", function (e) {
 
     /* Daisy rotates with scroll */
     if(daisy){
-      var rotation = pct * 720;
-      daisy.style.transform = 'rotate(' + rotation + 'deg)';
+      /* Sanftes Schwenken statt Dauerrotation — drei weiche Wellen, ±10° */
+      var schwenk = Math.sin(pct * Math.PI * 3) * 10;
+      daisy.style.transform = 'rotate(' + schwenk.toFixed(2) + 'deg)';
     }
 
   }
@@ -982,5 +940,6 @@ window.addEventListener("unhandledrejection", function (e) {
 })();
 </script>
 
+<script src="../js/himmelsdeko.js" defer></script>
 </body>
 </html>

@@ -1072,55 +1072,16 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
-  /* Rechte Wolke: Originalausrichtung, Schnittkante am RECHTEN Rand unsichtbar */
-  .wolke-rechts {
+  /* ══ HIMMELSDEKO — illustrierte Wolken, Flieger, Bücher; die sanfte
+     Scroll-Choreografie liegt in js/himmelsdeko.js (data-dx/dy/bob/schwenk).
+     z-index -1: hinter dem Text der Sektion, aber VOR dem Wandermond (z1),
+     sodass er hinter den Wolken hindurchzieht. ══ */
+  .deko {
     position: absolute;
-    right: 0;
-    width: min(75vw, 820px);
-    opacity: 0.16;
     pointer-events: none;
-    animation: wolkeRechtsSchweben 30s ease-in-out infinite alternate;
-  }
-  @keyframes wolkeRechtsSchweben {
-    from { transform: translate3d(0, 6px, 0); }
-    to   { transform: translate3d(16px, -9px, 0); }
-  }
-  /* Startseite: Wolken an Sektionen verankert — rechte Wolke am
-     Bücher-&-Kolumnen-Kapitel, gespiegelte Wolke UNTER der Shorts-Galerie */
-  .chapter .wolke-rechts {
-    top: -8%;
-    right: calc(50% - 50vw);
     z-index: -1;
   }
   .shorts { position: relative; }
-  .shorts .wolke-mitte {
-    top: auto;
-    bottom: -30%;
-    left: calc(50% - 50vw);
-    z-index: -1;
-  }
-
-  /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
-     kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
-  .wolke-mitte {
-    position: absolute;
-    top: 55%;
-    left: 0;
-    width: min(85vw, 900px);
-    opacity: 0.18;
-    pointer-events: none;
-    animation: wolkeMitteSchweben 34s ease-in-out infinite alternate;
-  }
-  @keyframes wolkeMitteSchweben {
-    from { transform: scaleX(-1) translate3d(0, -8px, 0); }
-    to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
-  }
-  .low-end .wolke-mitte, .low-end .wolke-rechts { animation: none; }
-  .low-end .wolke-mitte { transform: scaleX(-1); }
-  @media (prefers-reduced-motion: reduce) {
-    .wolke-mitte, .wolke-rechts { animation: none; }
-    .wolke-mitte { transform: scaleX(-1); }
-  }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -1206,7 +1167,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
-    <img class="wolke-rechts" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-9" data-bob="0.6" style="top:-7%; right:-3vw; width:clamp(140px,24vw,320px);" src="images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media chapter-media--books">
       <div class="book-halter">
         <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
@@ -1233,6 +1194,7 @@ window.addEventListener("unhandledrejection", function (e) {
   </a>
   <a class="chapter" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Klang</span>
+    <img class="deko" data-bob="1.6" style="top:-13%; right:6vw; width:clamp(90px,13vw,180px);" src="images/deko-buch-rot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media">
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
     </div>
@@ -1264,7 +1226,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ PORTRAIT ═══ -->
 <section class="shorts" aria-label="Kurzvideos">
-  <img class="wolke-mitte" src="images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <img class="deko" data-dx="10" data-bob="0.5" style="bottom:-14%; left:-4vw; width:clamp(150px,26vw,340px);" src="images/deko-wolke-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <p class="shorts-lead" data-reveal>Tippen zum Abspielen</p>
   <div class="shorts-gallery shorts--untouched">
   <div class="shorts-rail" tabindex="0" aria-label="Kurzvideos">
@@ -1301,6 +1263,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ BEKANNT AUS ═══ -->
 <section class="presse-section" id="presse">
+  <img class="deko" data-dx="11" data-dy="6" style="top:-9%; left:4vw; width:clamp(100px,15vw,210px);" src="images/deko-flieger-warm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <p class="presse-title" data-reveal>Bekannt aus</p>
   <div class="presse-badges">
     <a href="https://www.br.de/radio/br-heimat/programmkalender/ausstrahlung-3058402.html" class="presse-badge" data-reveal target="_blank" rel="noopener">BR</a>
@@ -1805,5 +1768,6 @@ if (isMobile) {
   }, 4500);
 })();
 </script>
+<script src="js/himmelsdeko.js" defer></script>
 </body>
 </html>

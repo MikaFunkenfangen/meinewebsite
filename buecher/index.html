@@ -1063,58 +1063,16 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
-  /* Rechte Wolke: Originalausrichtung, Schnittkante am RECHTEN Rand unsichtbar */
-  .wolke-rechts {
+  /* ══ HIMMELSDEKO — illustrierte Wolken, Flieger, Bücher; die sanfte
+     Scroll-Choreografie liegt in js/himmelsdeko.js (data-dx/dy/bob/schwenk).
+     z-index -1: hinter dem Text der Sektion, aber VOR dem Wandermond (z1),
+     sodass er hinter den Wolken hindurchzieht. ══ */
+  .deko {
     position: absolute;
-    right: 0;
-    width: min(75vw, 820px);
-    opacity: 0.16;
     pointer-events: none;
-    animation: wolkeRechtsSchweben 30s ease-in-out infinite alternate;
-  }
-  @keyframes wolkeRechtsSchweben {
-    from { transform: translate3d(0, 6px, 0); }
-    to   { transform: translate3d(16px, -9px, 0); }
-  }
-  /* Auf der Bücherseite klebt die rechte Wolke am Gedicht-Abschnitt —
-     so sitzt sie auf jeder Bildschirmgröße exakt hinter den Versen */
-  .poem-section { position: relative; }
-  .poem-section .wolke-rechts {
-    top: -14%;
-    right: calc(50% - 50vw);
     z-index: -1;
   }
-
-  /* Die gespiegelte Wolke klebt an der Grüne-Seelen-Rezension (Verena
-     Grein) — Sektions-Anker statt Prozent-Höhe, damit sie überall passt */
-  .quote-section { position: relative; }
-  .quote-section .wolke-mitte {
-    top: -18%;
-    left: calc(50% - 50vw);
-    z-index: -1;
-  }
-
-  /* Zwischen-Wolke: gespiegelt (Schnittkante am LINKEN Rand unsichtbar),
-     kleiner und zarter — kündigt ab der Seitenmitte das Wolken-Finale an */
-  .wolke-mitte {
-    position: absolute;
-    top: 55%;
-    left: 0;
-    width: min(85vw, 900px);
-    opacity: 0.18;
-    pointer-events: none;
-    animation: wolkeMitteSchweben 34s ease-in-out infinite alternate;
-  }
-  @keyframes wolkeMitteSchweben {
-    from { transform: scaleX(-1) translate3d(0, -8px, 0); }
-    to   { transform: scaleX(-1) translate3d(-20px, 10px, 0); }
-  }
-  .low-end .wolke-mitte, .low-end .wolke-rechts { animation: none; }
-  .low-end .wolke-mitte { transform: scaleX(-1); }
-  @media (prefers-reduced-motion: reduce) {
-    .wolke-mitte, .wolke-rechts { animation: none; }
-    .wolke-mitte { transform: scaleX(-1); }
-  }
+  .poem-section, .quote-section, .kolumnen-section { position: relative; }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -1233,7 +1191,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ GEDICHT 1 — "Ich kann nicht anders" ══ -->
   <section class="poem-section">
-    <img class="wolke-rechts" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-8" data-bob="0.6" style="top:-12%; right:-3vw; width:clamp(150px,26vw,340px);" src="../images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <p class="poem-title" data-reveal>Aus dem Buch</p>
     <div class="poem-block expandable" data-reveal>
       <p class="poem-verse">Ich kann nicht anders.</p>
@@ -1375,7 +1333,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
   <section class="quote-section">
-    <img class="wolke-mitte" src="../images/wolken-morgen.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="9" data-bob="0.5" style="top:-16%; left:-4vw; width:clamp(150px,26vw,340px);" src="../images/deko-wolke-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="expandable" data-reveal>
       <p class="quote-text visible">Mit dem Titel „Grüne Seelen" legt Mika Maria Schöberl ein herausragendes Buch vor, das gleichermaßen berührt wie inspiriert. Er packt die Ursache jeglichen psychosomatischen Leidens, ergo die Tatsache, dass der Mensch den Kontakt zu sich selbst und zur Natur verloren hat, verbal trefflich an der Wurzel, lässt seine Leser mit dieser Erkenntnis aber nicht im Regen stehen.<span class="expand-hidden-inline"> Vielmehr zeigt der Autor vielfältige Wege zurück in ein naturgemäßes Leben und verhilft dem längst inflationär gebrauchten Begriff der Ganzheitlichkeit zu neuen Würden. Lesenswert, bereichernd und zukunftsweisend.</span></p>
       <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
@@ -1423,6 +1381,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ KOLUMNEN ══ -->
   <section id="kolumnen" class="kolumnen-section" data-reveal>
+    <img class="deko" data-bob="1.4" style="top:-10%; right:5vw; width:clamp(90px,13vw,180px);" src="../images/deko-buch-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Kolumnen</h2>
     <p class="kolumnen-sub">Regelmäßige Beiträge in Fachmagazinen</p>
     <div class="kolumnen-register">
@@ -1624,5 +1583,6 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
 })();
 </script>
 
+<script src="../js/himmelsdeko.js" defer></script>
 </body>
 </html>
