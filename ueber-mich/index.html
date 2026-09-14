@@ -749,7 +749,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ URSPRUNG ══ -->
   <section class="about-block" data-reveal>
-    <img class="deko" data-dx="8" data-bob="0.6" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="14" data-bob="1" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="ursprung-open">
       <div class="section-label">Ursprung</div>
       <p class="about-p">
@@ -775,7 +775,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ WERDEGANG ══ -->
   <section class="about-block" data-reveal>
-    <img class="deko" data-dx="-5" data-bob="0.8" style="top:0%; right:-7vw; width:clamp(160px,26vw,380px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-8" data-bob="1.2" style="top:0%; right:-7vw; width:clamp(160px,26vw,380px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="card">
       <div class="section-label">Ausbildung & Studium</div>
       <div class="timeline">
@@ -803,7 +803,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ VERÖFFENTLICHUNGEN — Mond-Link zu Bücher & Kolumnen ══ -->
   <section class="about-block veroeff" data-reveal>
-    <img class="deko" data-dx="-10" data-dy="5" style="top:-28%; right:-2vw; width:clamp(240px,42vw,620px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-16" data-dy="10" style="top:-28%; right:-2vw; width:clamp(240px,42vw,620px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="section-label">Veröffentlichungen</div>
     <a href="../buecher/" class="veroeff-mond">
       <span class="veroeff-cover" aria-hidden="true">
@@ -917,8 +917,8 @@ window.addEventListener("unhandledrejection", function (e) {
 
     /* Daisy rotates with scroll */
     if(daisy){
-      /* Sanftes Schwenken statt Dauerrotation — drei weiche Wellen, ±10° */
-      var schwenk = Math.sin(pct * Math.PI * 3) * 10;
+      /* Sanftes Schwenken statt Dauerrotation — vier Wellen, ±20° */
+      var schwenk = Math.sin(pct * Math.PI * 4) * 20;
       daisy.style.transform = 'rotate(' + schwenk.toFixed(2) + 'deg)';
     }
 
