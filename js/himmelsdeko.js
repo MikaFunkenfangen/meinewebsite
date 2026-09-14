@@ -24,8 +24,10 @@
       /* rel: +1 = Element betritt das Bild unten, 0 = Mitte, −1 = verlässt es oben */
       var rel = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
       var tx = (parseFloat(d.dx) || 0) * -rel;
+      /* Wippen als echte Wellen über die Sichtspanne (2,5 Zyklen) — die
+         frühere cos-Kuppel war in Bildschirmmitte fast flach */
       var ty = (parseFloat(d.dy) || 0) * -rel
-             + (parseFloat(d.bob) || 0) * Math.cos(rel * Math.PI / 2);
+             + (parseFloat(d.bob) || 0) * Math.sin(rel * Math.PI * 2.5);
       var rot = (parseFloat(d.schwenk) || 0) * -rel;
       el.style.transform =
         'translate3d(' + tx.toFixed(2) + 'vw,' + ty.toFixed(2) + 'vh,0)' +
