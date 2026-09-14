@@ -630,7 +630,7 @@ window.addEventListener("unhandledrejection", function (e) {
     pointer-events: none;
     z-index: -1;
   }
-  .about-block { position: relative; }
+  .about-block, .quote-stage { position: relative; }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -718,6 +718,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ INTRO ══ -->
   <section class="about-block" data-reveal>
+    <img class="deko" data-dx="-20" data-bob="1.5" style="top:-18%; right:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="card">
       <p class="about-p">
         <span class="name">Mika Maria Schöberl</span> verbindet als Lehrer*in, Künstler*in, Musikwissenschaftler*in und Heilpraktiker*in auf einzigartige Weise Kreativität, Theologie, Pädagogik, Natur und Gesundheit.
@@ -732,6 +733,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ QUOTE — Gänseblümchen (cinematic) ══ -->
   <section class="quote-stage" data-reveal>
+    <img class="deko" data-bob="4.5" style="bottom:-10%; right:0vw; width:clamp(200px,32vw,470px);" src="../images/deko-buch-rot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 
     <img class="quote-daisy" src="../images/deko-bluete.webp" alt="" aria-hidden="true" decoding="async">
 
@@ -749,7 +751,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ URSPRUNG ══ -->
   <section class="about-block" data-reveal>
-    <img class="deko" data-dx="14" data-bob="1" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="20" data-bob="1.5" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="ursprung-open">
       <div class="section-label">Ursprung</div>
       <p class="about-p">
@@ -762,6 +764,7 @@ window.addEventListener("unhandledrejection", function (e) {
         Unterstützt durch engagierte Lehrer*innen, die meine Ambitionen förderten, erkannte ich den unschätzbaren Wert exzellenter Pädagogik.
       </p>
     </div>
+    <img class="deko" data-dx="22" data-dy="10" style="bottom:-12%; right:0vw; width:clamp(190px,30vw,440px);" src="../images/deko-flieger-warm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </section>
 
   <div class="divider"></div>
@@ -775,7 +778,8 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ WERDEGANG ══ -->
   <section class="about-block" data-reveal>
-    <img class="deko" data-dx="-8" data-bob="1.2" style="top:0%; right:-7vw; width:clamp(160px,26vw,380px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-12" data-bob="2" style="top:0%; right:-7vw; width:clamp(160px,26vw,380px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-bob="4.5" style="top:-20%; left:-2vw; width:clamp(200px,32vw,470px);" src="../images/deko-buch-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="card">
       <div class="section-label">Ausbildung & Studium</div>
       <div class="timeline">
@@ -803,7 +807,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ VERÖFFENTLICHUNGEN — Mond-Link zu Bücher & Kolumnen ══ -->
   <section class="about-block veroeff" data-reveal>
-    <img class="deko" data-dx="-16" data-dy="10" style="top:-28%; right:-2vw; width:clamp(240px,42vw,620px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-22" data-dy="12" style="top:-28%; right:-2vw; width:clamp(240px,42vw,620px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="section-label">Veröffentlichungen</div>
     <a href="../buecher/" class="veroeff-mond">
       <span class="veroeff-cover" aria-hidden="true">
@@ -813,12 +817,14 @@ window.addEventListener("unhandledrejection", function (e) {
       <span class="veroeff-titel">Bücher &amp; Kolumnen</span>
       <span class="veroeff-zeile">Alle Bücher, Hörbücher und Kolumnen im Überblick</span>
     </a>
+    <img class="deko" data-dx="20" data-bob="1.5" style="bottom:-16%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   </section>
 
   <div class="divider"></div>
 
   <!-- ══ KONTAKT ══ -->
   <section class="about-block contact-section" id="kontakt" data-reveal>
+    <img class="deko" data-dx="20" data-bob="1.5" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img src="../images/origami-schwan.webp" alt="" class="contact-crane" loading="lazy" decoding="async" data-reveal>
     <div class="contact-label" data-reveal>Kontakt</div>
     <h2 class="contact-heading" data-reveal>Starte<br><em>das Gespräch.</em></h2>

@@ -1072,7 +1072,7 @@ window.addEventListener("unhandledrejection", function (e) {
     pointer-events: none;
     z-index: -1;
   }
-  .poem-section, .quote-section, .kolumnen-section { position: relative; }
+  .poem-section, .quote-section, .kolumnen-section, .desc-section, .inhalt-section, .photo-section, .video-section, .gallery-section { position: relative; }
 
   /* ══ VIEW TRANSITIONS — das Mondmenü bleibt beim Seitenwechsel stehen ══ */
   @view-transition { navigation: auto; }
@@ -1191,7 +1191,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ GEDICHT 1 — "Ich kann nicht anders" ══ -->
   <section class="poem-section">
-    <img class="deko" data-dx="-14" data-bob="1" style="top:-16%; right:-12vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="-20" data-bob="1.5" style="top:-16%; right:-12vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <p class="poem-title" data-reveal>Aus dem Buch</p>
     <div class="poem-block expandable" data-reveal>
       <p class="poem-verse">Ich kann nicht anders.</p>
@@ -1220,6 +1220,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ PHOTO — Verliebtheit ══ -->
   <section class="photo-section" data-reveal>
+    <img class="deko" data-dx="20" data-bob="1.5" style="top:-14%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="photo-grid">
       <div class="photo-item wide">
         <img src="../images/verliebtheit.webp" alt="Mika Maria Schöberl – 50 Wörter für Liebe" loading="lazy" decoding="async">
@@ -1230,6 +1231,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ BESCHREIBUNG ══ -->
   <section class="desc-section desc-section--buchseite" data-reveal>
+    <img class="deko" data-dx="22" data-dy="12" style="top:-22%; right:-3vw; width:clamp(190px,30vw,440px);" src="../images/deko-flieger-warm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Über das Buch</h2>
     <p>Liebe ist mehr als nur ein Gefühl – sie ist eine Lebenshaltung, ein fortwährendes Abenteuer, ein erhabener Pfad. Sie besitzt die wundervolle Kraft, Menschen zu formen, zu heilen und zu vereinen.</p>
     <p>In Mika Maria Schöberls Werk entfaltet sich die Liebe in all ihren Ausdrucksformen – unerwartet, anders, zart. Jeder der 50 sorgfältig ausgewählten Begriffe öffnet ein Tor zu neuen Perspektiven und Erfahrungen: niemals als Zufall, immer als zauberhafte Möglichkeit.</p>
@@ -1240,6 +1242,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ INHALTSVERZEICHNIS ══ -->
   <section class="inhalt-section" data-reveal>
+    <img class="deko" data-dx="20" data-bob="1.5" style="top:-16%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Inhaltsverzeichnis</h2>
     <div class="inhalt-img-wrap">
       <img src="../images/inhaltsverzeichnis.webp" alt="Inhaltsverzeichnis – 50 Wörter für Liebe" loading="lazy" decoding="async">
@@ -1320,6 +1323,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
   <section class="desc-section expandable" data-reveal>
+    <img class="deko" data-bob="4.5" style="top:-18%; right:-2vw; width:clamp(200px,32vw,470px);" src="../images/deko-buch-rot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Über das Buch</h2>
     <p>In unserer Leistungsgesellschaft hat sich der moderne Mensch weit von seinen Wurzeln entfernt. Chronische Erkrankungen und psychosomatische Beschwerden haben sich mehr und mehr zu Volksleiden entwickelt. Ist das wirklich unser Schicksal?</p>
     <p>Mika Maria Schöberl kennt einen anderen Weg: Um nachhaltig und mit neuer Kreativität Herausforderungen unserer Zeit anpacken zu können, empfiehlt Mika, den Wundern der Natur und der ganzheitlichen Betrachtung der Welt und des Menschen wieder Raum zu geben und uns ihrer Bedeutung für Körper, Geist und Seele bewusst zu werden.</p>
@@ -1333,7 +1337,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
   <section class="quote-section">
-    <img class="deko" data-dx="14" data-bob="1" style="top:-24%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-dx="20" data-bob="1.5" style="top:-24%; left:-14vw; width:clamp(300px,55vw,800px);" src="../images/deko-wolke-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="expandable" data-reveal>
       <p class="quote-text visible">Mit dem Titel „Grüne Seelen" legt Mika Maria Schöberl ein herausragendes Buch vor, das gleichermaßen berührt wie inspiriert. Er packt die Ursache jeglichen psychosomatischen Leidens, ergo die Tatsache, dass der Mensch den Kontakt zu sich selbst und zur Natur verloren hat, verbal trefflich an der Wurzel, lässt seine Leser mit dieser Erkenntnis aber nicht im Regen stehen.<span class="expand-hidden-inline"> Vielmehr zeigt der Autor vielfältige Wege zurück in ein naturgemäßes Leben und verhilft dem längst inflationär gebrauchten Begriff der Ganzheitlichkeit zu neuen Würden. Lesenswert, bereichernd und zukunftsweisend.</span></p>
       <button class="expand-btn" onclick="this.closest('.expandable').classList.toggle('expanded')"><span class="btn-more">Weiterlesen</span><span class="btn-less">Weniger</span></button>
@@ -1343,6 +1347,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ VIDEOS Grüne Seelen ══ -->
   <section class="video-section" data-reveal>
+    <img class="deko" data-dx="-22" data-dy="12" style="top:-20%; left:1vw; width:clamp(190px,30vw,440px);" src="../images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Videos zum Buch</h2>
     <div class="video-grid">
       <div class="video-item landscape">
@@ -1359,6 +1364,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ FOTO-GALERIE Grüne Seelen (scrollbar) ══ -->
   <section class="gallery-section" data-reveal>
+    <img class="deko" data-dx="-12" data-bob="2" style="top:0%; right:-8vw; width:clamp(160px,26vw,380px);" src="../images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Pressefotos</h2>
     <div class="scroll-hint-wrap">
       <div class="gallery-scroll">
@@ -1381,7 +1387,7 @@ window.addEventListener("unhandledrejection", function (e) {
 
   <!-- ══ KOLUMNEN ══ -->
   <section id="kolumnen" class="kolumnen-section" data-reveal>
-    <img class="deko" data-bob="3" style="top:-18%; right:-4vw; width:clamp(230px,40vw,560px);" src="../images/deko-buch-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="deko" data-bob="4.5" style="top:-18%; right:-4vw; width:clamp(230px,40vw,560px);" src="../images/deko-buch-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <h2>Kolumnen</h2>
     <p class="kolumnen-sub">Regelmäßige Beiträge in Fachmagazinen</p>
     <div class="kolumnen-register">
