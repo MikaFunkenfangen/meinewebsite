@@ -1073,14 +1073,20 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 
-  /* ══ HIMMELSDEKO — illustrierte Wolken, Flieger, Bücher; die sanfte
-     Scroll-Choreografie liegt in js/himmelsdeko.js (data-dx/dy/bob/schwenk).
-     z-index -1: hinter dem Text der Sektion, aber VOR dem Wandermond (z1),
-     sodass er hinter den Wolken hindurchzieht. ══ */
+  /* ══ HIMMELSZEILEN — reservierte Deko-Bühnen zwischen den Sektionen.
+     Jedes Motiv besitzt seine eigene Zeile im Seitenfluss: Text kann
+     konstruktionsbedingt nie kollidieren, egal wie stark die Bewegung
+     (js/himmelsdeko.js) ausfällt. ══ */
+  .deko-zeile {
+    position: relative;
+    height: clamp(190px, 26vw, 340px);
+    margin: clamp(8px, 1.5vw, 24px) 0;
+    pointer-events: none;
+  }
   .deko {
     position: absolute;
+    top: 0;
     pointer-events: none;
-    z-index: -1;
   }
   .shorts { position: relative; }
 
@@ -1129,7 +1135,6 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ PORTAL — Überblick & Auswahl ═══ -->
 <section class="portal" aria-label="Überblick über Funkenfangen">
-  <img class="deko" data-dx="20" data-bob="1.5" style="bottom:-10%; left:-14vw; width:clamp(300px,55vw,800px);" src="images/deko-wolke-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <h1 class="portal-brand">
     <span class="brand-zeile">Mika Maria</span>
     <span class="brand-zeile">Schöberl</span>
@@ -1169,7 +1174,6 @@ window.addEventListener("unhandledrejection", function (e) {
 <section class="kapitel" aria-label="Vorschauen">
   <a class="chapter" href="buecher/" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Geschriebenes</span>
-    <img class="deko" data-dx="-20" data-bob="1.5" style="top:-10%; right:-12vw; width:clamp(300px,55vw,800px);" src="images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media chapter-media--books">
       <div class="book-halter">
         <img class="book" src="images/50woerter-cover.webp" alt="Buchcover: 50 Wörter für Liebe" loading="lazy" decoding="async">
@@ -1182,9 +1186,11 @@ window.addEventListener("unhandledrejection", function (e) {
       <span class="chapter-cta">Entdecken</span>
     </div>
   </a>
-  <a class="chapter" href="ueber-mich/" data-reveal>
+<div class="deko-zeile" aria-hidden="true">
+  <img class="deko" data-dx="-20" data-bob="1.5" style="right: -8vw; width:clamp(280px,46vw,640px);" src="images/deko-wolke-lang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+</div>
+    <a class="chapter" href="ueber-mich/" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Der Mensch dahinter</span>
-    <img class="deko" data-dx="-22" data-dy="12" style="top:-28%; left:2vw; width:clamp(190px,30vw,440px);" src="images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media">
       <img src="images/summerchild-portrait.webp" alt="Mika zwischen rosafarbenen Blüten" loading="lazy" decoding="async">
     </div>
@@ -1197,7 +1203,6 @@ window.addEventListener("unhandledrejection", function (e) {
   </a>
   <a class="chapter" href="http://summerchild.net" target="_blank" rel="noopener" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Klang</span>
-    <img class="deko" data-bob="4.5" style="top:-22%; right:-4vw; width:clamp(230px,40vw,560px);" src="images/deko-buch-rot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media">
       <img src="images/summerchild-floete.webp" alt="Mika mit einer Blockflöte, in barocker Brokatjacke" loading="lazy" decoding="async">
     </div>
@@ -1208,9 +1213,11 @@ window.addEventListener("unhandledrejection", function (e) {
       <span class="chapter-cta">Hören</span>
     </div>
   </a>
-  <a class="chapter" href="https://mikaschoeberl.com" target="_blank" rel="noopener" data-reveal>
+<div class="deko-zeile" aria-hidden="true">
+  <img class="deko" data-bob="3" style="right: -8vw; width:clamp(200px,30vw,430px);" src="images/deko-buch-rot.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+</div>
+    <a class="chapter" href="https://mikaschoeberl.com" target="_blank" rel="noopener" data-reveal>
     <span class="chapter-marginalie" aria-hidden="true">Forschung</span>
-    <img class="deko" data-dx="20" data-bob="1.5" style="top:-18%; left:-14vw; width:clamp(300px,55vw,800px);" src="images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="chapter-media">
       <img src="images/hexenwerk-lesen.webp" alt="Mika sitzt am Boden zwischen aufgeschlagenen Büchern und Notizen" loading="lazy" decoding="async">
     </div>
@@ -1229,9 +1236,10 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 <!-- ═══ PORTRAIT ═══ -->
+<div class="deko-zeile" aria-hidden="true">
+  <img class="deko" data-dx="22" data-dy="5" style="left: -8vw; width:clamp(190px,30vw,420px);" src="images/deko-flieger-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+</div>
 <section class="shorts" aria-label="Kurzvideos">
-  <img class="deko" data-dx="22" data-dy="8" style="top:-30%; right:-5vw; width:clamp(190px,30vw,430px);" src="images/deko-flieger-warm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  <img class="deko" data-dx="20" data-bob="1.5" style="bottom:-22%; left:-14vw; width:clamp(300px,55vw,800px);" src="images/deko-wolke-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <p class="shorts-lead" data-reveal>Tippen zum Abspielen</p>
   <div class="shorts-gallery shorts--untouched">
   <div class="shorts-rail" tabindex="0" aria-label="Kurzvideos">
@@ -1267,6 +1275,9 @@ window.addEventListener("unhandledrejection", function (e) {
 
 
 <!-- ═══ BEKANNT AUS ═══ -->
+<div class="deko-zeile" aria-hidden="true">
+  <img class="deko" data-dx="20" data-bob="1.5" style="left: -8vw; width:clamp(280px,46vw,640px);" src="images/deko-wolke-violett.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+</div>
 <section class="presse-section" id="presse">
   <p class="presse-title" data-reveal>Bekannt aus</p>
   <div class="presse-badges">
@@ -1295,7 +1306,6 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ KONTAKT ═══ -->
 <section class="kontakt-section" id="kontakt">
-  <img class="deko" data-dx="-12" data-bob="2" style="top:4%; right:-8vw; width:clamp(160px,26vw,380px);" src="images/deko-wolke-fahne.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <div class="kontakt-inner">
     <img class="kontakt-crane no-animate" src="images/origami-schwan.webp" alt="" loading="lazy" decoding="async" data-reveal>
     <div class="kontakt-label" data-reveal>Kontakt</div>
@@ -1323,7 +1333,6 @@ window.addEventListener("unhandledrejection", function (e) {
 
 <!-- ═══ IMPRESSUM & DATENSCHUTZ ═══ -->
 <section class="legal-section" id="legal">
-  <img class="deko" data-bob="4.5" style="top:-6%; right:-3vw; width:clamp(200px,32vw,470px);" src="images/deko-buch-blau.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <div class="legal-tabs">
     <button class="legal-tab active" onclick="showTab(this,'impressum')">Impressum</button>
     <button class="legal-tab" onclick="showTab(this,'datenschutz')">Datenschutz</button>
