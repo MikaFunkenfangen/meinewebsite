@@ -6,8 +6,9 @@
      data-dy      vertikale Wanderung: ±dy vh über die Spanne
      data-bob     Wippen in vh, Maximum in Bildschirmmitte
      data-schwenk Neigen in Grad über die Spanne
-   Regeln aus der Bug-Merkliste: nur transform, kein drop-shadow,
-   still bei Low-End und reduzierter Bewegung. */
+   Regeln aus der Bug-Merkliste: nur transform, kein drop-shadow.
+   Laeuft auf ALLEN Geraeten (transform ist GPU-billig); nur bei
+   prefers-reduced-motion bleibt alles still. */
 (function () {
   var deko = [].slice.call(document.querySelectorAll('.deko'));
   if (!deko.length) return;
@@ -15,7 +16,6 @@
 
   var tick = false;
   function anwenden() {
-    if (document.body.classList.contains('low-end')) return;
     var vh = window.innerHeight;
     for (var i = 0; i < deko.length; i++) {
       var el = deko[i], d = el.dataset;

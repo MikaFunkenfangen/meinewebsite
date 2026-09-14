@@ -470,7 +470,6 @@ window.addEventListener("unhandledrejection", function (e) {
   .moon-orb:hover .moon-disc, .moon-orb:focus-visible .moon-disc { filter: drop-shadow(0 0 16px rgba(201,169,110,0.75)) drop-shadow(0 0 42px rgba(201,169,110,0.4)); }
   .moon-orb:active svg { transform: scale(0.97); }
   .moon-orb:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 4px; border-radius: 6px; }
-  .low-end .moon-disc, .low-end .moon-orb:hover .moon-disc { filter: none; animation: none; }
 
   /* ── Kapitel — editoriale Vorschauen ── */
   .kapitel {
@@ -1429,49 +1428,11 @@ if (isLowEnd && !isIOS) {
   document.body.classList.add('low-end');
 }
 
-// Ein Rechner ist nicht erst dann schwach, wenn er wenige Kerne meldet — viele
-// guenstige Geraete geben acht Kerne an und kommen trotzdem nicht mit. Darum
-// einmal, kurz nachdem sich die Seite gesetzt hat, nachzaehlen, wie viele Bilder
-// pro Sekunde tatsaechlich ankommen, und den Sparmodus notfalls nachtraeglich
-// einschalten. Die Messung laeuft genau eine Sekunde und hoert dann von selbst
-// auf; im Hintergrund misst sie gar nicht erst.
-(function watchFrameRate() {
-  if (document.body.classList.contains('low-end')) return;
-
-  var MESSDAUER = 1000;   // eine Sekunde zaehlen
-  var SCHWELLE  = 45;     // darunter gilt der Rechner als ueberfordert
-  var frames = 0, start = 0, laeuft = false;
-
-  function tick() {
-    if (document.hidden) { laeuft = false; return; }   // Abbruch, kein Urteil
-    var jetzt = performance.now();
-    if (!start) start = jetzt;
-    frames++;
-    if (jetzt - start < MESSDAUER) { rAF(tick); return; }
-    laeuft = false;
-    if (frames * 1000 / (jetzt - start) < SCHWELLE) {
-      document.body.classList.add('low-end');
-    }
-  }
-
-  function messen() {
-    if (laeuft || document.hidden) return;
-    if (document.body.classList.contains('low-end')) return;
-    laeuft = true; frames = 0; start = 0;
-    rAF(tick);
-  }
-
-  // Erst messen, wenn Aufbau und Auftritts-Animationen durch sind.
-  setTimeout(messen, 2500);
-  // Wurde die Seite waehrenddessen weggelegt, spaeter noch einmal ansetzen.
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) setTimeout(messen, 500);
-  });
-})();
-// iOS: keep beautiful river but disable drop-shadows for performance
-if (isIOS) {
-  document.body.classList.add('ios-perf');
-}
+// Hinweis: Der fruehere Bildraten-Waechter (1s FPS-Messung nach dem Laden,
+// unter 45fps -> Sparmodus) ist entfernt. Er fiel auf Smartphones je nach
+// Lade-Zufall mal durch und mal nicht — Leuchten und Deko-Bewegung
+// erschienen dadurch nur "manchmal". Die Effekte sind heute so leicht
+// (nur transform/GPU), dass sie ueberall laufen koennen.
 // Crane: no animation on mobile
 if (isMobile) {
   var crane = document.querySelector('.kontakt-crane');
@@ -1783,6 +1744,6 @@ if (isMobile) {
   }, 4500);
 })();
 </script>
-<script src="js/himmelsdeko.js?v=2" defer></script>
+<script src="js/himmelsdeko.js?v=3" defer></script>
 </body>
 </html>

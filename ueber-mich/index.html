@@ -200,7 +200,6 @@ window.addEventListener("unhandledrejection", function (e) {
   .moon-orb[aria-current="page"] .moon-name { color: var(--cream); }
   .moon-orb[aria-current="page"] .moon-disc { filter: drop-shadow(0 0 16px rgba(201,169,110,0.65)) drop-shadow(0 0 36px rgba(201,169,110,0.35)); }
   .moon-orb:focus-visible { outline: 2px solid rgba(201,169,110,0.75); outline-offset: 4px; border-radius: 6px; }
-  .low-end .moon-disc { filter: none; animation: none; }
   .low-end .quote-daisy { animation: none; }
 
   /* ══ CONTENT ══ */
@@ -878,9 +877,6 @@ window.addEventListener("unhandledrejection", function (e) {
   if (isLowEnd && !isIOS) {
     document.body.classList.add('low-end');
   }
-  if (isIOS) {
-    document.body.classList.add('ios-perf');
-  }
 
   // Fix: iOS Safari external links — ensure target="_blank" works reliably on touch
   if (isMobile) {
@@ -955,6 +951,6 @@ window.addEventListener("unhandledrejection", function (e) {
 })();
 </script>
 
-<script src="../js/himmelsdeko.js?v=2" defer></script>
+<script src="../js/himmelsdeko.js?v=3" defer></script>
 </body>
 </html>
