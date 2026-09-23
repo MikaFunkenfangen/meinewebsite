@@ -4,8 +4,24 @@
     {
       "name": "static-site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8734"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8734"
+      ],
       "port": 8734
+    },
+    {
+      "name": "summerchild",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8756",
+        "-d",
+        "/Users/thomasschoeberl/Documents/GitHub/summerchild"
+      ],
+      "port": 8756
     }
   ]
 }
