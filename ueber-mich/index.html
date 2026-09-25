@@ -493,12 +493,16 @@ window.addEventListener("unhandledrejection", function (e) {
     background: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 65%);
     pointer-events: none;
   }
-  .contact-crane {
-    width: clamp(220px, 35vw, 380px);
+  /* Das lächelnde Porträt statt des Origami-Schwans (der bleibt der
+     Startseite vorbehalten): beim „Starte das Gespräch" zeigt die
+     Über-mich-Seite den Menschen — das einzige nahbare Porträt im Bestand */
+  .kontakt-portrait {
+    width: clamp(220px, 38vw, 360px);
     height: auto;
-    margin: 0 auto clamp(1.2rem, 2.5vw, 2rem);
+    margin: 0 auto clamp(1.4rem, 3vw, 2.2rem);
     display: block;
-    opacity: 0.85;
+    border-radius: 4px;
+    box-shadow: 0 24px 60px rgba(4,3,8,0.5);
   }
   .contact-label {
     font-family: var(--font-sans);
@@ -833,7 +837,7 @@ window.addEventListener("unhandledrejection", function (e) {
   <img class="deko" data-dx="20" data-bob="1.5" style="left: -8vw; width:clamp(280px,46vw,640px);" src="../images/deko-wolke-rosa.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div>
   <section class="about-block contact-section" id="kontakt" data-reveal>
-    <img src="../images/origami-schwan.webp" alt="" class="contact-crane" loading="lazy" decoding="async" data-reveal>
+    <img src="../images/portrait-laecheln.webp" alt="Mika Maria Schöberl lächelt in die Kamera, eine blaue Blockflöte in der Hand" class="kontakt-portrait" loading="lazy" decoding="async" data-reveal>
     <div class="contact-label" data-reveal>Kontakt</div>
     <h2 class="contact-heading" data-reveal>Starte<br><em>das Gespräch.</em></h2>
     <p class="contact-text" data-reveal>
