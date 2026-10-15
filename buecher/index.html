@@ -17,7 +17,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mika Maria Schöberl lächelt mit blauer Blockflöte in der Hand; daneben der Name in goldener Schrift vor nächtlich dunklem Grund">
 <meta name="twitter:card" content="summary_large_image">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="../assets/fonts/google/fonts.css?v=1" rel="stylesheet">
 <script>
 /* Übersprungene View Transitions werfen in Chromium einen unbehandelten
    AbortError ("Transition was skipped") — benigne, gezielt schlucken.
@@ -710,6 +710,57 @@ window.addEventListener("unhandledrejection", function (e) {
     height: 100%;
     border: none;
   }
+  /* Klick-zum-Laden: Video verbindet erst nach Zustimmung mit YouTube */
+  .video-consent {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+  }
+  .video-consent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-consent::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 42%;
+    background: linear-gradient(to top, rgba(8,8,14,0.78), transparent);
+    pointer-events: none;
+  }
+  .video-consent-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(52px, 8vw, 68px);
+    height: clamp(52px, 8vw, 68px);
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease;
+  }
+  .video-consent-play svg { width: 100%; height: 100%; display: block; }
+  .video-consent:hover .video-consent-play,
+  .video-consent:focus-visible .video-consent-play {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .video-consent-hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.7rem;
+    z-index: 1;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: rgba(240, 235, 224, 0.92);
+    text-align: center;
+  }
 
   @media (max-width: 600px) {
     .video-grid { grid-template-columns: 1fr; }
@@ -1264,7 +1315,11 @@ window.addEventListener("unhandledrejection", function (e) {
     <h2>Videos zum Buch</h2>
     <div class="video-grid">
       <div class="video-item landscape">
-        <iframe src="https://www.youtube.com/embed/-nbXBGrf3vA" title="50 Wörter für Liebe – Hörbuch" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <button class="video-consent" type="button" data-video="-nbXBGrf3vA" data-titel="50 Wörter für Liebe – Hörbuch">
+          <img src="../images/yt-50woerter-hoerbuch.webp" alt="Videovorschau: 50 Wörter für Liebe – Hörbuch" loading="lazy" decoding="async">
+          <span class="video-consent-play" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(10,10,16,0.55)" stroke="rgba(245,241,232,0.9)" stroke-width="1"/><path d="M10 8.2 16 12l-6 3.8z" fill="rgba(245,241,232,0.95)"/></svg></span>
+          <span class="video-consent-hint">Abspielen – verbindet mit YouTube</span>
+        </button>
       </div>
     </div>
   </section>
@@ -1360,13 +1415,25 @@ window.addEventListener("unhandledrejection", function (e) {
     <h2>Videos zum Buch</h2>
     <div class="video-grid">
       <div class="video-item landscape">
-        <iframe src="https://www.youtube.com/embed/evYhS81obhY" title="Grüne Seelen" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <button class="video-consent" type="button" data-video="evYhS81obhY" data-titel="Grüne Seelen">
+          <img src="../images/yt-gruene-seelen.webp" alt="Videovorschau: Grüne Seelen" loading="lazy" decoding="async">
+          <span class="video-consent-play" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(10,10,16,0.55)" stroke="rgba(245,241,232,0.9)" stroke-width="1"/><path d="M10 8.2 16 12l-6 3.8z" fill="rgba(245,241,232,0.95)"/></svg></span>
+          <span class="video-consent-hint">Abspielen – verbindet mit YouTube</span>
+        </button>
       </div>
       <div class="video-item landscape">
-        <iframe src="https://www.youtube.com/embed/MA_qOVJkfiI" title="Grüne Seelen – Hörbuch" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <button class="video-consent" type="button" data-video="MA_qOVJkfiI" data-titel="Grüne Seelen – Hörbuch">
+          <img src="../images/yt-gruene-seelen-hoerbuch.webp" alt="Videovorschau: Grüne Seelen – Hörbuch" loading="lazy" decoding="async">
+          <span class="video-consent-play" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(10,10,16,0.55)" stroke="rgba(245,241,232,0.9)" stroke-width="1"/><path d="M10 8.2 16 12l-6 3.8z" fill="rgba(245,241,232,0.95)"/></svg></span>
+          <span class="video-consent-hint">Abspielen – verbindet mit YouTube</span>
+        </button>
       </div>
       <div class="video-item landscape">
-        <iframe src="https://www.youtube.com/embed/v4ft8X9GnwA" title="Grüne Seelen – Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <button class="video-consent" type="button" data-video="v4ft8X9GnwA" data-titel="Grüne Seelen – Video">
+          <img src="../images/yt-gruene-seelen-video.webp" alt="Videovorschau: Grüne Seelen – Video" loading="lazy" decoding="async">
+          <span class="video-consent-play" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(10,10,16,0.55)" stroke="rgba(245,241,232,0.9)" stroke-width="1"/><path d="M10 8.2 16 12l-6 3.8z" fill="rgba(245,241,232,0.95)"/></svg></span>
+          <span class="video-consent-hint">Abspielen – verbindet mit YouTube</span>
+        </button>
       </div>
     </div>
   </section>
@@ -1600,5 +1667,21 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <
 </script>
 
 <script src="../js/himmelsdeko.js?v=3" defer></script>
+<script>
+/* Klick-zum-Laden fuer YouTube: erst nach Klick wird eine Verbindung
+   zu YouTube (erweiterter Datenschutzmodus) aufgebaut. */
+(function () {
+  document.querySelectorAll('.video-consent').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.video + '?autoplay=1&rel=0';
+      f.title = btn.dataset.titel || 'Video';
+      f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+      f.setAttribute('allowfullscreen', '');
+      btn.replaceWith(f);
+    });
+  });
+})();
+</script>
 </body>
 </html>
